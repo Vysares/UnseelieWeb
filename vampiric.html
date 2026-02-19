@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Vampiric Set - Unseelie Workshop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Archivo:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="collection.css">
+    <style>
+        :root {
+            --collection-primary: #1a1a1a; /* Black */
+            --collection-accent: #8b1a1a;  /* Deep red */
+        }
+        body {
+            background-color: #0d0d0d;
+            background-image: linear-gradient(135deg, #0d0d0d 0%, #1a0a0a 50%, #0d0d0d 100%);
+        }
+        .product-card {
+            background: linear-gradient(135deg, rgba(26, 10, 10, 0.3), rgba(13, 13, 13, 0.3));
+            border: 1px solid rgba(201, 169, 97, 0.4);
+        }
+        .product-card:hover {
+            background: linear-gradient(135deg, rgba(26, 10, 10, 0.5), rgba(13, 13, 13, 0.4));
+            box-shadow: 0 8px 30px rgba(201, 169, 97, 0.3);
+            border-color: var(--gold);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <a href="index.html">
+                    <img src="UW_LogoArtboard_1_copy_7_600x.png" alt="Unseelie Workshop Logo" class="logo-img">
+                    <span class="logo-text">Unseelie Workshop</span>
+                </a>
+            </div>
+            <nav>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-trigger">Shop</button>
+                    <div class="nav-dropdown-menu">
+                        <a href="shop.html#by-type">All Products</a>
+                        <div class="divider"></div>
+                        <a href="shop.html#by-type">Wrist Cuffs</a>
+                        <a href="shop.html#by-type">Ankle Cuffs</a>
+                        <a href="shop.html#by-type">Collars</a>
+                        <a href="shop.html#by-type">Leashes</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-trigger">Collections</button>
+                    <div class="nav-dropdown-menu">
+                        <a href="vampiric.html">The Vampiric Set</a>
+                        <a href="nightshade.html">The Nightshade Set</a>
+                        <a href="consort.html">The Consort Set</a>
+                    </div>
+                </div>
+                <a href="index.html#about">About</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </header>
+
+        <section class="collection-hero">
+            <h1 class="collection-title">The Vampiric Set</h1>
+            <p class="collection-tagline">Dark • Sensual • Dangerous</p>
+            <p class="collection-description">
+                A collection for those who embrace the night. Rich black leather paired with crimson suede creates a dramatic contrast that commands attention. Delicate lace trim adds an unexpected softness to the edge—a whisper of romance in the darkness. Each piece is crafted to make a statement, whether worn in intimate moments or as bold everyday accessories.
+            </p>
+            
+            <div class="collection-specs">
+                <div class="spec-item">
+                    <span class="spec-label">Primary Material</span>
+                    <span class="spec-value">Premium black leather</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Lining</span>
+                    <span class="spec-value">Red suede</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Hardware</span>
+                    <span class="spec-value">Nickel plated</span>
+                </div>
+                <div class="spec-item">
+                    <span class="spec-label">Signature Detail</span>
+                    <span class="spec-value">Lace trim accents</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="products-section">
+            <h2 class="section-title">Available Pieces</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">🗝</div>
+                    <div class="product-content">
+                        <h3>Wrist Cuffs</h3>
+                        <p>Hand-stitched restraints with reinforced D-rings and adjustable buckles. Lined with crimson suede for comfort during extended wear.</p>
+                        <p class="product-price">From $120</p>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">🗝</div>
+                    <div class="product-content">
+                        <h3>Ankle Cuffs</h3>
+                        <p>Matching ankle restraints with the same attention to detail. Lace accents add gothic elegance to these functional pieces.</p>
+                        <p class="product-price">From $130</p>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">🗝</div>
+                    <div class="product-content">
+                        <h3>Day Collar</h3>
+                        <p>Elegant enough for everyday wear, meaningful enough to matter. Delicate lace trim makes this piece uniquely romantic.</p>
+                        <p class="product-price">From $95</p>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">🗝</div>
+                    <div class="product-content">
+                        <h3>Statement Collar</h3>
+                        <p>Bold and commanding. Wider band with dramatic hardware and intricate lace details. A true showpiece.</p>
+                        <p class="product-price">From $145</p>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">🗝</div>
+                    <div class="product-content">
+                        <h3>Leash</h3>
+                        <p>6-foot leather lead with nickel-plated hardware. Beautifully weighted and finished with lace detail at the handle.</p>
+                        <p class="product-price">From $85</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer id="contact">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <a href="mailto:hello@unseelieWorkshop.com">hello@unseelieWorkshop.com</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">Newsletter</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Shop</h4>
+                    <a href="index.html#collections">All Collections</a>
+                    <a href="#">Custom Orders</a>
+                    <a href="#">Care Guide</a>
+                    <a href="#">Sizing</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Information</h4>
+                    <a href="index.html#about">About Us</a>
+                    <a href="#">Shipping & Returns</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2024 Unseelie Workshop. All rights reserved. • Handcrafted with care.
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

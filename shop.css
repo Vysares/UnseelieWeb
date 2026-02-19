@@ -1,0 +1,227 @@
+/* ============================================================
+   Unseelie Workshop — Shop Page Styles
+   ============================================================ */
+
+body {
+    background-color: #1a1f1e;
+    background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.015) 2px, rgba(0,0,0,.015) 4px),
+        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.015) 2px, rgba(0,0,0,.015) 4px),
+        linear-gradient(135deg, #1a1f1e 0%, #1e2528 50%, #1d1a23 100%);
+}
+
+header {
+    background: rgba(45, 62, 56, 0.4);
+}
+
+/* ---- Hero ---- */
+.shop-hero {
+    padding: 5rem 4rem 3rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.shop-hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--gold);
+    text-shadow: 0 4px 20px var(--shadow);
+    margin-bottom: 0.5rem;
+}
+
+.shop-intro {
+    font-size: 1rem;
+    color: rgba(245, 241, 232, 0.7);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+/* ---- Toggle buttons ---- */
+.shop-toggle {
+    display: flex;
+    gap: 0;
+    flex-shrink: 0;
+    border: 1px solid rgba(201, 169, 97, 0.3);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.toggle-btn {
+    padding: 0.75rem 1.8rem;
+    background: transparent;
+    color: rgba(245, 241, 232, 0.6);
+    border: none;
+    font-family: 'Archivo', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease;
+    position: relative;
+}
+
+.toggle-btn + .toggle-btn {
+    border-left: 1px solid rgba(201, 169, 97, 0.3);
+}
+
+.toggle-btn.active {
+    background: rgba(201, 169, 97, 0.15);
+    color: var(--gold);
+}
+
+.toggle-btn:hover:not(.active) {
+    background: rgba(201, 169, 97, 0.07);
+    color: rgba(245, 241, 232, 0.9);
+}
+
+/* ---- Shop output area ---- */
+.shop-section {
+    padding: 0 4rem 6rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ---- Group (rendered by JS) ---- */
+.shop-group {
+    margin-bottom: 4rem;
+    animation: fadeInUp 0.6s ease-out both;
+}
+
+.shop-group-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(201, 169, 97, 0.2);
+}
+
+/* ---- Product grid ---- */
+.shop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+/* ---- Product card (rendered by JS) ---- */
+.shop-card {
+    background: rgba(26, 37, 42, 0.4);
+    border: 1px solid rgba(201, 169, 97, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    will-change: transform;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+}
+
+.shop-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    border-color: rgba(201, 169, 97, 0.5);
+}
+
+.shop-card-image {
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.shop-card-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(201, 169, 97, 0.12) 0%, transparent 65%);
+}
+
+.shop-card-icon {
+    font-size: 3rem;
+    position: relative;
+    z-index: 1;
+}
+
+.shop-card-body {
+    padding: 1.4rem 1.6rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.shop-card-tag {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 400;
+    margin-bottom: 0.4rem;
+}
+
+.shop-card-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 0.6rem;
+}
+
+.shop-card-desc {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: rgba(245, 241, 232, 0.75);
+    font-weight: 300;
+    flex: 1;
+    margin-bottom: 1rem;
+}
+
+.shop-card-price {
+    font-size: 1.05rem;
+    color: var(--gold);
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.shop-card-link {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(245, 241, 232, 0.5);
+    text-decoration: none;
+    transition: color 0.25s ease;
+    align-self: flex-start;
+}
+
+.shop-card-link:hover {
+    color: var(--gold);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+    .shop-hero {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 4rem 2rem 2rem;
+    }
+
+    .shop-hero h1 {
+        font-size: 3rem;
+    }
+
+    .shop-section {
+        padding: 0 2rem 4rem;
+    }
+
+    .shop-grid {
+        grid-template-columns: 1fr;
+    }
+}

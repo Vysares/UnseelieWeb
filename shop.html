@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Unseelie Workshop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Archivo:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="shop.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <a href="index.html">
+                    <img src="UW_LogoArtboard_1_copy_7_600x.png" alt="Unseelie Workshop Logo" class="logo-img">
+                    <span class="logo-text">Unseelie Workshop</span>
+                </a>
+            </div>
+            <nav>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-trigger">Shop</button>
+                    <div class="nav-dropdown-menu">
+                        <a href="shop.html#by-type">All Products</a>
+                        <div class="divider"></div>
+                        <a href="shop.html#by-type">Wrist Cuffs</a>
+                        <a href="shop.html#by-type">Ankle Cuffs</a>
+                        <a href="shop.html#by-type">Collars</a>
+                        <a href="shop.html#by-type">Leashes</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-trigger">Collections</button>
+                    <div class="nav-dropdown-menu">
+                        <a href="vampiric.html">The Vampiric Set</a>
+                        <a href="nightshade.html">The Nightshade Set</a>
+                        <a href="consort.html">The Consort Set</a>
+                    </div>
+                </div>
+                <a href="index.html#about">About</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </header>
+
+        <section class="shop-hero">
+            <div class="shop-hero-content">
+                <h1>Shop</h1>
+                <p class="shop-intro">Every piece, every collection — browse however makes sense to you.</p>
+            </div>
+            <div class="shop-toggle">
+                <button id="btn-by-collection" class="toggle-btn active">By Collection</button>
+                <button id="btn-by-type" class="toggle-btn">By Type</button>
+            </div>
+        </section>
+
+        <section class="shop-section">
+            <div id="shop-output"></div>
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <a href="mailto:hello@unseelieWorkshop.com">hello@unseelieWorkshop.com</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">Newsletter</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Shop</h4>
+                    <a href="index.html#collections">All Collections</a>
+                    <a href="#">Care Guide</a>
+                    <a href="#">Sizing</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Information</h4>
+                    <a href="index.html#about">About Us</a>
+                    <a href="#">Shipping & Returns</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2024 Unseelie Workshop. All rights reserved. • Handcrafted with care.
+            </div>
+        </footer>
+    </div>
+
+    <script src="shop.js"></script>
+</body>
+</html>

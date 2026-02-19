@@ -1,0 +1,330 @@
+/* ============================================================
+   Unseelie Workshop — Shared Styles
+   Used by: index.html, vampiric.html, nightshade.html, consort.html
+   ============================================================ */
+
+:root {
+    --sage: #2d3e38;
+    --sage-light: #3d5549;
+    --turquoise: #1a4a52;
+    --turquoise-bright: #2d7a7e;
+    --violet: #3d2946;
+    --violet-light: #5a3d66;
+    --cream: #f5f1e8;
+    --gold: #c9a961;
+    --shadow: rgba(29, 46, 56, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Archivo', sans-serif;
+    /* Texture baked into body background — no separate fixed layer */
+    background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.015) 2px, rgba(0,0,0,.015) 4px),
+        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.015) 2px, rgba(0,0,0,.015) 4px);
+    color: var(--cream);
+    overflow-x: hidden;
+}
+
+.container {
+    position: relative;
+}
+
+/* ---- Animations ---- */
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Header ---- */
+header {
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(201, 169, 97, 0.2);
+    animation: slideDown 0.8s ease-out;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+}
+
+.logo-img {
+    height: 60px;
+    width: auto;
+    filter: drop-shadow(0 2px 10px rgba(201, 169, 97, 0.3));
+    transition: transform 0.3s ease;
+}
+
+.logo-img:hover {
+    transform: scale(1.05);
+}
+
+.logo-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-shadow: 0 2px 10px rgba(201, 169, 97, 0.3);
+}
+
+nav {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+/* ---- Plain nav links ---- */
+nav > a {
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 300;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+nav > a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+}
+
+nav > a:hover {
+    color: var(--gold);
+}
+
+nav > a:hover::after {
+    width: 100%;
+}
+
+/* ---- Dropdown wrapper ---- */
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown-trigger {
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 300;
+    position: relative;
+    transition: color 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+}
+
+/* Chevron */
+.nav-dropdown-trigger::after {
+    content: '▾';
+    font-size: 0.65rem;
+    transition: transform 0.25s ease, color 0.3s ease;
+    display: inline-block;
+    margin-top: 1px;
+}
+
+.nav-dropdown:hover .nav-dropdown-trigger,
+.nav-dropdown:focus-within .nav-dropdown-trigger {
+    color: var(--gold);
+}
+
+.nav-dropdown:hover .nav-dropdown-trigger::after,
+.nav-dropdown:focus-within .nav-dropdown-trigger::after {
+    transform: rotate(180deg);
+    color: var(--gold);
+}
+
+/* ---- Dropdown panel ---- */
+.nav-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.3rem);
+    left: 50%;
+    background: rgba(20, 26, 24, 0.97);
+    border: 1px solid rgba(201, 169, 97, 0.25);
+    border-radius: 3px;
+    min-width: 180px;
+    padding: 0.5rem 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(-6px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 100;
+}
+
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Invisible bridge fills the gap between trigger and menu
+   so moving the cursor downward never breaks hover */
+.nav-dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -1rem;
+    left: 0;
+    width: 100%;
+    height: 1rem;
+}
+
+/* Small decorative top arrow */
+.nav-dropdown-menu::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 8px;
+    background: rgba(20, 26, 24, 0.97);
+    border-left: 1px solid rgba(201, 169, 97, 0.25);
+    border-top: 1px solid rgba(201, 169, 97, 0.25);
+    rotate: 45deg;
+    pointer-events: none;
+}
+
+.nav-dropdown-menu a {
+    display: block;
+    padding: 0.6rem 1.2rem;
+    color: rgba(245, 241, 232, 0.8);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-weight: 300;
+    white-space: nowrap;
+    transition: color 0.2s ease, background 0.2s ease;
+}
+
+.nav-dropdown-menu a:hover {
+    color: var(--gold);
+    background: rgba(201, 169, 97, 0.07);
+}
+
+/* Divider between groups inside a dropdown */
+.nav-dropdown-menu .divider {
+    height: 1px;
+    background: rgba(201, 169, 97, 0.15);
+    margin: 0.4rem 0;
+}
+
+/* ---- Section title (shared) ---- */
+.section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--gold);
+    font-style: italic;
+}
+
+/* ---- Footer ---- */
+footer {
+    padding: 3rem 4rem;
+    background: rgba(29, 46, 56, 0.9);
+    border-top: 1px solid rgba(201, 169, 97, 0.2);
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+}
+
+.footer-section h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--gold);
+}
+
+.footer-section p,
+.footer-section a {
+    color: rgba(245, 241, 232, 0.7);
+    text-decoration: none;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    display: block;
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: var(--gold);
+}
+
+.copyright {
+    padding-top: 2rem;
+    border-top: 1px solid rgba(201, 169, 97, 0.2);
+    color: rgba(245, 241, 232, 0.5);
+    font-size: 0.85rem;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+    header {
+        padding: 1.5rem 2rem;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .logo {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+
+    .logo-img {
+        height: 50px;
+    }
+
+    .logo-text {
+        font-size: 1.5rem;
+    }
+
+    nav {
+        gap: 1.5rem;
+    }
+}

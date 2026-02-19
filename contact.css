@@ -1,0 +1,207 @@
+/* ============================================================
+   Unseelie Workshop — Contact Page Styles
+   ============================================================ */
+
+body {
+    background-color: #1a1f1e;
+    background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.015) 2px, rgba(0,0,0,.015) 4px),
+        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.015) 2px, rgba(0,0,0,.015) 4px),
+        linear-gradient(135deg, #1a1f1e 0%, #1e2528 50%, #1d1a23 100%);
+}
+
+header {
+    background: rgba(45, 62, 56, 0.4);
+}
+
+/* ---- Hero ---- */
+.contact-hero {
+    padding: 6rem 4rem 3rem;
+    text-align: center;
+    animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.contact-hero-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.contact-hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5rem;
+    font-weight: 300;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    color: var(--gold);
+    text-shadow: 0 4px 20px var(--shadow);
+}
+
+.contact-intro {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: rgba(245, 241, 232, 0.85);
+    font-weight: 300;
+}
+
+/* ---- Contact grid ---- */
+.contact-section {
+    padding: 3rem 4rem 6rem;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: start;
+}
+
+/* ---- Info column ---- */
+.contact-info h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 2rem;
+}
+
+.info-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.info-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gold);
+}
+
+.info-item a,
+.info-value {
+    font-size: 0.95rem;
+    color: rgba(245, 241, 232, 0.85);
+    font-weight: 300;
+    line-height: 1.6;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.info-item a:hover {
+    color: var(--gold);
+}
+
+/* ---- Form ---- */
+.contact-form-wrap {
+    background: rgba(26, 37, 42, 0.5);
+    border: 1px solid rgba(201, 169, 97, 0.2);
+    border-radius: 4px;
+    padding: 3rem;
+    animation: fadeInUp 1s ease-out 0.4s both;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.form-group label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gold);
+}
+
+.form-group input,
+.form-group textarea {
+    background: rgba(13, 13, 13, 0.4);
+    border: 1px solid rgba(201, 169, 97, 0.25);
+    border-radius: 2px;
+    padding: 0.9rem 1.1rem;
+    color: var(--cream);
+    font-family: 'Archivo', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.3s ease, background 0.3s ease;
+    resize: none;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(245, 241, 232, 0.3);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: rgba(201, 169, 97, 0.6);
+    background: rgba(13, 13, 13, 0.6);
+}
+
+.submit-button {
+    align-self: flex-start;
+    padding: 1rem 2.8rem;
+    background: linear-gradient(135deg, var(--turquoise-bright), var(--violet-light));
+    color: var(--cream);
+    border: 1px solid rgba(201, 169, 97, 0.3);
+    border-radius: 2px;
+    font-family: 'Archivo', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    will-change: transform;
+}
+
+.submit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(201, 169, 97, 0.3);
+    border-color: var(--gold);
+}
+
+.submit-button:active {
+    transform: translateY(0);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-hero {
+        padding: 4rem 2rem 2rem;
+    }
+
+    .contact-hero h1 {
+        font-size: 3rem;
+    }
+
+    .contact-section {
+        padding: 2rem 2rem 4rem;
+    }
+
+    .contact-form-wrap {
+        padding: 2rem;
+    }
+}
