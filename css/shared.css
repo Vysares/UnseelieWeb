@@ -347,29 +347,179 @@ footer {
     border-color: var(--gold);
 }
 
+/* ---- Hamburger button (hidden on desktop) ---- */
+.nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    z-index: 200;
+    flex-shrink: 0;
+}
+
+.nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--cream);
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+    transform-origin: center;
+}
+
+.nav-hamburger:hover span {
+    background: var(--gold);
+}
+
+/* Animate to X when open */
+.nav-hamburger[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.nav-hamburger[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+.nav-hamburger[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
+    /* Header: logo left, hamburger right, nav hidden below */
     header {
-        padding: 1.5rem 2rem;
-        flex-direction: column;
-        gap: 1.5rem;
+        padding: 1.25rem 1.5rem;
+        flex-wrap: wrap;
+        gap: 0;
+        position: relative;
     }
 
     .logo {
-        flex-direction: column;
-        gap: 0.5rem;
-        text-align: center;
+        flex: 1;
+    }
+
+    .logo a {
+        gap: 0.6rem;
     }
 
     .logo-img {
-        height: 50px;
+        height: 44px;
     }
 
     .logo-text {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
 
+    /* Show hamburger */
+    .nav-hamburger {
+        display: flex;
+    }
+
+    /* Nav hidden off-screen by default */
     nav {
-        gap: 1.5rem;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        width: 100%;
+        /* sit below logo row */
+        order: 3;
+        padding: 0.5rem 0 1rem;
+        border-top: 1px solid rgba(201, 169, 97, 0.15);
+        margin-top: 1rem;
+        animation: none;
+    }
+
+    /* Revealed when hamburger is open */
+    nav.nav-open {
+        display: flex;
+    }
+
+    /* Plain nav links (About / Contact) */
+    nav > a {
+        padding: 0.75rem 0;
+        font-size: 0.9rem;
+        border-bottom: 1px solid rgba(201, 169, 97, 0.08);
+    }
+
+    nav > a::after {
+        display: none;
+    }
+
+    /* Dropdown wrapper becomes a block */
+    .nav-dropdown {
+        position: static;
+        width: 100%;
+    }
+
+    /* Trigger stretches full width */
+    .nav-dropdown-trigger {
+        width: 100%;
+        justify-content: space-between;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(201, 169, 97, 0.08);
+        font-size: 0.9rem;
+    }
+
+    /* Chevron stays on right; rotate when open */
+    .nav-dropdown.mobile-open .nav-dropdown-trigger::after {
+        transform: rotate(180deg);
+        color: var(--gold);
+    }
+
+    /* Dropdown panel becomes an inline expand (not absolute) */
+    .nav-dropdown-menu {
+        position: static;
+        transform: none;
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        pointer-events: none;
+        background: rgba(255, 255, 255, 0.03);
+        border: none;
+        border-radius: 0;
+        border-left: 2px solid rgba(201, 169, 97, 0.25);
+        padding: 0;
+        min-width: 0;
+        margin-left: 0.75rem;
+        transition: opacity 0.25s ease, max-height 0.3s ease;
+    }
+
+    /* Override hover-based desktop show */
+    .nav-dropdown:hover .nav-dropdown-menu,
+    .nav-dropdown:focus-within .nav-dropdown-menu {
+        opacity: 0;
+        pointer-events: none;
+        transform: none;
+        max-height: 0;
+    }
+
+    /* Show only when JS adds .mobile-open */
+    .nav-dropdown.mobile-open .nav-dropdown-menu {
+        opacity: 1;
+        pointer-events: auto;
+        max-height: 300px;
+    }
+
+    /* Hide decorative arrow tip on mobile */
+    .nav-dropdown-menu::after,
+    .nav-dropdown-menu::before {
+        display: none;
+    }
+
+    .nav-dropdown-menu a {
+        padding: 0.6rem 1rem;
+        font-size: 0.82rem;
+        border-bottom: 1px solid rgba(201, 169, 97, 0.05);
+    }
+
+    .nav-dropdown-menu .divider {
+        margin: 0.2rem 0;
     }
 }
