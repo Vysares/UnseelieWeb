@@ -5,22 +5,14 @@
 body {
     background-color: #1a1f1e;
     background-image:
-        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.015) 2px, rgba(0,0,0,.015) 4px),
-        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.015) 2px, rgba(0,0,0,.015) 4px),
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.019) 2px, rgba(0,0,0,.019) 4px),
+        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.019) 2px, rgba(0,0,0,.019) 4px),
         linear-gradient(135deg, #1a1f1e 0%, #1e2528 50%, #1d1a23 100%);
-}
-
-header {
-    background: rgba(45, 62, 56, 0.4);
 }
 
 /* ---- Hero ---- */
 .shop-hero {
-    padding: 5rem 4rem 3rem;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 2rem;
+    padding: 5rem 4rem 2rem;
     max-width: 1400px;
     margin: 0 auto;
     animation: fadeInUp 0.8s ease-out 0.2s both;
@@ -41,86 +33,95 @@ header {
     color: rgba(245, 241, 232, 0.7);
     font-weight: 300;
     letter-spacing: 0.5px;
+    margin-bottom: 0;
 }
 
-/* ---- Toggle buttons ---- */
-.shop-toggle {
+/* ---- Filter bar ---- */
+.shop-filter-row {
+    padding: 1.5rem 4rem 0;
+    max-width: 1400px;
+    margin: 0 auto;
     display: flex;
-    gap: 0;
-    flex-shrink: 0;
-    border: 1px solid rgba(201, 169, 97, 0.3);
-    border-radius: 3px;
-    overflow: hidden;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s ease-out 0.35s both;
 }
 
-.toggle-btn {
-    padding: 0.75rem 1.8rem;
+#filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-pill {
+    padding: 0.45rem 1.1rem;
     background: transparent;
-    color: rgba(245, 241, 232, 0.6);
-    border: none;
+    color: rgba(245, 241, 232, 0.55);
+    border: 1px solid rgba(201, 169, 97, 0.2);
+    border-radius: 2rem;
     font-family: 'Archivo', sans-serif;
-    font-size: 0.85rem;
-    letter-spacing: 1.5px;
+    font-size: 0.78rem;
+    letter-spacing: 1px;
     text-transform: uppercase;
     cursor: pointer;
-    transition: background 0.25s ease, color 0.25s ease;
-    position: relative;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    white-space: nowrap;
 }
 
-.toggle-btn + .toggle-btn {
-    border-left: 1px solid rgba(201, 169, 97, 0.3);
+.filter-pill:hover:not(.active) {
+    color: rgba(245, 241, 232, 0.85);
+    border-color: rgba(201, 169, 97, 0.45);
+    background: rgba(201, 169, 97, 0.06);
 }
 
-.toggle-btn.active {
+.filter-pill.active {
     background: rgba(201, 169, 97, 0.15);
     color: var(--gold);
+    border-color: rgba(201, 169, 97, 0.5);
 }
 
-.toggle-btn:hover:not(.active) {
-    background: rgba(201, 169, 97, 0.07);
-    color: rgba(245, 241, 232, 0.9);
+.filter-divider {
+    width: 1px;
+    height: 1.1rem;
+    background: rgba(201, 169, 97, 0.2);
+    flex-shrink: 0;
+    margin: 0 0.25rem;
+}
+
+.filter-count {
+    font-size: 0.78rem;
+    color: rgba(245, 241, 232, 0.35);
+    letter-spacing: 0.5px;
+    margin-left: auto;
+    white-space: nowrap;
 }
 
 /* ---- Shop output area ---- */
 .shop-section {
-    padding: 0 4rem 6rem;
+    padding: 2rem 4rem 6rem;
     max-width: 1400px;
     margin: 0 auto;
-}
-
-/* ---- Group (rendered by JS) ---- */
-.shop-group {
-    margin-bottom: 4rem;
-    animation: fadeInUp 0.6s ease-out both;
-}
-
-.shop-group-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.2rem;
-    font-weight: 300;
-    font-style: italic;
-    color: var(--gold);
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(201, 169, 97, 0.2);
 }
 
 /* ---- Product grid ---- */
 .shop-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.75rem;
 }
 
-/* ---- Product card (rendered by JS) ---- */
+/* ---- Product card ---- */
 .shop-card {
     background: rgba(26, 37, 42, 0.4);
     border: 1px solid rgba(201, 169, 97, 0.2);
     border-radius: 4px;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.25s ease;
     will-change: transform;
-    cursor: default;
+    cursor: pointer;
+    text-decoration: none;
     display: flex;
     flex-direction: column;
 }
@@ -128,11 +129,20 @@ header {
 .shop-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    border-color: rgba(201, 169, 97, 0.5);
+    border-color: var(--gold);
+}
+
+/* Hidden state — fade out in place rather than vanishing */
+.shop-card.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.97);
+    position: absolute;
+    visibility: hidden;
 }
 
 .shop-card-image {
-    height: 160px;
+    height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -147,55 +157,47 @@ header {
 }
 
 .shop-card-icon {
-    font-size: 3rem;
+    font-size: 2.8rem;
     position: relative;
     z-index: 1;
 }
 
 .shop-card-body {
-    padding: 1.4rem 1.6rem 1.6rem;
+    padding: 1.2rem 1.4rem 1.4rem;
     display: flex;
     flex-direction: column;
     flex: 1;
 }
 
 .shop-card-tag {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 400;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.35rem;
 }
 
 .shop-card-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.5rem;
+    font-size: 1.45rem;
     font-weight: 400;
     color: var(--cream);
     margin-bottom: 0.6rem;
 }
 
-.shop-card-desc {
-    font-size: 0.9rem;
-    line-height: 1.65;
-    color: rgba(245, 241, 232, 0.75);
-    font-weight: 300;
-    flex: 1;
-    margin-bottom: 1rem;
-}
-
 .shop-card-price {
-    font-size: 1.05rem;
+    font-size: 1rem;
     color: var(--gold);
     font-weight: 400;
     margin-bottom: 1rem;
+    margin-top: auto;
 }
 
 .shop-card-link {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: rgba(245, 241, 232, 0.5);
+    color: rgba(245, 241, 232, 0.45);
     text-decoration: none;
     transition: color 0.25s ease;
     align-self: flex-start;
@@ -208,19 +210,33 @@ header {
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
     .shop-hero {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 4rem 2rem 2rem;
+        padding: 4rem 2rem 1.5rem;
     }
 
     .shop-hero h1 {
         font-size: 3rem;
     }
 
-    .shop-section {
-        padding: 0 2rem 4rem;
+    .shop-filter-row {
+        padding: 1.5rem 2rem 0;
     }
 
+    .shop-section {
+        padding: 2rem 2rem 4rem;
+    }
+
+    .shop-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .filter-count {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 480px) {
     .shop-grid {
         grid-template-columns: 1fr;
     }

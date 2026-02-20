@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop - Unseelie Workshop</title>
+    <title>Product - Unseelie Workshop</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Archivo:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/shared.css">
-    <link rel="stylesheet" href="css/shop.css">
+    <link rel="stylesheet" href="css/product.css">
 </head>
 <body>
     <div class="container">
@@ -23,10 +23,10 @@
                     <div class="nav-dropdown-menu">
                         <a href="shop.html#by-type">All Products</a>
                         <div class="divider"></div>
-                        <a href="shop.html#by-type">Wrist Cuffs</a>
-                        <a href="shop.html#by-type">Ankle Cuffs</a>
-                        <a href="shop.html#by-type">Collars</a>
-                        <a href="shop.html#by-type">Leashes</a>
+                        <a href="shop.html#type:cuffs">Wrist Cuffs</a>
+                        <a href="shop.html#type:cuffs">Ankle Cuffs</a>
+                        <a href="shop.html#type:collars">Collars</a>
+                        <a href="shop.html#type:leashes">Leashes</a>
                     </div>
                 </div>
                 <div class="nav-dropdown">
@@ -42,19 +42,23 @@
             </nav>
         </header>
 
-        <section class="shop-hero">
-            <h1>Shop</h1>
-            <p class="shop-intro">Every piece, handcrafted in small batches.</p>
-        </section>
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb"></nav>
 
-        <div class="shop-filter-row">
-            <div id="filter-bar"></div>
-            <span class="filter-count" id="filter-count"></span>
+        <!-- Main product layout — populated by product.js -->
+        <main class="product-layout" id="product-layout">
+            <div class="product-loading">Loading…</div>
+        </main>
+
+        <!-- Lightbox -->
+        <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+            <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+            <button class="lightbox-prev" id="lightbox-prev" aria-label="Previous">&#8249;</button>
+            <div class="lightbox-img-wrap">
+                <img src="" alt="" id="lightbox-img">
+            </div>
+            <button class="lightbox-next" id="lightbox-next" aria-label="Next">&#8250;</button>
         </div>
-
-        <section class="shop-section">
-            <div class="shop-grid" id="shop-grid"></div>
-        </section>
 
         <footer>
             <div class="footer-content">
@@ -84,7 +88,7 @@
         </footer>
     </div>
 
-    <script src="js/shop.js"></script>
+    <script src="js/product.js"></script>
     <script src="js/scroll-top.js"></script>
 </body>
 </html>

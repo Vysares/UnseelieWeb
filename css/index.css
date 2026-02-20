@@ -5,14 +5,9 @@
 body {
     background-color: #1a1f1e;
     background-image:
-        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.015) 2px, rgba(0,0,0,.015) 4px),
-        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.015) 2px, rgba(0,0,0,.015) 4px),
+        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.019) 2px, rgba(0,0,0,.019) 4px),
+        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.019) 2px, rgba(0,0,0,.019) 4px),
         linear-gradient(135deg, #1a1f1e 0%, #1e2528 50%, #1d1a23 100%);
-}
-
-/* ---- Header (index variant) ---- */
-header {
-    background: rgba(45, 62, 56, 0.4);
 }
 
 /* ---- Hero ---- */

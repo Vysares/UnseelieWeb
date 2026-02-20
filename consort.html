@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Consort Set - Unseelie Workshop</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Archivo:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="shared.css">
-    <link rel="stylesheet" href="collection.css">
+    <link rel="stylesheet" href="css/shared.css">
+    <link rel="stylesheet" href="css/collection.css">
     <style>
         :root {
             --collection-primary: #8b5a3c; /* Cognac */
@@ -27,12 +27,12 @@
         }
     </style>
 </head>
-<body>
+<body data-collection="consort">
     <div class="container">
         <header>
             <div class="logo">
                 <a href="index.html">
-                    <img src="UW_LogoArtboard_1_copy_7_600x.png" alt="Unseelie Workshop Logo" class="logo-img">
+                    <img src="images/UWlogo.png" alt="Unseelie Workshop Logo" class="logo-img">
                     <span class="logo-text">Unseelie Workshop</span>
                 </a>
             </div>
@@ -91,50 +91,7 @@
         <section class="products-section">
             <h2 class="section-title">Available Pieces</h2>
             <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-image">♛</div>
-                    <div class="product-content">
-                        <h3>Wrist Cuffs</h3>
-                        <p>Rich cognac leather with cross-laced details and turquoise lining. Brass hardware adds warmth and luxury.</p>
-                        <p class="product-price">From $120</p>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-image">♛</div>
-                    <div class="product-content">
-                        <h3>Ankle Cuffs</h3>
-                        <p>Matching ankle restraints with intricate cross-lacing. The surprise of turquoise lining adds a playful touch.</p>
-                        <p class="product-price">From $130</p>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-image">♛</div>
-                    <div class="product-content">
-                        <h3>Day Collar</h3>
-                        <p>Sophisticated enough for any occasion. Warm cognac leather with subtle brass details that catch the light.</p>
-                        <p class="product-price">From $95</p>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-image">♛</div>
-                    <div class="product-content">
-                        <h3>Statement Collar</h3>
-                        <p>Bold and regal. Wider band with elaborate cross-lacing and prominent brass hardware. A true showpiece.</p>
-                        <p class="product-price">From $145</p>
-                    </div>
-                </div>
-                
-                <div class="product-card">
-                    <div class="product-image">♛</div>
-                    <div class="product-content">
-                        <h3>Leash</h3>
-                        <p>6-foot cognac leather lead with brass hardware. Cross-laced handle provides comfort and visual interest.</p>
-                        <p class="product-price">From $85</p>
-                    </div>
-                </div>
+                <!-- Populated by collection.js from products.json -->
             </div>
         </section>
 
@@ -168,5 +125,7 @@
             </div>
         </footer>
     </div>
+    <script src="js/collection.js"></script>
+    <script src="js/scroll-top.js"></script>
 </body>
 </html>

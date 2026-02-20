@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir:*)",
+      "Bash(dir \"C:\\\\Users\\\\jackk\\\\Documents\\\\UnseelieWeb\\\\css\")",
+      "Bash(dir \"C:\\\\Users\\\\jackk\\\\Documents\\\\UnseelieWeb\\\\data\")",
+      "Bash(powershell -Command \"Get-ChildItem ''C:\\\\Users\\\\jackk\\\\Documents\\\\UnseelieWeb'' | Select-Object Name\")",
+      "Bash(powershell -Command \"Get-ChildItem ''C:\\\\Users\\\\jackk\\\\Documents\\\\UnseelieWeb\\\\css'' | Select-Object Name; Get-ChildItem ''C:\\\\Users\\\\jackk\\\\Documents\\\\UnseelieWeb\\\\js'' | Select-Object Name; Get-ChildItem ''C:\\\\Users\\\\jackk\\\\Documents\\\\UnseelieWeb\\\\data'' | Select-Object Name\")"
+    ]
+  }
+}
