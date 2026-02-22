@@ -8,7 +8,12 @@
       "Bash(powershell -Command \"Get-ChildItem ''C:\\\\Users\\\\jackk\\\\Documents\\\\UnseelieWeb\\\\css'' | Select-Object Name; Get-ChildItem ''C:\\\\Users\\\\jackk\\\\Documents\\\\UnseelieWeb\\\\js'' | Select-Object Name; Get-ChildItem ''C:\\\\Users\\\\jackk\\\\Documents\\\\UnseelieWeb\\\\data'' | Select-Object Name\")",
       "Bash(grep:*)",
       "Bash(python3:*)",
-      "Bash(python -c:*)"
+      "Bash(python -c:*)",
+      "Bash(git -C \"C:/Users/jackk/Documents/UnseelieWeb\" status)",
+      "Bash(git -C \"C:/Users/jackk/Documents/UnseelieWeb\" ls-files functions/)",
+      "Bash(git -C \"C:/Users/jackk/Documents/UnseelieWeb\" add functions/api/checkout.js wrangler.toml)",
+      "Bash(git -C \"C:/Users/jackk/Documents/UnseelieWeb\" ls-files:*)",
+      "Bash(git -C:*)"
     ]
   }
 }
