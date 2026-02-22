@@ -16,13 +16,21 @@ function buildCard(product, collections) {
   card.dataset.collection = product.collection;
   card.dataset.type = product.type;
 
+  const firstImage = product.images && product.images.length
+    ? product.images[0]
+    : null;
+
+  const imageHTML = firstImage
+    ? `<img src="${firstImage}" alt="${product.name}" class="shop-card-img" loading="lazy">`
+    : `<div class="shop-card-placeholder" style="background: linear-gradient(135deg, ${col.gradientFrom}, ${col.gradientTo});"></div>`;
+
   card.innerHTML = `
-    <div class="shop-card-image" style="background: linear-gradient(135deg, ${col.gradientFrom}, ${col.gradientTo});">
-      <span class="shop-card-icon">${product.icon}</span>
+    <div class="shop-card-image">
+      ${imageHTML}
       <div class="shop-card-glow"></div>
     </div>
     <div class="shop-card-body">
-      <span class="shop-card-tag" style="color: ${col.accent};">${col.label}</span>
+      <span class="shop-card-tag" style="--tag-color: ${col.accent};">${col.label}</span>
       <h3 class="shop-card-name">${product.name}</h3>
       <p class="shop-card-price">${product.price}</p>
     </div>
@@ -38,27 +46,45 @@ function buildFilterBar(collections, types, onFilter) {
   const bar = document.getElementById('filter-bar');
   bar.innerHTML = '';
 
-  // "All" pill
-  bar.appendChild(makePill('All', 'all', true));
+  // ---- Row 1: type filters ----
+  const typeRow = document.createElement('div');
+  typeRow.className = 'filter-row';
 
-  // Divider
-  bar.appendChild(makeDivider());
+  const typeLabel = document.createElement('span');
+  typeLabel.className = 'filter-row-label';
+  typeLabel.textContent = 'Type';
+  typeRow.appendChild(typeLabel);
 
-  // Type pills
+  const typePills = document.createElement('div');
+  typePills.className = 'filter-row-pills';
+  typePills.appendChild(makePill('All', 'all', true));
   Object.entries(types).forEach(([key, type]) => {
-    bar.appendChild(makePill(type.label, `type:${key}`, false));
+    typePills.appendChild(makePill(type.label, `type:${key}`, false));
   });
+  typeRow.appendChild(typePills);
 
-  // Divider
-  bar.appendChild(makeDivider());
+  bar.appendChild(typeRow);
 
-  // Collection pills — strip "The " prefix for brevity
+  // ---- Row 2: collection filters ----
+  const colRow = document.createElement('div');
+  colRow.className = 'filter-row';
+
+  const colLabel = document.createElement('span');
+  colLabel.className = 'filter-row-label';
+  colLabel.textContent = 'Collection';
+  colRow.appendChild(colLabel);
+
+  const colPills = document.createElement('div');
+  colPills.className = 'filter-row-pills';
   Object.entries(collections).forEach(([key, col]) => {
     const shortLabel = col.label.replace(/^The /, '');
-    bar.appendChild(makePill(shortLabel, `collection:${key}`, false));
+    colPills.appendChild(makePill(shortLabel, `collection:${key}`, false));
   });
+  colRow.appendChild(colPills);
 
-  // Wire up clicks
+  bar.appendChild(colRow);
+
+  // Wire up clicks — active state spans both rows
   bar.querySelectorAll('.filter-pill').forEach(pill => {
     pill.addEventListener('click', () => {
       bar.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
@@ -99,12 +125,6 @@ function applyFilter(filterValue, allCards) {
     card.classList.toggle('hidden', !visible);
   });
 
-  // Update count
-  const visibleCount = allCards.filter(c => !c.classList.contains('hidden')).length;
-  const countEl = document.getElementById('filter-count');
-  if (countEl) {
-    countEl.textContent = `${visibleCount} piece${visibleCount !== 1 ? 's' : ''}`;
-  }
 }
 
 /* ============================================================
@@ -132,10 +152,6 @@ function initShop(data) {
     applyFilter(filterValue, allCards);
     history.replaceState(null, '', `#${filterValue}`);
   });
-
-  // Set initial count
-  const countEl = document.getElementById('filter-count');
-  if (countEl) countEl.textContent = `${products.length} pieces`;
 
   // Honour URL hash on load (e.g. #type:cuffs or #collection:vampiric)
   const hash = window.location.hash.slice(1);

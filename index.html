@@ -4,9 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unseelie Workshop - Luxury Leather Artistry</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Archivo:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/shared.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="icon" href="favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
 </head>
 <body>
     <div class="container">
@@ -32,9 +38,9 @@
                 <div class="nav-dropdown">
                     <button class="nav-dropdown-trigger">Collections</button>
                     <div class="nav-dropdown-menu">
-                        <a href="vampiric.html">The Vampiric Set</a>
-                        <a href="nightshade.html">The Nightshade Set</a>
-                        <a href="consort.html">The Consort Set</a>
+                        <a href="classic.html">The Classic Collection</a>
+                        <a href="nightshade.html">The Nightshade Collection</a>
+                        <a href="regent.html">The Regent Collection</a>
                     </div>
                 </div>
                 <a href="#about">About</a>
@@ -49,88 +55,92 @@
             <div class="hero-content">
                 <h1>Handcrafted <em>Leather</em></h1>
                 <p class="subtitle">for uncommon creatures</p>
-                <a href="#collections" class="cta-button">Explore Collections</a>
+                <a href="shop.html" class="btn-primary cta-button">Explore Collections</a>
             </div>
         </section>
 
         <section class="collections" id="collections">
             <h2 class="section-title">Collections</h2>
-            <p class="collections-intro">Each collection is a complete world of its own. Every piece—from cuffs to collars to accessories—shares the same carefully chosen materials, colors, and aesthetic. Mix and match within a collection, or choose individual statement pieces.</p>
+            <p class="collections-intro">Each collection shares a unique set of materials and finishes. Mix and match within a collection, or choose your favorite individual pieces.</p>
             <div class="collection-grid">
-                <a href="vampiric.html" style="text-decoration: none; color: inherit;">
-                <div class="collection-card vampiric">
+                <a href="classic.html" class="card-link">
+                <div class="collection-card classic">
                     <div class="card-image">🗝</div>
                     <div class="card-content">
-                        <h3>The Vampiric Set</h3>
-                        <p>Dark, sensual, dangerous. A collection for those who embrace the night. Rich black leather paired with crimson suede creates a dramatic contrast, while delicate lace trim adds an unexpected softness to the edge.</p>
+                        <h3>The Classic Collection</h3>
+                        <p>Red and black never looked (or felt) so good.</p>
                         <div class="card-details">
-                            <span><strong>Materials:</strong> Black leather, red suede lining</span>
-                            <span><strong>Hardware:</strong> Nickel plated</span>
-                            <span><strong>Details:</strong> Lace trim accents</span>
+                            <span><strong>Materials:</strong> Jet-black leather, Crimson suede lining</span>
+                            <span><strong>Hardware:</strong> Nickel plated brass</span>
+                            <span><strong>Stitching:</strong> Deep red</span>
                         </div>
                     </div>
                 </div>
                 </a>
 
-                <a href="nightshade.html" style="text-decoration: none; color: inherit;">
+                <a href="nightshade.html" class="card-link">
                 <div class="collection-card nightshade">
                     <div class="card-image">✶</div>
                     <div class="card-content">
-                        <h3>The Nightshade Set</h3>
-                        <p>Restraints for witches. Deep as the midnight sky, this collection pairs rich navy leather with violet suede—like twilight captured in wearable form. Silver stitching traces constellations across each piece.</p>
+                        <h3>The Nightshade Collection</h3>
+                        <p>Perfect for witches and creatures of the night.</p>
                         <div class="card-details">
-                            <span><strong>Materials:</strong> Deep blue leather, violet suede lining</span>
-                            <span><strong>Hardware:</strong> Nickel plated</span>
-                            <span><strong>Details:</strong> Silver contrast stitching</span>
+                            <span><strong>Materials:</strong> Midnight blue leather, Violet suede lining</span>
+                            <span><strong>Hardware:</strong> Nickel plated brass</span>
+                            <span><strong>Stitching:</strong> Silver</span>
                         </div>
                     </div>
                 </div>
                 </a>
 
-                <a href="consort.html" style="text-decoration: none; color: inherit;">
-                <div class="collection-card consort">
+                <a href="regent.html" class="card-link">
+                <div class="collection-card regent">
                     <div class="card-image">♛</div>
                     <div class="card-content">
-                        <h3>The Consort Set</h3>
-                        <p>Restraints fit for royals. Warm cognac leather meets unexpected turquoise lining—a sophisticated pairing that feels both luxurious and playful. Brass hardware and cross-laced details add heirloom quality.</p>
+                        <h3>The Regent Collection</h3>
+                        <p>Restraints fit for a princess, or her pet.</p>
                         <div class="card-details">
-                            <span><strong>Materials:</strong> Cognac leather, turquoise suede lining</span>
-                            <span><strong>Hardware:</strong> Brass</span>
-                            <span><strong>Details:</strong> Cross-laced accents</span>
+                            <span><strong>Materials:</strong> Cognac leather, Fuchsia suede lining</span>
+                            <span><strong>Hardware:</strong> Polished brass</span>
+                            <span><strong>Stitching:</strong> Black</span>
                         </div>
                     </div>
                 </div>
                 </a>
             </div>
 
-            <div class="products-available">
-                <h3>Available in Each Collection</h3>
-                <div class="product-types">
-                    <div class="product-type">
-                        <span class="type-icon">✦</span>
-                        <span class="type-name">Wrist Cuffs</span>
-                    </div>
-                    <div class="product-type">
-                        <span class="type-icon">✦</span>
-                        <span class="type-name">Ankle Cuffs</span>
-                    </div>
-                    <div class="product-type">
-                        <span class="type-icon">◆</span>
-                        <span class="type-name">Collars</span>
-                    </div>
-                    <div class="product-type">
-                        <span class="type-icon">❖</span>
-                        <span class="type-name">Leashes</span>
-                    </div>
+            <div class="shop-by-type">
+                <h3>Shop by Type</h3>
+                <div class="type-scroll">
+                    <a href="shop.html#type:sets" class="type-card">
+                        <div class="type-card-image"></div>
+                        <span class="type-card-name">Full Sets</span>
+                    </a>
+                    <a href="shop.html#type:wrist-cuffs" class="type-card">
+                        <div class="type-card-image"></div>
+                        <span class="type-card-name">Wrist Cuffs</span>
+                    </a>
+                    <a href="shop.html#type:ankle-cuffs" class="type-card">
+                        <div class="type-card-image"></div>
+                        <span class="type-card-name">Ankle Cuffs</span>
+                    </a>
+                    <a href="shop.html#type:collars" class="type-card">
+                        <div class="type-card-image"></div>
+                        <span class="type-card-name">Collars</span>
+                    </a>
+                    <a href="shop.html#type:accessories" class="type-card">
+                        <div class="type-card-image"></div>
+                        <span class="type-card-name">Accessories</span>
+                    </a>
                 </div>
             </div>
         </section>
 
         <section class="about" id="about">
             <h2>The Craft</h2>
-            <p>At Unseelie Workshop, every piece is hand-stitched with intention. We source the finest leathers and hardware, combining traditional leatherworking techniques with contemporary design sensibilities.</p>
-            <p>Our work celebrates the intersection of craft and desire, creating pieces that are as beautiful as they are functional. Each item is made to order, ensuring that what you receive is uniquely yours.</p>
-            <p>We believe in the power of well-crafted objects to transform experience—to make the intimate tangible, and the playful profound.</p>
+            <p>We think restraint is a beautiful thing. It follows that restraints should be beautiful objects.</p>
+            <p>At Unseelie Workshop, we celebrate the intersection of craft and desire, creating pieces as enchanting as they are functional. Each of our pieces is made entirely by hand, from only the highest quality materials.</p>
+            <a href="about.html" class="btn-secondary">Learn More</a>
         </section>
 
         <footer>
@@ -141,28 +151,25 @@
                     <a href="#">Instagram</a>
                     <a href="#">Newsletter</a>
                 </div>
-                
                 <div class="footer-section">
                     <h4>Shop</h4>
-                    <a href="#">All Collections</a>
-                    <a href="#">Custom Orders</a>
-                    <a href="#">Care Guide</a>
+                    <a href="care-guide.html">Care Guide</a>
                     <a href="#">Sizing</a>
+                    <a href="about.html">About Us</a>
                 </div>
-                
                 <div class="footer-section">
                     <h4>Information</h4>
-                    <a href="#">About Us</a>
-                    <a href="#">Shipping & Returns</a>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
+                    <a href="shipping.html">Shipping & Returns</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="tos.html">Terms of Service</a>
                 </div>
             </div>
             <div class="copyright">
-                © 2024 Unseelie Workshop. All rights reserved. • Handcrafted with care.
+                © 2026 Unseelie Workshop. All rights reserved. • Handcrafted with care.
             </div>
         </footer>
     </div>
+    <script src="js/cart.js"></script>
     <script src="js/scroll-top.js"></script>
     <script src="js/nav.js"></script>
 </body>

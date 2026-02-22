@@ -65,6 +65,22 @@ function renderPage(product, collection) {
        </div>`
     : '';
 
+  // Size selector HTML (only rendered when product has variants)
+  const variants = Array.isArray(product.variants) && product.variants.length
+    ? product.variants
+    : null;
+
+  const sizeHTML = variants
+    ? `<div class="product-size-wrap">
+        <span class="product-size-label">Size</span>
+        <div class="product-size-boxes" id="size-boxes">
+          ${variants.map(v =>
+            `<button class="size-box" data-size="${v.size}" data-price-id="${v.stripePriceId}" type="button">${v.size}</button>`
+          ).join('')}
+        </div>
+      </div>`
+    : '';
+
   // Main layout
   const layout = document.getElementById('product-layout');
   layout.innerHTML = `
@@ -76,7 +92,7 @@ function renderPage(product, collection) {
     </div>
 
     <div class="product-info">
-      <span class="product-collection-tag" style="color: ${collection.accent};">${collection.label}</span>
+      <a href="${collection.href}" class="product-collection-tag" style="--tag-color: ${collection.accent};">${collection.label}</a>
       <h1 class="product-name">${product.name}</h1>
       <p class="product-price">${product.price}</p>
       <p class="product-description">${product.description}</p>
@@ -84,13 +100,54 @@ function renderPage(product, collection) {
       ${sizingHTML}
 
       <div class="product-atc">
-        <button class="atc-button" disabled>Add to Cart</button>
-        <p class="atc-note">Online purchasing coming soon — <a href="contact.html" style="color:inherit;">enquire via contact</a></p>
+        ${sizeHTML}
+        <button class="btn-primary atc-button" id="atc-btn"${variants ? ' disabled' : ''}>Add to Cart</button>
+        <p class="atc-note">Each piece is made to order — <a href="contact.html" style="color:inherit;">custom enquiries welcome</a></p>
       </div>
-
-      <a href="${collection.href}" class="product-collection-link">← View full ${collection.label}</a>
     </div>
   `;
+
+  // Wire up size selector
+  var selectedVariant = null;
+  var atcBtn = document.getElementById('atc-btn');
+
+  if (variants) {
+    var sizeBoxes = document.getElementById('size-boxes');
+    sizeBoxes.addEventListener('click', function (e) {
+      var box = e.target.closest('.size-box');
+      if (!box) return;
+      sizeBoxes.querySelectorAll('.size-box').forEach(function (b) {
+        b.classList.remove('active');
+      });
+      box.classList.add('active');
+      selectedVariant = {
+        size:          box.dataset.size,
+        stripePriceId: box.dataset.priceId
+      };
+      if (atcBtn) atcBtn.disabled = false;
+    });
+  }
+
+  // Wire up Add to Cart button
+  if (atcBtn && window.Cart) {
+    var priceNum = parseFloat(product.price.replace(/[^0-9.]/g, '')) || 0;
+    atcBtn.addEventListener('click', function () {
+      var thumb = product.images && product.images.length
+        ? product.images[0]
+        : null;
+      window.Cart.add({
+        id:              product.id,
+        name:            product.name,
+        collection:      product.collection,
+        collectionLabel: collection.label,
+        price:           product.price,
+        priceNum:        priceNum,
+        thumb:           thumb,
+        size:            selectedVariant ? selectedVariant.size : null,
+        stripePriceId:   selectedVariant ? selectedVariant.stripePriceId : null
+      });
+    });
+  }
 
   // Wire up gallery
   initGallery(product, collection);
@@ -101,16 +158,16 @@ function renderPage(product, collection) {
    ============================================================ */
 
 function buildMainImage(product, collection) {
-  if (product.images && product.images.length > 0) {
+  const images = product.images || [];
+  if (images.length > 0) {
     return `
-      <img src="${product.images[0]}" alt="${product.name}" id="main-img">
+      <img src="${images[0]}" alt="${product.name}" id="main-img">
       <span class="gallery-hint">Click to expand</span>
     `;
   }
-  // Placeholder — gradient from collection colours
+  // Placeholder — gradient from collection colours, no lightbox
   return `
     <div class="gallery-placeholder" style="background: linear-gradient(135deg, ${collection.gradientFrom}, ${collection.gradientTo});">
-      <span class="gallery-placeholder-icon">${product.icon}</span>
       <span class="gallery-placeholder-text">Photography coming soon</span>
     </div>
   `;
@@ -122,7 +179,7 @@ function initGallery(product, collection) {
   const thumbsEl = document.getElementById('gallery-thumbs');
   let activeIndex = 0;
 
-  // Build thumbnails only if there are images
+  // Build thumbnails only if there are multiple images
   if (images.length > 1) {
     images.forEach((src, i) => {
       const thumb = document.createElement('div');
@@ -144,13 +201,11 @@ function initGallery(product, collection) {
     });
   }
 
-  // Click main image to open lightbox
-  mainEl.addEventListener('click', () => {
-    if (images.length > 0) openLightbox(images, activeIndex);
-  });
-
-  // Init lightbox
-  initLightbox(images);
+  // Only wire lightbox if there are actual images
+  if (images.length > 0) {
+    mainEl.addEventListener('click', () => openLightbox(images, activeIndex));
+    initLightbox(images);
+  }
 }
 
 /* ============================================================

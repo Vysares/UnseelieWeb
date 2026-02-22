@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop - Unseelie Workshop</title>
+    <title>About - Unseelie Workshop</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/shared.css">
-    <link rel="stylesheet" href="css/shop.css">
+    <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/cart.css">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
@@ -31,8 +31,8 @@
                         <div class="divider"></div>
                         <a href="shop.html#type:wrist-cuffs">Wrist Cuffs</a>
                         <a href="shop.html#type:ankle-cuffs">Ankle Cuffs</a>
-                        <a href="shop.html#by-type">Collars</a>
-                        <a href="shop.html#by-type">Leashes</a>
+                        <a href="shop.html#type:collars">Collars</a>
+                        <a href="shop.html#type:leashes">Leashes</a>
                     </div>
                 </div>
                 <div class="nav-dropdown">
@@ -51,17 +51,53 @@
             </button>
         </header>
 
-        <section class="shop-hero">
-            <h1>Shop</h1>
+        <!-- Hero -->
+        <section class="about-hero">
+            <h1>Welcome to the Workshop</h1>
         </section>
 
-        <div class="shop-filter-row">
-            <div id="filter-bar"></div>
+        <!-- Cinematic workshop image -->
+        <div class="about-image-wrap">
+            <div class="about-image-placeholder">
+                <!-- Replace src with your workshop photo -->
+                <span class="about-image-label">Workshop photography coming soon</span>
+            </div>
         </div>
 
-        <section class="shop-section">
-            <div class="shop-grid" id="shop-grid"></div>
+        <!-- Story -->
+        <section class="about-body">
+            <div class="about-content">
+                <div class="about-block">
+                    <h2>Our Story</h2>
+                    <p>We started Unseelie Workshop with one goal: to combine the rugged durability of hardcore dungeon gear with the beauty and craftmanship of high-end leather, all to provide an enchanting sensory experience.</p>
+                    <p>We think we've succeeded in our mission, but we invite you to judge for yourself.</p>
+                </div>
+
+                <div class="about-block">
+                    <h2>The Craft</h2>
+                    <p>Each piece starts with the highest quality materials: full-grain leather, Italian suede, and solid brass hardware with a heft you can feel. We dye, cut, stitch, and finish every piece entirely by hand at our workshop in Denver, Colorado. </p>
+                    <p>With the right care, our products will last a lifetime of use. We hope you find them delightfully restrictive.</p>
+                </div>
+                
+                <div class="about-block">
+                    <h2>Why Unseelie?</h2>
+                    <p>In Scottish faery folklore, the Unseelie court is the darker, more mysterious counterpart to the Seelie court. It is associated with autumn, winter, and nighttime. The Unseelie are often portrayed as dangerous and unpredictable, refusing to acknowledge human ideas of morality. Luckily, it is said that you can sway an Unseelie creature with offerings of glittery objects.</p>
+                    <p>Our brand aims to embody the shadowy charm of the Unseelie, and we think any faery would be proud to wear one of our pieces.</p>
+                </div>
+
+                <div class="about-block">
+                    <h2>Custom Work</h2>
+                    <p>Every collection can be adapted. If you are interested in different finishes or colours, custom sizing, or entirely bespoke commissions — don't hesitate to reach out via the <a href="contact.html">contact page</a> to start the conversation.</p>
+                </div>
+            </div>
+
         </section>
+
+        <div class="about-actions">
+            <a href="contact.html" class="btn-secondary">Get in Touch</a>
+            <span class="about-actions-or">or</span>
+            <a href="shop.html" class="btn-primary about-btn">Browse All Products</a>
+        </div>
 
         <footer>
             <div class="footer-content">
@@ -90,7 +126,6 @@
         </footer>
     </div>
 
-    <script src="js/shop.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/scroll-top.js"></script>
     <script src="js/nav.js"></script>

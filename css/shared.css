@@ -1,15 +1,15 @@
 /* ============================================================
    Unseelie Workshop — Shared Styles
-   Used by: index.html, vampiric.html, nightshade.html, consort.html
+   Used by: index.html, classic.html, nightshade.html, regent.html
    ============================================================ */
 
 :root {
     --sage: #2d3e38;
     --sage-light: #3d5549;
     --turquoise: #1a4a52;
-    --turquoise-bright: #2d7a7e;
+    --turquoise-bright: #24686c;
     --violet: #3d2946;
-    --violet-light: #5a3d66;
+    --violet-light: #452d50;
     --cream: #f5f1e8;
     --gold: #c9a961;
     --shadow: rgba(29, 46, 56, 0.3);
@@ -21,12 +21,17 @@
     box-sizing: border-box;
 }
 
+html {
+    font-size: 18px;
+}
+
 body {
-    font-family: 'Archivo', sans-serif;
-    /* Texture baked into body background — no separate fixed layer */
+    font-family: 'Jost', sans-serif;
+    background-color: rgb(26, 31, 30);
     background-image:
         repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.019) 2px, rgba(0,0,0,.019) 4px),
-        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.019) 2px, rgba(0,0,0,.019) 4px);
+        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.019) 2px, rgba(0,0,0,.019) 4px),
+        linear-gradient(135deg, #1a1f1e 0%, #1e2528 50%, #1d1a23 100%);
     color: var(--cream);
     overflow-x: hidden;
 }
@@ -54,7 +59,34 @@ header {
     align-items: center;
     border-bottom: 1px solid rgba(201, 169, 97, 0.2);
     animation: slideDown 0.8s ease-out;
-    background: rgba(0, 0, 0, 0);
+    background: rgba(26, 31, 30, 0.76);
+    backdrop-filter: blur(8px);
+    position: sticky;
+    top: 0;
+    z-index: 150;
+    transition: padding 0.35s ease, background 0.35s ease, border-color 0.35s ease;
+}
+
+header.header-scrolled {
+    padding: 0.85rem 4rem;
+    background: rgba(15, 20, 18, 0.76);
+    border-bottom-color: rgba(201, 170, 97, 0.226);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+header.header-scrolled .logo-img {
+    transform: scale(0.72);
+}
+
+header.header-scrolled .logo-text {
+    transform: scale(0.82);
+}
+
+.logo-img,
+.logo-text {
+    transition: transform 0.35s ease;
+    transform-origin: left center;
 }
 
 .logo {
@@ -152,13 +184,19 @@ nav > a:hover::after {
     font-family: inherit;
 }
 
-/* Chevron */
+/* Chevron — CSS-drawn so rotation is perfectly centred */
 .nav-dropdown-trigger::after {
-    content: '▾';
-    font-size: 0.65rem;
-    transition: transform 0.25s ease, color 0.3s ease;
+    content: '';
     display: inline-block;
-    margin-top: 1px;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    transform-origin: center;
+    transition: transform 0.25s ease, border-color 0.3s ease;
+    flex-shrink: 0;
+    margin-bottom: 0.3rem;
 }
 
 .nav-dropdown:hover .nav-dropdown-trigger,
@@ -168,23 +206,24 @@ nav > a:hover::after {
 
 .nav-dropdown:hover .nav-dropdown-trigger::after,
 .nav-dropdown:focus-within .nav-dropdown-trigger::after {
-    transform: rotate(180deg);
-    color: var(--gold);
+    transform: rotate(225deg);
+    margin-bottom: -0.1rem;
 }
 
 /* ---- Dropdown panel ---- */
 .nav-dropdown-menu {
     position: absolute;
     top: calc(100% + 0.3rem);
-    left: 50%;
+    left: 0;
     background: rgba(20, 26, 24, 0.97);
-    border: 1px solid rgba(201, 169, 97, 0.25);
-    border-radius: 3px;
+    border: none;
+    border-left: 2px solid rgba(201, 169, 97, 0.45);
+    border-radius: 0;
     min-width: 180px;
     padding: 0.5rem 0;
     opacity: 0;
     pointer-events: none;
-    transform: translateX(-50%) translateY(-6px);
+    transform: translateY(-6px);
     transition: opacity 0.2s ease, transform 0.2s ease;
     z-index: 100;
 }
@@ -193,7 +232,7 @@ nav > a:hover::after {
 .nav-dropdown:focus-within .nav-dropdown-menu {
     opacity: 1;
     pointer-events: auto;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
 }
 
 /* Invisible bridge fills the gap between trigger and menu
@@ -207,20 +246,9 @@ nav > a:hover::after {
     height: 1rem;
 }
 
-/* Small decorative top arrow */
+/* No decorative arrow */
 .nav-dropdown-menu::after {
-    content: '';
-    position: absolute;
-    top: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 8px;
-    height: 8px;
-    background: rgba(20, 26, 24, 0.97);
-    border-left: 1px solid rgba(201, 169, 97, 0.25);
-    border-top: 1px solid rgba(201, 169, 97, 0.25);
-    rotate: 45deg;
-    pointer-events: none;
+    display: none;
 }
 
 .nav-dropdown-menu a {
@@ -257,6 +285,75 @@ nav > a:hover::after {
     margin-bottom: 3rem;
     color: var(--gold);
     font-style: italic;
+}
+
+/* ---- Primary button (gradient fill) ---- */
+.btn-primary {
+    display: inline-block;
+    padding: 1rem 2.8rem;
+    background: linear-gradient(135deg, var(--turquoise-bright), var(--violet-light));
+    color: var(--cream);
+    border: 1px solid rgba(201, 169, 97, 0.3);
+    border-radius: 2px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    will-change: transform;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(245, 241, 232, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(201, 169, 97, 0.4);
+    border-color: var(--gold);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* ---- Secondary button (transparent, gold border) ---- */
+.btn-secondary {
+    display: inline-block;
+    padding: 0.9rem 2.2rem;
+    background: transparent;
+    color: rgba(245, 241, 232, 0.75);
+    border: 1px solid rgba(201, 169, 97, 0.3);
+    border-radius: 2px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: rgba(201, 169, 97, 0.07);
+    border-color: var(--gold);
+    color: var(--cream);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(201, 169, 97, 0.25);
 }
 
 /* ---- Footer ---- */
@@ -393,11 +490,24 @@ footer {
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
     /* Header: logo left, hamburger right, nav hidden below */
+    /* Stays sticky and never shrinks on mobile */
     header {
         padding: 1.25rem 1.5rem;
         flex-wrap: wrap;
         gap: 0;
-        position: relative;
+        position: sticky;
+        transition: none;
+    }
+
+    header.header-scrolled {
+        padding: 1.25rem 1.5rem;
+        background: rgba(26, 31, 30, 0.76);
+        border-bottom-color: rgba(201, 169, 97, 0.2);
+    }
+
+    header.header-scrolled .logo-img,
+    header.header-scrolled .logo-text {
+        transform: none;
     }
 
     .logo {
@@ -419,6 +529,12 @@ footer {
     /* Show hamburger */
     .nav-hamburger {
         display: flex;
+    }
+
+    /* Cart icon: stays in header row on mobile, beside the hamburger */
+    #cart-icon-btn {
+        order: 1;
+        flex-shrink: 0;
     }
 
     /* Nav hidden off-screen by default */
@@ -469,8 +585,9 @@ footer {
 
     /* Chevron stays on right; rotate when open */
     .nav-dropdown.mobile-open .nav-dropdown-trigger::after {
-        transform: rotate(180deg);
-        color: var(--gold);
+        transform: rotate(225deg);
+        margin-bottom: -0.2rem;
+        border-color: var(--gold);
     }
 
     /* Dropdown panel becomes an inline expand (not absolute) */

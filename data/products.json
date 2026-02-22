@@ -1,214 +1,114 @@
 {
   "collections": {
-    "vampiric": {
-      "label": "The Vampiric Set",
-      "accent": "#8b1a1a",
+    "classic": {
+      "label": "The classic Collection",
+      "accent": "#cd2c2c",
       "gradientFrom": "#1a1a1a",
       "gradientTo": "#8b1a1a",
-      "href": "vampiric.html"
+      "href": "classic.html"
     },
     "nightshade": {
-      "label": "The Nightshade Set",
-      "accent": "#9b72cf",
+      "label": "The Nightshade Collection",
+      "accent": "#a87fd4",
       "gradientFrom": "#1a2851",
       "gradientTo": "#5a3d66",
       "href": "nightshade.html"
     },
-    "consort": {
-      "label": "The Consort Set",
-      "accent": "#2d7a7e",
+    "regent": {
+      "label": "The Regent Collection",
+      "accent": "#2ab8be",
       "gradientFrom": "#8b5a3c",
       "gradientTo": "#2d7a7e",
-      "href": "consort.html"
+      "href": "regent.html"
     }
   },
   "types": {
-    "wrist-cuffs":  { "label": "Wrist Cuffs" },
-    "ankle-cuffs":  { "label": "Ankle Cuffs" },
-    "collars":      { "label": "Collars" },
-    "leashes":      { "label": "Leashes & Leads" },
-    "harnesses":    { "label": "Harnesses" }
+    "sets": {
+      "label": "Full Sets"
+    },
+    "wrist-cuffs": {
+      "label": "Wrist Cuffs"
+    },
+    "ankle-cuffs": {
+      "label": "Ankle Cuffs"
+    },
+    "collars": {
+      "label": "Collars"
+    },
+    "accessories": {
+      "label": "Accessories"
+    }
   },
   "products": [
     {
-      "id": "vampiric-wrist-cuffs",
+      "id": "classic-wrist-cuffs",
       "name": "Wrist Cuffs",
-      "collection": "vampiric",
+      "collection": "classic",
       "type": "wrist-cuffs",
-      "icon": "🗝",
-      "price": "From $120",
-      "description": "Hand-stitched restraints with reinforced D-rings and adjustable buckles. Lined with crimson suede for comfort during extended wear.",
-      "details": ["Genuine black leather", "Crimson suede lining", "Nickel-plated D-rings", "Adjustable buckle closure", "Hand-stitched throughout"],
+      "price": "$135",
+      "description": "Our padded leather bondage cuffs are designed for comfort and built for durability, with soft suede, neoprene padding, and heavy duty hardware for serious play.",
+      "details": [
+        "Outer cuff made from full-grain vegetable-tanned leather",
+        "Lined with luxurious and tough Italian goatskin suede",
+        "Nickel-plated solid-brass hardware",
+        "Closed-cell neoprene padding that won't compress over time",
+        "Double riveted and hand-stitched throughout"
+      ],
       "sizing": "Available in S / M / L — sizing guide below",
-      "images": []
+      "images": [
+        "data/ClassicCuffs/DSC_1446.png",
+        "data/ClassicCuffs/DSC_1462.png"
+      ],
+      "variants": [
+        { "size": "S", "stripePriceId": "price_REPLACE_WRIST_S" },
+        { "size": "M", "stripePriceId": "price_REPLACE_WRIST_M" },
+        { "size": "L", "stripePriceId": "price_REPLACE_WRIST_L" }
+      ]
     },
     {
-      "id": "vampiric-ankle-cuffs",
+      "id": "classic-ankle-cuffs",
       "name": "Ankle Cuffs",
-      "collection": "vampiric",
+      "collection": "classic",
       "type": "ankle-cuffs",
-      "icon": "🗝",
-      "price": "From $130",
-      "description": "Matching ankle restraints with the same attention to detail. Lace accents add gothic elegance to these functional pieces.",
-      "details": ["Genuine black leather", "Crimson suede lining", "Nickel-plated D-rings", "Lace accent trim", "Adjustable buckle closure"],
+      "price": "$145",
+      "description": "No gear collection is complete without a sturdy set of ankle restraints. Our ankle cuffs are slightly longer and wider than our wrist cuffs, for a comfortable and secure fit.",
+      "details": [
+        "Outer cuff made from full-grain vegetable-tanned leather",
+        "Lined with luxurious and tough Italian goatskin suede",
+        "Nickel-plated solid-brass hardware",
+        "Closed-cell neoprene padding that won't compress over time",
+        "Double riveted and hand-stitched throughout"
+      ],
       "sizing": "Available in S / M / L — sizing guide below",
-      "images": []
+      "images": [],
+      "variants": [
+        { "size": "S", "stripePriceId": "prod_U1nq52fXFk8WtU" },
+        { "size": "M", "stripePriceId": "prod_U1nvv3WbiOrMl4" },
+        { "size": "L", "stripePriceId": "prod_U1nwgQZL1htLne" }
+      ]
     },
     {
-      "id": "vampiric-day-collar",
-      "name": "Day Collar",
-      "collection": "vampiric",
+      "id": "classic-collar",
+      "name": "Collar",
+      "collection": "classic",
       "type": "collars",
-      "icon": "🗝",
-      "price": "From $95",
-      "description": "Elegant enough for everyday wear, meaningful enough to matter. Delicate lace trim makes this piece uniquely romantic.",
-      "details": ["Genuine black leather", "Crimson suede lining", "Nickel-plated O-ring", "Delicate lace trim", "Adjustable fit"],
+      "price": "$95",
+      "description": "Give your sub or yourself the best, with beautifully finished full-grain leather, and a plush suede lining that feels amazing against the skin. Like all of our pieces, internal neoprene padding ensures a snug and comfortable fit even when cinched down tight.",
+      "details": [
+        "Outer collar made from full-grain vegetable-tanned leather",
+        "Lined with luxurious and tough Italian goatskin suede",
+        "Nickel-plated solid-brass hardware",
+        "Closed-cell neoprene padding that won't compress over time",
+        "Hand-stitched throughout"
+      ],
       "sizing": "Adjustable — fits necks 11\" to 16\"",
-      "images": []
-    },
-    {
-      "id": "vampiric-statement-collar",
-      "name": "Statement Collar",
-      "collection": "vampiric",
-      "type": "collars",
-      "icon": "🗝",
-      "price": "From $145",
-      "description": "Bold and commanding. Wider band with dramatic hardware and intricate lace details. A true showpiece.",
-      "details": ["Genuine black leather, wider band", "Crimson suede lining", "Large nickel O-ring", "Intricate lace detailing", "Adjustable fit"],
-      "sizing": "Adjustable — fits necks 12\" to 18\"",
-      "images": []
-    },
-    {
-      "id": "vampiric-leash",
-      "name": "Leash",
-      "collection": "vampiric",
-      "type": "leashes",
-      "icon": "🗝",
-      "price": "From $85",
-      "description": "6-foot leather lead with nickel-plated hardware. Beautifully weighted and finished with lace detail at the handle.",
-      "details": ["Genuine black leather", "6-foot length", "Nickel-plated snap hook", "Lace-wrapped handle", "Loop handle end"],
-      "sizing": "One size — 6 feet / 183 cm",
-      "images": []
-    },
-    {
-      "id": "nightshade-wrist-cuffs",
-      "name": "Wrist Cuffs",
-      "collection": "nightshade",
-      "type": "wrist-cuffs",
-      "icon": "✶",
-      "price": "From $120",
-      "description": "Deep navy leather with violet suede lining and silver contrast stitching. D-rings polished to a moonlit shine.",
-      "details": ["Deep navy leather", "Violet suede lining", "Silver-polished D-rings", "Constellation contrast stitching", "Adjustable buckle closure"],
-      "sizing": "Available in S / M / L — sizing guide below",
-      "images": []
-    },
-    {
-      "id": "nightshade-ankle-cuffs",
-      "name": "Ankle Cuffs",
-      "collection": "nightshade",
-      "type": "ankle-cuffs",
-      "icon": "✶",
-      "price": "From $130",
-      "description": "Matching ankle pieces tracing constellations in silver thread. Secure, elegant, and unmistakably celestial.",
-      "details": ["Deep navy leather", "Violet suede lining", "Silver-polished D-rings", "Silver constellation stitching", "Adjustable buckle closure"],
-      "sizing": "Available in S / M / L — sizing guide below",
-      "images": []
-    },
-    {
-      "id": "nightshade-day-collar",
-      "name": "Day Collar",
-      "collection": "nightshade",
-      "type": "collars",
-      "icon": "✶",
-      "price": "From $95",
-      "description": "A slim band of midnight navy, subtle enough for daily wear. Silver stitching catches the light like starlight.",
-      "details": ["Deep navy leather, slim profile", "Violet suede lining", "Silver O-ring", "Constellation stitching", "Adjustable fit"],
-      "sizing": "Adjustable — fits necks 11\" to 16\"",
-      "images": []
-    },
-    {
-      "id": "nightshade-statement-collar",
-      "name": "Statement Collar",
-      "collection": "nightshade",
-      "type": "collars",
-      "icon": "✶",
-      "price": "From $145",
-      "description": "Wider band with celestial embossing and polished silver hardware. Where ritual meets adornment.",
-      "details": ["Deep navy leather, wider band", "Violet suede lining", "Large silver O-ring", "Celestial embossing", "Adjustable fit"],
-      "sizing": "Adjustable — fits necks 12\" to 18\"",
-      "images": []
-    },
-    {
-      "id": "nightshade-leash",
-      "name": "Leash",
-      "collection": "nightshade",
-      "type": "leashes",
-      "icon": "✶",
-      "price": "From $85",
-      "description": "6-foot lead in deep navy with nickel hardware. Silver-stitched handle makes it as beautiful to hold as to wear.",
-      "details": ["Deep navy leather", "6-foot length", "Silver snap hook", "Silver-stitched handle wrap", "Loop handle end"],
-      "sizing": "One size — 6 feet / 183 cm",
-      "images": []
-    },
-    {
-      "id": "consort-wrist-cuffs",
-      "name": "Wrist Cuffs",
-      "collection": "consort",
-      "type": "wrist-cuffs",
-      "icon": "♛",
-      "price": "From $120",
-      "description": "Warm cognac leather with turquoise suede lining. Cross-laced detailing and brass hardware give a regal, heirloom quality.",
-      "details": ["Cognac leather", "Turquoise suede lining", "Brass D-rings", "Cross-laced detailing", "Adjustable buckle closure"],
-      "sizing": "Available in S / M / L — sizing guide below",
-      "images": []
-    },
-    {
-      "id": "consort-ankle-cuffs",
-      "name": "Ankle Cuffs",
-      "collection": "consort",
-      "type": "ankle-cuffs",
-      "icon": "♛",
-      "price": "From $130",
-      "description": "Matching ankle restraints in cognac and turquoise. The unexpected colour pairing feels both luxurious and playful.",
-      "details": ["Cognac leather", "Turquoise suede lining", "Brass D-rings", "Cross-laced detailing", "Adjustable buckle closure"],
-      "sizing": "Available in S / M / L — sizing guide below",
-      "images": []
-    },
-    {
-      "id": "consort-day-collar",
-      "name": "Day Collar",
-      "collection": "consort",
-      "type": "collars",
-      "icon": "♛",
-      "price": "From $95",
-      "description": "A refined daily collar in cognac leather. Brass hardware and subtle cross-lacing elevate it to quiet jewellery.",
-      "details": ["Cognac leather, slim profile", "Turquoise suede lining", "Brass O-ring", "Subtle cross-laced trim", "Adjustable fit"],
-      "sizing": "Adjustable — fits necks 11\" to 16\"",
-      "images": []
-    },
-    {
-      "id": "consort-statement-collar",
-      "name": "Statement Collar",
-      "collection": "consort",
-      "type": "collars",
-      "icon": "♛",
-      "price": "From $145",
-      "description": "Wider band with full cross-laced detailing and polished brass fittings. Fit for royalty — because you are.",
-      "details": ["Cognac leather, wider band", "Turquoise suede lining", "Large brass O-ring", "Full cross-laced detailing", "Adjustable fit"],
-      "sizing": "Adjustable — fits necks 12\" to 18\"",
-      "images": []
-    },
-    {
-      "id": "consort-leash",
-      "name": "Leash",
-      "collection": "consort",
-      "type": "leashes",
-      "icon": "♛",
-      "price": "From $85",
-      "description": "6-foot cognac leather lead with brass hardware. Cross-laced handle makes this as elegant to give as to receive.",
-      "details": ["Cognac leather", "6-foot length", "Brass snap hook", "Cross-laced handle wrap", "Loop handle end"],
-      "sizing": "One size — 6 feet / 183 cm",
-      "images": []
+      "images": [],
+      "imageDir": "data/img/classic-collar",
+      "variants": [
+        { "size": "S", "stripePriceId": "price_REPLACE_COLLAR_S" },
+        { "size": "M", "stripePriceId": "price_REPLACE_COLLAR_M" },
+        { "size": "L", "stripePriceId": "price_REPLACE_COLLAR_L" }
+      ]
     }
   ]
 }

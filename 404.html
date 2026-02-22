@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Unseelie Workshop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/shared.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="icon" href="favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wrap {
+            text-align: center;
+            padding: 4rem 2rem;
+            animation: fadeInUp 0.9s ease-out both;
+        }
+
+        .four-oh-four {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(6rem, 20vw, 12rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--gold);
+            line-height: 1;
+            opacity: 0.18;
+            letter-spacing: -4px;
+            display: block;
+            margin-bottom: 2rem;
+            user-select: none;
+        }
+
+        .tagline {
+            font-size: 1rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(245, 241, 232, 0.5);
+            margin-bottom: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <span class="four-oh-four" aria-hidden="true">404</span>
+        <p class="tagline">This path leads nowhere.</p>
+        <a href="index.html" class="btn-secondary">Take Me Home</a>
+    </div>
+</body>
+</html>

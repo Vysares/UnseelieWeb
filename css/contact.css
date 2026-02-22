@@ -2,14 +2,6 @@
    Unseelie Workshop — Contact Page Styles
    ============================================================ */
 
-body {
-    background-color: #1a1f1e;
-    background-image:
-        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.019) 2px, rgba(0,0,0,.019) 4px),
-        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.019) 2px, rgba(0,0,0,.019) 4px),
-        linear-gradient(135deg, #1a1f1e 0%, #1e2528 50%, #1d1a23 100%);
-}
-
 /* ---- Hero ---- */
 .contact-hero {
     padding: 6rem 4rem 3rem;
@@ -131,7 +123,7 @@ body {
     border-radius: 2px;
     padding: 0.9rem 1.1rem;
     color: var(--cream);
-    font-family: 'Archivo', sans-serif;
+    font-family: 'Jost', sans-serif;
     font-size: 0.95rem;
     font-weight: 300;
     outline: none;
@@ -150,30 +142,9 @@ body {
     background: rgba(13, 13, 13, 0.6);
 }
 
+/* Uses .btn-primary base */
 .submit-button {
     align-self: flex-start;
-    padding: 1rem 2.8rem;
-    background: linear-gradient(135deg, var(--turquoise-bright), var(--violet-light));
-    color: var(--cream);
-    border: 1px solid rgba(201, 169, 97, 0.3);
-    border-radius: 2px;
-    font-family: 'Archivo', sans-serif;
-    font-size: 0.9rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    will-change: transform;
-}
-
-.submit-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(201, 169, 97, 0.3);
-    border-color: var(--gold);
-}
-
-.submit-button:active {
-    transform: translateY(0);
 }
 
 /* ---- Responsive ---- */
@@ -199,5 +170,10 @@ body {
 
     .contact-form-wrap {
         padding: 2rem;
+    }
+
+    .submit-button {
+        width: 100%;
+        align-self: stretch;
     }
 }

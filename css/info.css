@@ -1,0 +1,134 @@
+/* ============================================================
+   Unseelie Workshop — Info Pages (Care Guide, TOS, Privacy, Shipping)
+   ============================================================ */
+
+/* ---- Hero ---- */
+.info-hero {
+    padding: 5rem 4rem 2.5rem;
+    max-width: 860px;
+    margin: 0 auto;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.info-hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--gold);
+    text-shadow: 0 4px 20px var(--shadow);
+    margin-bottom: 0.5rem;
+}
+
+.info-meta {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(245, 241, 232, 0.3);
+}
+
+/* ---- Body ---- */
+.info-body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 1rem 4rem 6rem;
+    animation: fadeInUp 0.8s ease-out 0.35s both;
+}
+
+.info-section {
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(201, 169, 97, 0.1);
+}
+
+.info-section:last-child {
+    border-bottom: none;
+}
+
+.info-section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--gold);
+    margin-bottom: 1rem;
+}
+
+.info-section p {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: rgba(245, 241, 232, 0.75);
+    font-weight: 300;
+    margin-bottom: 0.9rem;
+}
+
+.info-section p:last-child {
+    margin-bottom: 0;
+}
+
+.info-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0.9rem;
+}
+
+.info-section ul li {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: rgba(245, 241, 232, 0.75);
+    font-weight: 300;
+    padding-left: 1.2rem;
+    position: relative;
+}
+
+.info-section ul li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 0.4em;
+    top: 1.5em;
+}
+
+.info-section a {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201, 169, 97, 0.35);
+    transition: border-color 0.2s ease;
+}
+
+.info-section a:hover {
+    border-color: var(--gold);
+}
+
+/* ---- Back link ---- */
+.info-back {
+    display: block;
+    text-align: center;
+    padding: 0 4rem 4rem;
+    color: rgba(245, 241, 232, 0.45);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    transition: color 0.2s ease;
+}
+
+.info-back:hover {
+    color: var(--gold);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+    .info-hero {
+        padding: 4rem 2rem 2rem;
+    }
+
+    .info-hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .info-body {
+        padding: 1rem 2rem 4rem;
+    }
+}

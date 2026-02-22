@@ -41,8 +41,16 @@ function renderCollection(collectionKey, data) {
     card.className = 'product-card';
     card.href = `product.html?id=${product.id}`;
 
+    const firstImage = product.images && product.images.length
+      ? product.images[0]
+      : null;
+
+    const imageHTML = firstImage
+      ? `<img src="${firstImage}" alt="${product.name}" class="product-card-img" loading="lazy">`
+      : `<div class="product-card-placeholder" style="background: linear-gradient(135deg, ${col.gradientFrom}, ${col.gradientTo});"></div>`;
+
     card.innerHTML = `
-      <div class="product-image">${product.icon}</div>
+      <div class="product-image">${imageHTML}</div>
       <div class="product-content">
         <h3>${product.name}</h3>
         <p>${product.description}</p>

@@ -2,20 +2,13 @@
    Unseelie Workshop — Product Page Styles
    ============================================================ */
 
-body {
-    background-color: #1a1f1e;
-    background-image:
-        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.019) 2px, rgba(0,0,0,.019) 4px),
-        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.019) 2px, rgba(0,0,0,.019) 4px),
-        linear-gradient(135deg, #1a1f1e 0%, #1e2528 50%, #1d1a23 100%);
-}
-
 /* ---- Breadcrumb ---- */
 .breadcrumb {
     padding: 1.5rem 4rem 0;
     max-width: 1200px;
     margin: 0 auto;
     font-size: 0.78rem;
+    text-transform: uppercase;
     color: rgba(245, 241, 232, 0.4);
     letter-spacing: 0.5px;
     display: flex;
@@ -190,6 +183,20 @@ body {
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 400;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+    align-self: flex-start;
+    color: rgba(245, 241, 232, 0.4);
+}
+
+.product-collection-tag::before {
+    content: '❖';
+    color: var(--tag-color);
+    margin-right: 0.4em;
+}
+
+.product-collection-tag:hover {
+    opacity: 0.75;
 }
 
 .product-name {
@@ -241,11 +248,12 @@ body {
 }
 
 .product-details li::before {
-    content: '—';
+    content: '◆';
     position: absolute;
     left: 0;
     color: var(--gold);
-    opacity: 0.5;
+    font-size: 0.45em;
+    top: 1em;
 }
 
 /* Sizing */
@@ -276,21 +284,63 @@ body {
     gap: 0.75rem;
 }
 
+/* Size selector */
+.product-size-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.product-size-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(245, 241, 232, 0.4);
+}
+
+.product-size-boxes {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.size-box {
+    min-width: 3rem;
+    height: 3rem;
+    padding: 0 0.75rem;
+    background: transparent;
+    border: 1px solid rgba(201, 169, 97, 0.25);
+    border-radius: 3px;
+    color: rgba(245, 241, 232, 0.65);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.size-box:hover {
+    border-color: rgba(201, 169, 97, 0.6);
+    color: var(--cream);
+}
+
+.size-box.active {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(201, 169, 97, 0.08);
+}
+
+/* Uses .btn-primary base */
 .atc-button {
     width: 100%;
     padding: 1.1rem 2rem;
-    background: linear-gradient(135deg, var(--turquoise-bright), var(--violet-light));
-    color: var(--cream);
-    border: 1px solid rgba(201, 169, 97, 0.3);
-    border-radius: 2px;
-    font-family: 'Archivo', sans-serif;
     font-size: 0.85rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+}
+
+.atc-button:disabled {
+    opacity: 0.4;
     cursor: not-allowed;
-    opacity: 0.5;
-    position: relative;
-    overflow: hidden;
 }
 
 .atc-note {
@@ -301,20 +351,6 @@ body {
     font-style: italic;
 }
 
-/* Collection link */
-.product-collection-link {
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: rgba(245, 241, 232, 0.4);
-    text-decoration: none;
-    transition: color 0.2s ease;
-    align-self: flex-start;
-}
-
-.product-collection-link:hover {
-    color: var(--gold);
-}
 
 /* ============================================================
    Lightbox

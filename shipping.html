@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop - Unseelie Workshop</title>
+    <title>Shipping & Returns - Unseelie Workshop</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/shared.css">
-    <link rel="stylesheet" href="css/shop.css">
+    <link rel="stylesheet" href="css/info.css">
     <link rel="stylesheet" href="css/cart.css">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
@@ -31,8 +31,8 @@
                         <div class="divider"></div>
                         <a href="shop.html#type:wrist-cuffs">Wrist Cuffs</a>
                         <a href="shop.html#type:ankle-cuffs">Ankle Cuffs</a>
-                        <a href="shop.html#by-type">Collars</a>
-                        <a href="shop.html#by-type">Leashes</a>
+                        <a href="shop.html#type:collars">Collars</a>
+                        <a href="shop.html#type:leashes">Leashes</a>
                     </div>
                 </div>
                 <div class="nav-dropdown">
@@ -51,17 +51,55 @@
             </button>
         </header>
 
-        <section class="shop-hero">
-            <h1>Shop</h1>
-        </section>
-
-        <div class="shop-filter-row">
-            <div id="filter-bar"></div>
+        <div class="info-hero">
+            <h1>Shipping & Returns</h1>
+            <p class="info-meta">Last updated February 2026</p>
         </div>
 
-        <section class="shop-section">
-            <div class="shop-grid" id="shop-grid"></div>
-        </section>
+        <div class="info-body">
+            <div class="info-section">
+                <h2>Made to Order</h2>
+                <p>We keep a very small stock of items, which means many pieces are made to order. Please allow 2-5 days of production time before your order is shipped.</p>
+                <p>You will receive an email confirmation when your order is placed, and a shipping notification with tracking information once your order is dispatched.</p>
+            </div>
+
+            <div class="info-section">
+                <h2>Shipping</h2>
+                <p>We ship worldwide. All orders are dispatched via UPS or USPS with full tracking and insurance.</p>
+                <ul>
+                    <li><strong style="color: var(--cream);">Domestic:</strong> We offer free standard shipping on all domestic orders. Express options are available at checkout.</li>
+                    <li><strong style="color: var(--cream);">International:</strong> Calculated at checkout</li>
+                </ul>
+                <p>Customs duties and import taxes for international orders are the responsibility of the recipient and are not included in the order total.</p>
+            </div>
+
+            <div class="info-section">
+                <h2>Returns & Exchanges</h2>
+                <p>So you can be confident that your piece fits perfectly, we offer a one-time size exchange on non-custom pieces.</p>
+                <p>Given the personal nature of our products, exchanges are only possible when we can be completely confident an item has not been used. We trust our customers to exercise the same discretion they would wish for themselves.</p>
+                <p>To be eligible for a size exchange:</p>
+                <ul>
+                    <li>The item must be from a standard collection (not a custom or bespoke commission).</li>
+                    <li>It must be unused, and show no marks, scuffs, or creases.</li>
+                    <li>It must be returned in its original packaging within 14 days of receipt.</li>
+                    <li>You should <a href="contact.html">contact us</a> before sending anything back to receive return instructions.</li>
+                </ul>
+                <p>Shipping costs for the return are the responsibility of the customer. We recommend using a tracked, insured service as we cannot be held responsible for items lost or damaged in transit back to us.</p>
+                <p>As soon as we receive and inspect the returned item, we will dispatch the replacement size. If the item shows any signs of wear upon inspection, we reserve the right to decline the exchange.</p>
+            </div>
+
+            <div class="info-section">
+                <h2>Custom Orders</h2>
+                <p>Custom and bespoke commissions are non-refundable once production has begun. We will always confirm all details with you before starting work.</p>
+            </div>
+
+            <div class="info-section">
+                <h2>Questions</h2>
+                <p>If you have any questions about your order or our shipping policies, please <a href="contact.html">get in touch</a>. We're happy to help.</p>
+            </div>
+        </div>
+
+        <a href="index.html" class="info-back">← Back to Homepage</a>
 
         <footer>
             <div class="footer-content">
@@ -90,7 +128,6 @@
         </footer>
     </div>
 
-    <script src="js/shop.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/scroll-top.js"></script>
     <script src="js/nav.js"></script>

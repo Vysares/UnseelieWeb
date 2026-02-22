@@ -2,14 +2,6 @@
    Unseelie Workshop — Shop Page Styles
    ============================================================ */
 
-body {
-    background-color: #1a1f1e;
-    background-image:
-        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,.019) 2px, rgba(0,0,0,.019) 4px),
-        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,.019) 2px, rgba(0,0,0,.019) 4px),
-        linear-gradient(135deg, #1a1f1e 0%, #1e2528 50%, #1d1a23 100%);
-}
-
 /* ---- Hero ---- */
 .shop-hero {
     padding: 5rem 4rem 2rem;
@@ -41,14 +33,31 @@ body {
     padding: 1.5rem 4rem 0;
     max-width: 1400px;
     margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
     animation: fadeInUp 0.8s ease-out 0.35s both;
 }
 
 #filter-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.filter-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+}
+
+.filter-row-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(245, 241, 232, 0.3);
+    white-space: nowrap;
+}
+
+.filter-row-pills {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -56,12 +65,12 @@ body {
 }
 
 .filter-pill {
-    padding: 0.45rem 1.1rem;
+    padding: 0.4rem 1rem;
     background: transparent;
     color: rgba(245, 241, 232, 0.55);
     border: 1px solid rgba(201, 169, 97, 0.2);
     border-radius: 2rem;
-    font-family: 'Archivo', sans-serif;
+    font-family: 'Jost', sans-serif;
     font-size: 0.78rem;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -82,19 +91,11 @@ body {
     border-color: rgba(201, 169, 97, 0.5);
 }
 
-.filter-divider {
-    width: 1px;
-    height: 1.1rem;
-    background: rgba(201, 169, 97, 0.2);
-    flex-shrink: 0;
-    margin: 0 0.25rem;
-}
-
 .filter-count {
     font-size: 0.78rem;
     color: rgba(245, 241, 232, 0.35);
     letter-spacing: 0.5px;
-    margin-left: auto;
+    padding-top: 0.25rem;
     white-space: nowrap;
 }
 
@@ -142,10 +143,7 @@ body {
 }
 
 .shop-card-image {
-    height: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    aspect-ratio: 1;
     position: relative;
     overflow: hidden;
 }
@@ -156,10 +154,22 @@ body {
     background: radial-gradient(circle at 50% 50%, rgba(201, 169, 97, 0.12) 0%, transparent 65%);
 }
 
-.shop-card-icon {
-    font-size: 2.8rem;
+.shop-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     position: relative;
     z-index: 1;
+    transition: transform 0.4s ease;
+}
+
+.shop-card:hover .shop-card-img {
+    transform: scale(1.04);
+}
+
+.shop-card-placeholder {
+    width: 100%;
+    height: 100%;
 }
 
 .shop-card-body {
@@ -175,6 +185,13 @@ body {
     letter-spacing: 1px;
     font-weight: 400;
     margin-bottom: 0.35rem;
+    color: rgba(245, 241, 232, 0.4);
+}
+
+.shop-card-tag::before {
+    content: '❖';
+    color: var(--tag-color);
+    margin-right: 0.4em;
 }
 
 .shop-card-name {
@@ -232,7 +249,6 @@ body {
 
     .filter-count {
         width: 100%;
-        margin-left: 0;
     }
 }
 

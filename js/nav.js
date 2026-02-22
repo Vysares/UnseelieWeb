@@ -64,6 +64,24 @@
                 });
             }
         });
+
+        /* ---- Shrink header on scroll (desktop only — disabled on mobile) ---- */
+        const header = document.querySelector('header');
+        const mobileBreak = window.matchMedia('(max-width: 768px)');
+        if (header) {
+            let scrolled = false;
+            window.addEventListener('scroll', function () {
+                if (mobileBreak.matches) return;
+                const y = window.scrollY;
+                if (!scrolled && y > 60) {
+                    scrolled = true;
+                    header.classList.add('header-scrolled');
+                } else if (scrolled && y < 20) {
+                    scrolled = false;
+                    header.classList.remove('header-scrolled');
+                }
+            }, { passive: true });
+        }
     }
 
     if (document.readyState === 'loading') {
