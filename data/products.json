@@ -82,9 +82,9 @@
       "sizing": "Available in S / M / L — sizing guide below",
       "images": [],
       "variants": [
-        { "size": "S", "stripePriceId": "prod_U1nq52fXFk8WtU" },
-        { "size": "M", "stripePriceId": "prod_U1nvv3WbiOrMl4" },
-        { "size": "L", "stripePriceId": "prod_U1nwgQZL1htLne" }
+        { "size": "S", "stripePriceId": "price_1T3kEp2VtP3KQAfpXFVWrhTj" },
+        { "size": "M", "stripePriceId": "price_1T3kJX2VtP3KQAfpwRe9eOkb" },
+        { "size": "L", "stripePriceId": "price_1T3kKG2VtP3KQAfp2rEHGfFS" }
       ]
     },
     {
