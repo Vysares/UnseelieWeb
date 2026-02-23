@@ -74,6 +74,8 @@
                 price:           product.price,
                 priceNum:        product.priceNum,
                 thumb:           product.thumb || null,
+                size:            product.size || null,
+                stripePriceId:   product.stripePriceId || null,
                 qty:             1
             });
         }
