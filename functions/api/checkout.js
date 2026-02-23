@@ -44,6 +44,11 @@ export async function onRequestPost(context) {
         stripeBody.append('line_items[' + i + '][quantity]', String(li.quantity));
     });
 
+    /* Shipping — collect address, offer free standard + paid express (US only) */
+    stripeBody.append('shipping_address_collection[allowed_countries][0]', 'US');
+    stripeBody.append('shipping_options[0][shipping_rate]', 'shr_1T3kGf2VtP3KQAfpKnViCKg8'); /* Free standard */
+    stripeBody.append('shipping_options[1][shipping_rate]', 'shr_1T3oxR2VtP3KQAfpq6APhSDu'); /* Express */
+
     let stripeResp, session;
     try {
         stripeResp = await fetch('https://api.stripe.com/v1/checkout/sessions', {
