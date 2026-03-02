@@ -7,6 +7,7 @@
     padding: 5rem 4rem 2rem;
     max-width: 1400px;
     margin: 0 auto;
+    animation: fadeInUp 0.6s ease-out both;
 }
 
 .shop-hero h1 {
@@ -32,6 +33,7 @@
     padding: 1.5rem 4rem 0;
     max-width: 1400px;
     margin: 0 auto;
+    animation: fadeInUp 0.6s ease-out 0.1s both;
 }
 
 #filter-bar {
@@ -123,6 +125,7 @@
     text-decoration: none;
     display: flex;
     flex-direction: column;
+    animation: fadeInUp 0.5s ease-out both;
 }
 
 .shop-card:hover {

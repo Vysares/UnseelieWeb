@@ -146,7 +146,12 @@ function renderAllCards(products, collections) {
   const grid = document.getElementById('shop-grid');
   grid.innerHTML = '';
   const cards = products.map(p => buildCard(p, collections));
-  cards.forEach(c => grid.appendChild(c));
+  cards.forEach((c, i) => {
+    // Stagger up to 6 cards, then hold steady so late cards don't wait too long
+    const delay = Math.min(i, 5) * 0.08 + 0.2;
+    c.style.animationDelay = `${delay}s`;
+    grid.appendChild(c);
+  });
   return cards;
 }
 
