@@ -15,7 +15,8 @@
       "Bash(git -C \"C:/Users/jackk/Documents/UnseelieWeb\" ls-files:*)",
       "Bash(git -C:*)",
       "Bash(powershell -Command \"Get-ChildItem ''C:\\\\Users\\\\jackk\\\\Documents\\\\UnseelieWeb\\\\data\\\\ClassicCuffs'' | Select-Object Name\")",
-      "Bash(powershell -Command:*)"
+      "Bash(powershell -Command:*)",
+      "Bash(powershell.exe -Command '\n$files = Get-ChildItem \"\"C:\\\\Users\\\\jackk\\\\Documents\\\\UnseelieWeb\\\\*.html\"\"\nforeach \\($file in $files\\) {\n    $content = Get-Content $file.FullName -Raw\n    $newContent = $content -replace \"\"[ \\\\t]*<a href=\"\"\"\"#\"\"\"\">Newsletter</a>\\\\r?\\\\n\"\", \"\"\"\"\n    if \\($content -ne $newContent\\) {\n        Set-Content $file.FullName $newContent -NoNewline\n        Write-Host \"\"Updated: $\\($file.Name\\)\"\"\n    }\n}\n')"
     ]
   }
 }
