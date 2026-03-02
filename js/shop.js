@@ -125,6 +125,17 @@ function applyFilter(filterValue, allCards) {
     card.classList.toggle('hidden', !visible);
   });
 
+  const grid = document.getElementById('shop-grid');
+  const existing = grid.querySelector('.shop-empty');
+  const anyVisible = allCards.some(c => !c.classList.contains('hidden'));
+  if (!anyVisible && !existing) {
+    const empty = document.createElement('p');
+    empty.className = 'shop-empty';
+    empty.textContent = 'No products here\u2026yet.';
+    grid.appendChild(empty);
+  } else if (anyVisible && existing) {
+    existing.remove();
+  }
 }
 
 /* ============================================================

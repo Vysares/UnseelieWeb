@@ -142,6 +142,17 @@
     visibility: hidden;
 }
 
+/* Empty filter state */
+.shop-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: rgba(245, 241, 232, 0.3);
+}
+
 .shop-card-image {
     aspect-ratio: 1;
     position: relative;

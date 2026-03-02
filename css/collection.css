@@ -59,6 +59,21 @@
     border-color: var(--gold);
 }
 
+/* ---- Coming soon badge ---- */
+.collection-coming-soon {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(245, 241, 232, 0.5);
+    border: 1px solid rgba(245, 241, 232, 0.2);
+    border-radius: 2px;
+    padding: 0.3rem 0.75rem;
+    margin-bottom: 1.75rem;
+}
+
 /* ---- Collection hero ---- */
 .collection-hero {
     padding: 6rem 4rem 4rem;
