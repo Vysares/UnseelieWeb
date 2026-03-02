@@ -162,7 +162,6 @@ function buildMainImage(product, collection) {
   if (images.length > 0) {
     return `
       <img src="${images[0]}" alt="${product.name}" id="main-img">
-      <span class="gallery-hint">Click to expand</span>
     `;
   }
   // Placeholder — gradient from collection colours, no lightbox
@@ -203,7 +202,7 @@ function initGallery(product, collection) {
 
   // Only wire lightbox if there are actual images
   if (images.length > 0) {
-    mainEl.addEventListener('click', () => openLightbox(images, activeIndex));
+    mainEl.addEventListener('click', () => openLightbox(activeIndex));
     initLightbox(images);
   }
 }

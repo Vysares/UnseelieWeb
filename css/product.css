@@ -119,18 +119,6 @@
     opacity: 0.5;
 }
 
-/* Expand hint */
-.gallery-hint {
-    position: absolute;
-    bottom: 0.75rem;
-    right: 0.75rem;
-    font-size: 0.7rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: rgba(245, 241, 232, 0.35);
-    pointer-events: none;
-}
-
 /* Thumbnail strip */
 .gallery-thumbs {
     display: flex;

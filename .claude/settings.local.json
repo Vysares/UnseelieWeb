@@ -13,7 +13,9 @@
       "Bash(git -C \"C:/Users/jackk/Documents/UnseelieWeb\" ls-files functions/)",
       "Bash(git -C \"C:/Users/jackk/Documents/UnseelieWeb\" add functions/api/checkout.js wrangler.toml)",
       "Bash(git -C \"C:/Users/jackk/Documents/UnseelieWeb\" ls-files:*)",
-      "Bash(git -C:*)"
+      "Bash(git -C:*)",
+      "Bash(powershell -Command \"Get-ChildItem ''C:\\\\Users\\\\jackk\\\\Documents\\\\UnseelieWeb\\\\data\\\\ClassicCuffs'' | Select-Object Name\")",
+      "Bash(powershell -Command:*)"
     ]
   }
 }
