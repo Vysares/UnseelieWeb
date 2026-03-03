@@ -332,7 +332,7 @@ h1 em {
     }
 
     .cta-button {
-        max-width: calc(100% - 2rem);
+        max-width: calc(100% - 4rem);
     }
 
     .collections,
