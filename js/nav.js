@@ -31,6 +31,7 @@
                 // Only intercept on mobile (hamburger is visible)
                 if (window.getComputedStyle(hamburger).display === 'none') return;
 
+                e.preventDefault();
                 e.stopPropagation();
                 const dropdown = trigger.closest('.nav-dropdown');
                 const isDropOpen = dropdown.classList.toggle('mobile-open');
