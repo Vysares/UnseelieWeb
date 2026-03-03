@@ -5,11 +5,17 @@
 
 /* ---- Per-collection theming ---- */
 
+/* Shared grain + blend settings for all collection bodies */
+[data-collection] {
+    background-size: 200px 200px, 100% 100%;
+    background-blend-mode: soft-light, normal;
+}
+
 [data-collection="classic"] {
     --collection-primary: #1a1a1a;
     --collection-accent: #c0392b;
     background-color: #0d0d0d;
-    background-image: linear-gradient(135deg, #0d0d0d 0%, #1a0a0a 50%, #0d0d0d 100%);
+    background-image: var(--grain-url), linear-gradient(135deg, #0d0d0d 0%, #1a0a0a 50%, #0d0d0d 100%);
 }
 
 [data-collection="classic"] .product-card {
@@ -27,7 +33,7 @@
     --collection-primary: #1a2851;
     --collection-accent: #a87fd4;
     background-color: #0a0d1a;
-    background-image: linear-gradient(135deg, #0a0d1a 0%, #0d0a14 50%, #0f0d1a 100%);
+    background-image: var(--grain-url), linear-gradient(135deg, #0a0d1a 0%, #0d0a14 50%, #0f0d1a 100%);
 }
 
 [data-collection="nightshade"] .product-card {
@@ -45,7 +51,7 @@
     --collection-primary: #8b5a3c;
     --collection-accent: #2ab8be;
     background-color: #1a1410;
-    background-image: linear-gradient(135deg, #1a1410 0%, #0d1414 50%, #14120d 100%);
+    background-image: var(--grain-url), linear-gradient(135deg, #1a1410 0%, #0d1414 50%, #14120d 100%);
 }
 
 [data-collection="regent"] .product-card {
@@ -67,8 +73,8 @@
     font-weight: 400;
     letter-spacing: 2.5px;
     text-transform: uppercase;
-    color: rgba(245, 241, 232, 0.5);
-    border: 1px solid rgba(245, 241, 232, 0.2);
+    color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 2px;
     padding: 0.3rem 0.75rem;
     margin-bottom: 1.75rem;
@@ -104,7 +110,7 @@
 .collection-description {
     font-size: 1.15rem;
     line-height: 1.9;
-    color: rgba(245, 241, 232, 0.9);
+    color: rgba(255, 255, 255, 0.9);
     font-weight: 300;
     max-width: 800px;
     margin-bottom: 3rem;
@@ -164,33 +170,13 @@
     display: block;
 }
 
-/* Static radial glow — no spinning animation */
-.product-image::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 50% 50%, rgba(201, 169, 97, 0.12) 0%, transparent 65%);
-}
+/* Static radial glow — see shared.css (.product-image::before) */
 
 .product-content {
     padding: 2rem;
 }
 
-.product-content h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    font-weight: 400;
-    margin-bottom: 0.5rem;
-    color: var(--cream);
-}
-
-.product-content p {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: rgba(245, 241, 232, 0.8);
-    font-weight: 300;
-    margin-bottom: 1rem;
-}
+/* Product h3 and p text — see shared.css (.product-content h3 / p) */
 
 .product-price {
     font-size: 1.2rem;

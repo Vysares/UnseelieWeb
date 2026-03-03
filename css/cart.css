@@ -132,7 +132,7 @@ body.cart-open #cart-drawer {
 #cart-close-btn {
     background: none;
     border: 1px solid rgba(201, 169, 97, 0.2);
-    color: rgba(245, 241, 232, 0.5);
+    color: rgba(255, 255, 255, 0.5);
     width: 2.2rem;
     height: 2.2rem;
     border-radius: 50%;
@@ -199,12 +199,12 @@ body.cart-open #cart-drawer {
     font-size: 1.5rem;
     font-weight: 300;
     font-style: italic;
-    color: rgba(245, 241, 232, 0.45);
+    color: rgba(255, 255, 255, 0.45);
 }
 
 .cart-empty-sub {
     font-size: 0.72rem;
-    color: rgba(245, 241, 232, 0.25);
+    color: rgba(255, 255, 255, 0.25);
     letter-spacing: 1px;
     text-transform: uppercase;
     margin-bottom: 1.5rem;
@@ -281,7 +281,7 @@ body.cart-open #cart-drawer {
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: rgba(245, 241, 232, 0.3);
+    color: rgba(255, 255, 255, 0.3);
 }
 
 .cart-item-price {
@@ -302,7 +302,7 @@ body.cart-open #cart-drawer {
 .cart-qty-btn {
     background: none;
     border: 1px solid rgba(201, 169, 97, 0.2);
-    color: rgba(245, 241, 232, 0.55);
+    color: rgba(255, 255, 255, 0.55);
     width: 1.55rem;
     height: 1.55rem;
     border-radius: 2px;
@@ -331,7 +331,7 @@ body.cart-open #cart-drawer {
 .cart-remove-btn {
     background: none;
     border: none;
-    color: rgba(245, 241, 232, 0.2);
+    color: rgba(255, 255, 255, 0.2);
     font-size: 1rem;
     cursor: pointer;
     padding: 0 0.15rem;
@@ -341,7 +341,7 @@ body.cart-open #cart-drawer {
 }
 
 .cart-remove-btn:hover {
-    color: rgba(245, 241, 232, 0.6);
+    color: rgba(255, 255, 255, 0.6);
 }
 
 /* ---- Drawer footer ---- */
@@ -366,7 +366,7 @@ body.cart-open #cart-drawer {
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    color: rgba(245, 241, 232, 0.4);
+    color: rgba(255, 255, 255, 0.4);
 }
 
 .cart-subtotal-value {
@@ -391,7 +391,7 @@ body.cart-open #cart-drawer {
 
 .cart-footer-note {
     font-size: 0.67rem;
-    color: rgba(245, 241, 232, 0.28);
+    color: rgba(255, 255, 255, 0.28);
     text-align: center;
     letter-spacing: 0.3px;
     font-style: italic;
@@ -399,7 +399,7 @@ body.cart-open #cart-drawer {
 }
 
 .cart-footer-note a {
-    color: rgba(245, 241, 232, 0.38);
+    color: rgba(255, 255, 255, 0.38);
     text-decoration: none;
     transition: color 0.2s ease;
 }

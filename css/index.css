@@ -103,7 +103,7 @@ h1 em {
     margin: 0 auto 4rem;
     font-size: 1.05rem;
     line-height: 1.8;
-    color: rgba(245, 241, 232, 0.85);
+    color: rgba(255, 255, 255, 0.85);
     font-weight: 300;
 }
 
@@ -165,33 +165,13 @@ h1 em {
     transform: scale(1.04);
 }
 
-/* Static radial glow — no spinning animation */
-.card-image::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 50% 50%, rgba(201, 169, 97, 0.12) 0%, transparent 65%);
-}
+/* Static radial glow — see shared.css (.card-image::before) */
 
 .card-content {
     padding: 2rem;
 }
 
-.card-content h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    font-weight: 400;
-    margin-bottom: 0.5rem;
-    color: var(--cream);
-}
-
-.card-content p {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: rgba(245, 241, 232, 0.8);
-    font-weight: 300;
-    margin-bottom: 1rem;
-}
+/* Card h3 and p text — see shared.css (.card-content h3 / p) */
 
 .card-details {
     display: flex;
@@ -204,7 +184,7 @@ h1 em {
 
 .card-details span {
     font-size: 0.85rem;
-    color: rgba(245, 241, 232, 0.7);
+    color: rgba(255, 255, 255, 0.7);
     font-weight: 300;
 }
 
@@ -282,7 +262,7 @@ h1 em {
     text-transform: uppercase;
     letter-spacing: 1.5px;
     font-weight: 400;
-    color: rgba(245, 241, 232, 0.85);
+    color: rgba(255, 255, 255, 0.85);
     text-align: center;
     background: rgba(0, 0, 0, 0.2);
     transition: color 0.3s ease;
@@ -336,7 +316,7 @@ h1 em {
 .about p {
     font-size: 1.1rem;
     line-height: 1.9;
-    color: rgba(245, 241, 232, 0.9);
+    color: rgba(255, 255, 255, 0.9);
     font-weight: 300;
     margin-bottom: 1.5rem;
 }

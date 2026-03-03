@@ -10,21 +10,44 @@
     animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 
-.info-hero h1 {
+.info-hero h1,
+.about-hero h1,
+.contact-hero h1 {
     font-family: 'Cormorant Garamond', serif;
     font-size: 3.5rem;
     font-weight: 300;
     font-style: italic;
-    color: var(--gold);
+    color: var(--cream);
     text-shadow: 0 4px 20px var(--shadow);
     margin-bottom: 0.5rem;
+}
+
+.about-hero h1,
+.contact-hero h1 {
+    font-size: 4.5rem;
+}
+
+.info-hero h1::after,
+.about-hero h1::after,
+.contact-hero h1::after {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 1px;
+    background: rgba(201, 169, 97, 0.5);
+    margin: 0.65rem 0 0;
+}
+
+.about-hero h1::after,
+.contact-hero h1::after {
+    margin: 0.65rem auto 0;
 }
 
 .info-meta {
     font-size: 0.78rem;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    color: rgba(245, 241, 232, 0.3);
+    color: rgba(255, 255, 255, 0.3);
 }
 
 /* ---- Body ---- */
@@ -45,19 +68,26 @@
     border-bottom: none;
 }
 
-.info-section h2 {
+.info-section h2,
+.about-block h2,
+.contact-info h2 {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.6rem;
     font-weight: 300;
     font-style: italic;
-    color: var(--gold);
+    color: var(--cream);
     margin-bottom: 1rem;
+}
+
+.about-block h2,
+.contact-info h2 {
+    font-size: 2rem;
 }
 
 .info-section p {
     font-size: 0.95rem;
     line-height: 1.9;
-    color: rgba(245, 241, 232, 0.75);
+    color: rgba(255, 255, 255, 0.75);
     font-weight: 300;
     margin-bottom: 0.9rem;
 }
@@ -75,7 +105,7 @@
 .info-section ul li {
     font-size: 0.95rem;
     line-height: 1.9;
-    color: rgba(245, 241, 232, 0.75);
+    color: rgba(255, 255, 255, 0.75);
     font-weight: 300;
     padding-left: 1.2rem;
     position: relative;
@@ -106,16 +136,34 @@
     display: block;
     text-align: center;
     padding: 0 4rem 4rem;
-    color: rgba(245, 241, 232, 0.45);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    font-size: 1.1rem;
-    letter-spacing: 0.5px;
-    transition: color 0.2s ease;
+    color: rgba(255, 255, 255, 0.35);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.info-back::after {
+    content: '';
+    position: absolute;
+    bottom: calc(4rem - 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1px;
+    background: rgba(201, 169, 97, 0.5);
+    transition: width 0.35s ease;
 }
 
 .info-back:hover {
-    color: var(--gold);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.info-back:hover::after {
+    width: 6rem;
 }
 
 /* ---- Responsive ---- */

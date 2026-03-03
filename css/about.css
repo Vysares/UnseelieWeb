@@ -9,19 +9,10 @@
     animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 
-.about-hero h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 4.5rem;
-    font-weight: 300;
-    font-style: italic;
-    color: var(--gold);
-    text-shadow: 0 4px 20px var(--shadow);
-    margin-bottom: 1rem;
-}
 
 .about-tagline {
     font-size: 1rem;
-    color: rgba(245, 241, 232, 0.6);
+    color: rgba(255, 255, 255, 0.6);
     letter-spacing: 1.5px;
     text-transform: uppercase;
     font-weight: 300;
@@ -59,7 +50,7 @@
     font-size: 0.78rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: rgba(245, 241, 232, 0.2);
+    color: rgba(255, 255, 255, 0.2);
 }
 
 /* ---- Body copy ---- */
@@ -76,19 +67,11 @@
     gap: 3.5rem;
 }
 
-.about-block h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    font-weight: 300;
-    font-style: italic;
-    color: var(--gold);
-    margin-bottom: 1.25rem;
-}
 
 .about-block p {
     font-size: 1rem;
     line-height: 1.95;
-    color: rgba(245, 241, 232, 0.8);
+    color: rgba(255, 255, 255, 0.8);
     font-weight: 300;
     margin-bottom: 1rem;
 }
@@ -122,7 +105,7 @@
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-size: 1rem;
-    color: rgba(245, 241, 232, 0.3);
+    color: rgba(255, 255, 255, 0.3);
 }
 
 /* Uses .btn-primary base; smaller padding variant */

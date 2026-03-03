@@ -15,20 +15,25 @@
 }
 
 .contact-hero h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 4.5rem;
-    font-weight: 300;
-    font-style: italic;
     margin-bottom: 1.5rem;
-    color: var(--gold);
-    text-shadow: 0 4px 20px var(--shadow);
 }
 
 .contact-intro {
     font-size: 1.1rem;
     line-height: 1.9;
-    color: rgba(245, 241, 232, 0.85);
+    color: rgba(255, 255, 255, 0.85);
     font-weight: 300;
+}
+
+.contact-intro a {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201, 169, 97, 0.35);
+    transition: border-color 0.2s ease;
+}
+
+.contact-intro a:hover {
+    border-color: var(--gold);
 }
 
 /* ---- Contact grid ---- */
@@ -47,13 +52,9 @@
 
 /* ---- Info column ---- */
 .contact-info h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    font-weight: 300;
-    font-style: italic;
-    color: var(--gold);
     margin-bottom: 2rem;
 }
+
 
 .info-items {
     display: flex;
@@ -67,7 +68,8 @@
     gap: 0.3rem;
 }
 
-.info-label {
+.info-label,
+.form-group label {
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -77,7 +79,7 @@
 .info-item a,
 .info-value {
     font-size: 0.95rem;
-    color: rgba(245, 241, 232, 0.85);
+    color: rgba(255, 255, 255, 0.85);
     font-weight: 300;
     line-height: 1.6;
     text-decoration: none;
@@ -109,13 +111,6 @@
     gap: 0.6rem;
 }
 
-.form-group label {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--gold);
-}
-
 .form-group input,
 .form-group textarea {
     background: rgba(13, 13, 13, 0.4);
@@ -133,7 +128,7 @@
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-    color: rgba(245, 241, 232, 0.3);
+    color: rgba(255, 255, 255, 0.3);
 }
 
 .form-group input:focus,

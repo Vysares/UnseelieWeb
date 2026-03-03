@@ -31,7 +31,7 @@
 
 .shop-intro {
     font-size: 1rem;
-    color: rgba(245, 241, 232, 0.7);
+    color: rgba(255, 255, 255, 0.7);
     font-weight: 300;
     letter-spacing: 0.5px;
     margin-bottom: 0;
@@ -62,7 +62,7 @@
     font-size: 0.68rem;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    color: rgba(245, 241, 232, 0.3);
+    color: rgba(255, 255, 255, 0.3);
     white-space: nowrap;
 }
 
@@ -76,7 +76,7 @@
 .filter-pill {
     padding: 0.4rem 1rem;
     background: transparent;
-    color: rgba(245, 241, 232, 0.55);
+    color: rgba(255, 255, 255, 0.55);
     border: 1px solid rgba(201, 169, 97, 0.2);
     border-radius: 2rem;
     font-family: 'Jost', sans-serif;
@@ -89,7 +89,7 @@
 }
 
 .filter-pill:hover:not(.active) {
-    color: rgba(245, 241, 232, 0.85);
+    color: rgba(255, 255, 255, 0.85);
     border-color: rgba(201, 169, 97, 0.45);
     background: rgba(201, 169, 97, 0.06);
 }
@@ -102,7 +102,7 @@
 
 .filter-count {
     font-size: 0.78rem;
-    color: rgba(245, 241, 232, 0.35);
+    color: rgba(255, 255, 255, 0.35);
     letter-spacing: 0.5px;
     padding-top: 0.25rem;
     white-space: nowrap;
@@ -160,7 +160,7 @@
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-size: 1.4rem;
-    color: rgba(245, 241, 232, 0.3);
+    color: rgba(255, 255, 255, 0.3);
 }
 
 .shop-card-image {
@@ -206,7 +206,7 @@
     letter-spacing: 1px;
     font-weight: 400;
     margin-bottom: 0.35rem;
-    color: rgba(245, 241, 232, 0.4);
+    color: rgba(255, 255, 255, 0.4);
 }
 
 .shop-card-tag::before {
@@ -235,7 +235,7 @@
     font-size: 0.78rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: rgba(245, 241, 232, 0.45);
+    color: rgba(255, 255, 255, 0.45);
     text-decoration: none;
     transition: color 0.25s ease;
     align-self: flex-start;

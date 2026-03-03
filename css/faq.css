@@ -1,0 +1,88 @@
+/* ============================================================
+   Unseelie Workshop — FAQ Page Styles
+   ============================================================ */
+
+/* Remove section dividers — questions have their own borders */
+.info-section {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.faq-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.faq-item {
+    border-bottom: 1px solid rgba(201, 169, 97, 0.12);
+}
+
+.faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 1.25rem 0;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: var(--cream);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    user-select: none;
+    transition: color 0.2s ease;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary::after {
+    content: '';
+    display: inline-block;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-right: 1.5px solid rgba(201, 169, 97, 0.55);
+    border-bottom: 1.5px solid rgba(201, 169, 97, 0.55);
+    transform: rotate(45deg);
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+    margin-bottom: 0.15rem;
+}
+
+.faq-item[open] summary {
+    color: var(--gold);
+}
+
+.faq-item[open] summary::after {
+    transform: rotate(225deg);
+    margin-bottom: -0.15rem;
+}
+
+.faq-answer {
+    padding: 0 1.5rem 1.5rem 0;
+}
+
+.faq-answer p {
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 300;
+    margin-bottom: 0.9rem;
+}
+
+.faq-answer p:last-child {
+    margin-bottom: 0;
+}
+
+.faq-answer a {
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201, 169, 97, 0.35);
+    transition: border-color 0.2s ease;
+}
+
+.faq-answer a:hover {
+    border-color: var(--gold);
+}
