@@ -124,7 +124,7 @@
 
 /* ---- Product card ---- */
 .shop-card {
-    background: rgba(26, 37, 42, 0.4);
+    background: #1a1f1e;
     border: 1px solid rgba(201, 169, 97, 0.2);
     border-radius: 4px;
     overflow: hidden;

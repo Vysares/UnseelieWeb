@@ -19,12 +19,11 @@
 }
 
 [data-collection="classic"] .product-card {
-    background: linear-gradient(135deg, rgba(26, 10, 10, 0.3), rgba(13, 13, 13, 0.3));
+    background: #0d0d0d;
     border: 1px solid rgba(201, 169, 97, 0.4);
 }
 
 [data-collection="classic"] .product-card:hover {
-    background: linear-gradient(135deg, rgba(26, 10, 10, 0.5), rgba(13, 13, 13, 0.4));
     box-shadow: 0 8px 30px rgba(201, 169, 97, 0.3);
     border-color: var(--gold);
 }
@@ -37,12 +36,11 @@
 }
 
 [data-collection="nightshade"] .product-card {
-    background: linear-gradient(135deg, rgba(10, 13, 26, 0.3), rgba(13, 10, 20, 0.3));
+    background: #0a0d1a;
     border: 1px solid rgba(192, 192, 192, 0.4);
 }
 
 [data-collection="nightshade"] .product-card:hover {
-    background: linear-gradient(135deg, rgba(10, 13, 26, 0.5), rgba(13, 10, 20, 0.4));
     box-shadow: 0 8px 30px rgba(192, 192, 192, 0.2);
     border-color: rgba(220, 220, 220, 0.7);
 }
@@ -55,12 +53,11 @@
 }
 
 [data-collection="regent"] .product-card {
-    background: linear-gradient(135deg, rgba(26, 20, 16, 0.3), rgba(13, 20, 20, 0.3));
+    background: #1a1410;
     border: 1px solid rgba(201, 169, 97, 0.4);
 }
 
 [data-collection="regent"] .product-card:hover {
-    background: linear-gradient(135deg, rgba(26, 20, 16, 0.5), rgba(13, 20, 20, 0.4));
     box-shadow: 0 8px 30px rgba(201, 169, 97, 0.3);
     border-color: var(--gold);
 }

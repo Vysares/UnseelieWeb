@@ -19,7 +19,7 @@
         data[i]     = v;
         data[i + 1] = v;
         data[i + 2] = v;
-        data[i + 3] = 26;
+        data[i + 3] = 18;
     }
 
     ctx.putImageData(imageData, 0, 0);
