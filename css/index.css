@@ -141,9 +141,9 @@ h1 em {
 .collection-card:nth-child(4) { animation-delay: 0.4s; }
 
 .collection-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 15px 50px rgba(201, 169, 97, 0.3);
-    border-color: var(--gold);
+    transform: translateY(-6px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55);
+    border-color: rgba(201, 169, 97, 0.5);
 }
 
 .card-image {
@@ -217,7 +217,7 @@ h1 em {
     font-family: 'Cormorant Garamond', serif;
     font-size: 2rem;
     font-weight: 300;
-    color: var(--gold);
+    color: var(--cream);
     margin-bottom: 2rem;
     font-style: italic;
     text-align: center;
@@ -295,18 +295,42 @@ h1 em {
 /* ---- About section ---- */
 .about {
     padding: 6rem 4rem;
-    max-width: 1000px;
+    max-width: 700px;
     margin: 0 auto;
     text-align: center;
+    position: relative;
 }
+
+.about::before,
+.about::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 1px;
+    background: rgba(201, 169, 97, 0.15);
+}
+
+.about::before { top: 0; }
+.about::after  { bottom: 0; }
 
 .about h2 {
     font-family: 'Cormorant Garamond', serif;
     font-size: 3rem;
     font-weight: 300;
     margin-bottom: 2rem;
-    color: var(--gold);
+    color: var(--cream);
     font-style: italic;
+}
+
+.about h2::after {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 1px;
+    background: rgba(201, 169, 97, 0.5);
+    margin: 0.65rem auto 0;
 }
 
 .about p {

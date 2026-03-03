@@ -10,7 +10,7 @@
     --turquoise-bright: #24686c;
     --violet: #3d2946;
     --violet-light: #452d50;
-    --cream: #f5f1e8;
+    --cream: #ffffff;
     --gold: #c9a961;
     --shadow: rgba(29, 46, 56, 0.3);
 }
@@ -68,8 +68,7 @@ header {
 
 .logo-img,
 .logo-text {
-    transition: transform 0.35s ease;
-    transform-origin: left center;
+    transition: opacity 0.25s ease;
 }
 
 .logo {
@@ -90,10 +89,6 @@ header {
     width: auto;
 }
 
-.logo a:hover .logo-img,
-.logo a:hover .logo-text {
-    transform: scale(1.05);
-}
 
 .logo-text {
     font-family: 'Cormorant Garamond', serif;
@@ -264,8 +259,17 @@ nav > a:hover::after {
     font-weight: 300;
     text-align: center;
     margin-bottom: 3rem;
-    color: var(--gold);
+    color: var(--cream);
     font-style: italic;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 1px;
+    background: rgba(201, 169, 97, 0.5);
+    margin: 0.65rem auto 0;
 }
 
 /* ---- Primary button (gradient fill) ---- */

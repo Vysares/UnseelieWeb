@@ -15,9 +15,18 @@
     font-size: 4.5rem;
     font-weight: 300;
     font-style: italic;
-    color: var(--gold);
+    color: var(--cream);
     text-shadow: 0 4px 20px var(--shadow);
     margin-bottom: 0.5rem;
+}
+
+.shop-hero h1::after {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 1px;
+    background: rgba(201, 169, 97, 0.5);
+    margin: 0.65rem 0 0;
 }
 
 .shop-intro {
@@ -129,9 +138,9 @@
 }
 
 .shop-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    border-color: var(--gold);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+    border-color: rgba(201, 169, 97, 0.5);
 }
 
 /* Hidden state — fade out in place rather than vanishing */
