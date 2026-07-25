@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function renderPage(product, collection) {
   // Update page title
-  document.title = `${product.name} — ${collection.label} | Unseelie Workshop`;
+  document.title = `${product.name} - ${collection.label} | Unseelie Workshop`;
 
   // Breadcrumb
   const breadcrumb = document.getElementById('breadcrumb');
@@ -102,7 +102,7 @@ function renderPage(product, collection) {
       <div class="product-atc">
         ${sizeHTML}
         <button class="btn-primary atc-button" id="atc-btn"${variants ? ' disabled' : ''}>Add to Cart</button>
-        <p class="atc-note">Each piece is made to order — <a href="contact.html" style="color:inherit;">custom enquiries welcome</a></p>
+        <p class="atc-note">Each piece is made to order, <a href="contact.html" style="color:inherit;">custom inquiries welcome</a></p>
       </div>
     </div>
   `;
@@ -164,7 +164,7 @@ function buildMainImage(product, collection) {
       <img src="${images[0]}" alt="${product.name}" id="main-img">
     `;
   }
-  // Placeholder — gradient from collection colours, no lightbox
+  // Placeholder — gradient from collection colors, no lightbox
   return `
     <div class="gallery-placeholder" style="background: linear-gradient(135deg, ${collection.gradientFrom}, ${collection.gradientTo});">
       <span class="gallery-placeholder-text">Photography coming soon</span>
@@ -183,7 +183,7 @@ function initGallery(product, collection) {
     images.forEach((src, i) => {
       const thumb = document.createElement('div');
       thumb.className = 'gallery-thumb' + (i === 0 ? ' active' : '');
-      thumb.innerHTML = `<img src="${src}" alt="${product.name} — image ${i + 1}">`;
+      thumb.innerHTML = `<img src="${src}" alt="${product.name}, image ${i + 1}">`;
       thumb.addEventListener('click', () => setActiveImage(i));
       thumbsEl.appendChild(thumb);
     });

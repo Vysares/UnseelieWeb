@@ -169,7 +169,7 @@ function initShop(data) {
     history.replaceState(null, '', `#${filterValue}`);
   });
 
-  // Honour URL hash on load (e.g. #type:cuffs or #collection:vampiric)
+  // Honor URL hash on load (e.g. #type:cuffs or #collection:vampiric)
   const hash = window.location.hash.slice(1);
   if (hash) {
     const matchingPill = document.querySelector(`.filter-pill[data-filter="${hash}"]`);

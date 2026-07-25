@@ -1,7 +1,7 @@
 {
   "collections": {
     "classic": {
-      "label": "The classic Collection",
+      "label": "The Classic Collection",
       "accent": "#cd2c2c",
       "gradientFrom": "#1a1a1a",
       "gradientTo": "#8b1a1a",
@@ -54,7 +54,7 @@
         "Closed-cell neoprene padding that won't compress over time",
         "Double riveted and hand-stitched throughout"
       ],
-      "sizing": "Available in S / M / L — sizing guide below",
+      "sizing": "Available in S / M / L. Sizing guide below.",
       "images": [
         "data/ClassicCuffs/DSC_1446.png",
         "data/ClassicCuffs/DSC_1462.png"
@@ -79,7 +79,7 @@
         "Closed-cell neoprene padding that won't compress over time",
         "Double riveted and hand-stitched throughout"
       ],
-      "sizing": "Available in S / M / L — sizing guide below",
+      "sizing": "Available in S / M / L. Sizing guide below.",
       "images": [],
       "variants": [
         { "size": "S", "stripePriceId": "REPLACE_S" },
@@ -101,7 +101,7 @@
         "Closed-cell neoprene padding that won't compress over time",
         "Hand-stitched throughout"
       ],
-      "sizing": "Adjustable — fits necks 11\" to 16\"",
+      "sizing": "Adjustable, fits necks 11\" to 16\"",
       "images": [],
       "imageDir": "data/img/classic-collar",
       "variants": [

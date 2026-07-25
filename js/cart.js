@@ -262,7 +262,7 @@
             '<div id="cart-checkout-error"></div>' +
             '<p class="cart-footer-note">' +
             '  Interested in custom sizing?&thinsp;' +
-            '  <a href="contact.html">Enquire via contact</a>' +
+            '  <a href="contact.html">Inquire via contact</a>' +
             '</p>';
     }
 
