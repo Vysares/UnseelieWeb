@@ -277,6 +277,16 @@ body.cart-open #cart-drawer {
     text-overflow: ellipsis;
 }
 
+.cart-item-name a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.cart-item-name a:hover {
+    color: var(--gold);
+}
+
 .cart-item-collection {
     font-size: 0.65rem;
     text-transform: uppercase;

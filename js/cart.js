@@ -227,7 +227,10 @@
                        : '<span class="cart-item-thumb-fallback">✦</span>') +
                 '  </div>' +
                 '  <div class="cart-item-info">' +
-                '    <span class="cart-item-name">' + _esc(item.name) + (item.size ? ' \u2014 ' + _esc(item.size) : '') + '</span>' +
+                '    <span class="cart-item-name">' +
+                '<a href="product.html?id=' + encodeURIComponent(item.id) + '">' + _esc(item.name) + '</a>' +
+                     (item.size ? ' (' + _esc(item.size) + ')' : '') +
+                '</span>' +
                 '    <span class="cart-item-collection">' + _esc(item.collectionLabel) + '</span>' +
                 '    <span class="cart-item-price">' + _esc(item.price) + '</span>' +
                 '  </div>' +
