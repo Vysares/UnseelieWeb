@@ -21,7 +21,7 @@
     inset: 1.5rem 2rem;
     pointer-events: none;
     z-index: 1;
-    border: 1px solid rgba(201, 169, 97, 0.5);
+    border: 1px solid rgba(var(--gold-rgb), 0.5);
 }
 
 /* Single 4px gold circle, repeated at all four corners.
@@ -33,7 +33,7 @@
     inset: 1.5rem 2rem;
     pointer-events: none;
     z-index: 2;
-    --dot: linear-gradient(rgba(201, 169, 97, 0.9), rgba(201, 169, 97, 0.9));
+    --dot: linear-gradient(rgba(var(--gold-rgb), 0.9), rgba(var(--gold-rgb), 0.9));
     background-image: var(--dot), var(--dot), var(--dot), var(--dot);
     background-size: 5px 5px;
     background-repeat: no-repeat;
@@ -50,17 +50,18 @@
 }
 
 h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 5rem;
-    font-weight: 300;
-    line-height: 1.1;
+    font-family: 'Tangerine', cursive;
+    font-size: min(9vw, 7rem);
+    white-space: nowrap;
+    font-weight: 700;
+    line-height: 1.02;
     margin-bottom: 1.5rem;
     color: var(--cream);
     text-shadow: 0 4px 20px var(--shadow);
 }
 
 h1 em {
-    font-style: italic;
+    font-style: normal;
     color: var(--gold);
 }
 
@@ -70,7 +71,7 @@ h1 em {
     letter-spacing: 3px;
     text-transform: uppercase;
     margin-bottom: 3rem;
-    opacity: 0.8;
+    opacity: 0.62;
 }
 
 /* Hero CTA — uses .btn-primary base, overrides padding and adds ambient shadow */
@@ -90,7 +91,7 @@ h1 em {
 /* ---- Collections section ---- */
 .collections {
     padding: 6rem 4rem;
-    background: rgba(26, 37, 42, 0.5);
+    background: rgba(var(--panel-rgb), 0.5);
 }
 
 .section-title {
@@ -103,7 +104,7 @@ h1 em {
     margin: 0 auto 4rem;
     font-size: 1.05rem;
     line-height: 1.8;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(var(--cream-rgb), 0.85);
     font-weight: 300;
 }
 
@@ -116,15 +117,14 @@ h1 em {
 }
 
 .collection-card {
-    background: linear-gradient(135deg, var(--sage-light), var(--turquoise));
+    background: var(--surface);
     border-radius: 4px;
-    overflow: hidden;
-    border: 1px solid rgba(201, 169, 97, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    border: 1px solid rgba(var(--gold-rgb), 0.2);
+    transition: box-shadow 0.3s ease;
     cursor: pointer;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     animation: fadeInUp 0.8s ease-out both;
-    will-change: transform;
+    position: relative;
     display: flex;
     flex-direction: column;
 }
@@ -141,16 +141,16 @@ h1 em {
 .collection-card:nth-child(4) { animation-delay: 0.4s; }
 
 .collection-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55);
-    border-color: rgba(201, 169, 97, 0.5);
+    box-shadow: 0 12px 44px rgba(0, 0, 0, 0.5);
 }
 
 .card-image {
     aspect-ratio: 1;
-    background: linear-gradient(135deg, var(--violet), var(--turquoise-bright));
+    background: linear-gradient(135deg, var(--surface-raised), var(--surface));
     position: relative;
+    /* clips the img scale on hover, and rounds to match the card */
     overflow: hidden;
+    border-radius: 4px 4px 0 0;
 }
 
 .card-image img {
@@ -179,12 +179,12 @@ h1 em {
     gap: 0.4rem;
     margin-top: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid rgba(201, 169, 97, 0.2);
+    border-top: 1px solid rgba(var(--gold-rgb), 0.2);
 }
 
 .card-details span {
     font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(var(--cream-rgb), 0.7);
     font-weight: 300;
 }
 
@@ -194,12 +194,12 @@ h1 em {
 }
 
 .shop-by-type h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    font-weight: 300;
+    font-family: 'Tangerine', cursive;
+    font-size: 2.9rem;
+    font-weight: 700;
+    line-height: 1.05;
     color: var(--cream);
     margin-bottom: 2rem;
-    font-style: italic;
     text-align: center;
 }
 
@@ -229,23 +229,22 @@ h1 em {
     display: flex;
     flex-direction: column;
     text-decoration: none;
-    border: 1px solid rgba(201, 169, 97, 0.2);
+    border: 1px solid rgba(var(--gold-rgb), 0.2);
     border-radius: 3px;
-    overflow: hidden;
-    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    transition: box-shadow 0.3s ease;
 }
 
 .type-card:hover {
-    border-color: var(--gold);
-    transform: translateY(-4px);
-    box-shadow: 0 8px 30px rgba(201, 169, 97, 0.2);
+    box-shadow: 0 0 26px rgba(var(--gold-rgb), 0.2);
 }
 
 .type-card-image {
     height: 160px;
-    background: linear-gradient(135deg, var(--sage-light), var(--turquoise));
+    background: linear-gradient(135deg, var(--surface-raised), var(--surface));
     position: relative;
     overflow: hidden;
+    border-radius: 3px 3px 0 0;
 }
 
 /* Subtle radial glow on placeholder */
@@ -253,16 +252,17 @@ h1 em {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 50% 60%, rgba(201, 169, 97, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle at 50% 60%, rgba(var(--gold-rgb), 0.1) 0%, transparent 70%);
 }
 
 .type-card-name {
+    border-radius: 0 0 3px 3px;
     padding: 0.85rem 1rem;
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(var(--cream-rgb), 0.85);
     text-align: center;
     background: rgba(0, 0, 0, 0.2);
     transition: color 0.3s ease;
@@ -270,6 +270,50 @@ h1 em {
 
 .type-card:hover .type-card-name {
     color: var(--gold);
+}
+
+/* ---- Gold border drawn from opposite corners — same treatment as
+   the buttons in shared.css. The cards carry no overflow clip of
+   their own, so the arms can sit on the border box. ---- */
+.collection-card::before,
+.collection-card::after,
+.type-card::before,
+.type-card::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+.collection-card::before,
+.type-card::before {
+    top: -1px;
+    left: -1px;
+    border-top: 1px solid var(--gold);
+    border-left: 1px solid var(--gold);
+}
+
+.collection-card::after,
+.type-card::after {
+    bottom: -1px;
+    right: -1px;
+    border-bottom: 1px solid var(--gold);
+    border-right: 1px solid var(--gold);
+}
+
+.collection-card::before { border-top-left-radius: 4px; }
+.collection-card::after  { border-bottom-right-radius: 4px; }
+.type-card::before       { border-top-left-radius: 3px; }
+.type-card::after        { border-bottom-right-radius: 3px; }
+
+.collection-card:hover::before,
+.collection-card:hover::after,
+.type-card:hover::before,
+.type-card:hover::after {
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
 }
 
 /* ---- About section ---- */
@@ -289,19 +333,19 @@ h1 em {
     transform: translateX(-50%);
     width: 100vw;
     height: 1px;
-    background: rgba(201, 169, 97, 0.15);
+    background: rgba(var(--gold-rgb), 0.15);
 }
 
 .about::before { top: 0; }
 .about::after  { bottom: 0; }
 
 .about h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 3rem;
-    font-weight: 300;
+    font-family: 'Tangerine', cursive;
+    font-size: 4.2rem;
+    font-weight: 700;
+    line-height: 1.05;
     margin-bottom: 2rem;
     color: var(--cream);
-    font-style: italic;
 }
 
 .about h2::after {
@@ -309,14 +353,14 @@ h1 em {
     display: block;
     width: 36px;
     height: 1px;
-    background: rgba(201, 169, 97, 0.5);
+    background: rgba(var(--gold-rgb), 0.5);
     margin: 0.65rem auto 0;
 }
 
 .about p {
     font-size: 1.1rem;
     line-height: 1.9;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(var(--cream-rgb), 0.9);
     font-weight: 300;
     margin-bottom: 1.5rem;
 }
@@ -324,7 +368,7 @@ h1 em {
 /* ---- Responsive ---- */
 @media (max-width: 768px) {
     h1 {
-        font-size: 3rem;
+        font-size: min(11vw, 4rem);
     }
 
     .subtitle {

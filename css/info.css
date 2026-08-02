@@ -13,10 +13,10 @@
 .info-hero h1,
 .about-hero h1,
 .contact-hero h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 3.5rem;
-    font-weight: 300;
-    font-style: italic;
+    font-family: 'Tangerine', cursive;
+    font-size: 4.9rem;
+    font-weight: 700;
+    line-height: 1.02;
     color: var(--cream);
     text-shadow: 0 4px 20px var(--shadow);
     margin-bottom: 0.5rem;
@@ -34,7 +34,7 @@
     display: block;
     width: 36px;
     height: 1px;
-    background: rgba(201, 169, 97, 0.5);
+    background: rgba(var(--gold-rgb), 0.5);
     margin: 0.65rem 0 0;
 }
 
@@ -47,7 +47,7 @@
     font-size: 0.78rem;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(var(--cream-rgb), 0.3);
 }
 
 /* ---- Body ---- */
@@ -61,7 +61,7 @@
 .info-section {
     margin-bottom: 3rem;
     padding-bottom: 3rem;
-    border-bottom: 1px solid rgba(201, 169, 97, 0.1);
+    border-bottom: 1px solid rgba(var(--gold-rgb), 0.1);
 }
 
 .info-section:last-child {
@@ -87,7 +87,7 @@
 .info-section p {
     font-size: 0.95rem;
     line-height: 1.9;
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(var(--cream-rgb), 0.75);
     font-weight: 300;
     margin-bottom: 0.9rem;
 }
@@ -105,7 +105,7 @@
 .info-section ul li {
     font-size: 0.95rem;
     line-height: 1.9;
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(var(--cream-rgb), 0.75);
     font-weight: 300;
     padding-left: 1.2rem;
     position: relative;
@@ -123,7 +123,7 @@
 .info-section a {
     color: var(--gold);
     text-decoration: none;
-    border-bottom: 1px solid rgba(201, 169, 97, 0.35);
+    border-bottom: 1px solid rgba(var(--gold-rgb), 0.35);
     transition: border-color 0.2s ease;
 }
 
@@ -136,7 +136,7 @@
     display: block;
     text-align: center;
     padding: 0 4rem 4rem;
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(var(--cream-rgb), 0.35);
     text-decoration: none;
     font-size: 0.78rem;
     font-weight: 300;
@@ -154,12 +154,12 @@
     transform: translateX(-50%);
     width: 0;
     height: 1px;
-    background: rgba(201, 169, 97, 0.5);
+    background: rgba(var(--gold-rgb), 0.5);
     transition: width 0.35s ease;
 }
 
 .info-back:hover {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(var(--cream-rgb), 0.7);
 }
 
 .info-back:hover::after {
@@ -173,7 +173,7 @@
     }
 
     .info-hero h1 {
-        font-size: 2.5rem;
+        font-size: 3.8rem;
     }
 
     .info-body {

@@ -3,40 +3,31 @@
    Used by: classic.html, nightshade.html, regent.html
    ============================================================ */
 
-/* ---- Per-collection theming ---- */
-
-/* Shared grain + blend settings for all collection bodies */
-[data-collection] {
-    background-size: 200px 200px, 100% 100%;
-    background-blend-mode: soft-light, normal;
-}
+/* ---- Per-collection theming ----
+   Every collection sits on the shared site background (see shared.css).
+   What distinguishes them is the accent colour and the card metalwork:
+   gold for Classic and Regent, silver for Nightshade. */
 
 [data-collection="classic"] {
-    --collection-primary: #1a1a1a;
     --collection-accent: #c0392b;
-    background-color: #0d0d0d;
-    background-image: var(--grain-url), linear-gradient(135deg, #0d0d0d 0%, #1a0a0a 50%, #0d0d0d 100%);
 }
 
 [data-collection="classic"] .product-card {
-    background: #0d0d0d;
-    border: 1px solid rgba(201, 169, 97, 0.4);
+    background: var(--surface);
+    border: 1px solid rgba(var(--gold-rgb), 0.4);
 }
 
 [data-collection="classic"] .product-card:hover {
-    box-shadow: 0 8px 30px rgba(201, 169, 97, 0.3);
+    box-shadow: 0 8px 30px rgba(var(--gold-rgb), 0.3);
     border-color: var(--gold);
 }
 
 [data-collection="nightshade"] {
-    --collection-primary: #1a2851;
     --collection-accent: #a87fd4;
-    background-color: #0a0d1a;
-    background-image: var(--grain-url), linear-gradient(135deg, #0a0d1a 0%, #0d0a14 50%, #0f0d1a 100%);
 }
 
 [data-collection="nightshade"] .product-card {
-    background: #0a0d1a;
+    background: var(--surface);
     border: 1px solid rgba(192, 192, 192, 0.4);
 }
 
@@ -46,19 +37,16 @@
 }
 
 [data-collection="regent"] {
-    --collection-primary: #8b5a3c;
-    --collection-accent: #2ab8be;
-    background-color: #1a1410;
-    background-image: var(--grain-url), linear-gradient(135deg, #1a1410 0%, #0d1414 50%, #14120d 100%);
+    --collection-accent: #d1478f;
 }
 
 [data-collection="regent"] .product-card {
-    background: #1a1410;
-    border: 1px solid rgba(201, 169, 97, 0.4);
+    background: var(--surface);
+    border: 1px solid rgba(var(--gold-rgb), 0.4);
 }
 
 [data-collection="regent"] .product-card:hover {
-    box-shadow: 0 8px 30px rgba(201, 169, 97, 0.3);
+    box-shadow: 0 8px 30px rgba(var(--gold-rgb), 0.3);
     border-color: var(--gold);
 }
 
@@ -70,8 +58,8 @@
     font-weight: 400;
     letter-spacing: 2.5px;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(var(--cream-rgb), 0.5);
+    border: 1px solid rgba(var(--cream-rgb), 0.2);
     border-radius: 2px;
     padding: 0.3rem 0.75rem;
     margin-bottom: 1.75rem;
@@ -86,10 +74,10 @@
 }
 
 .collection-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 4.5rem;
-    font-weight: 300;
-    font-style: italic;
+    font-family: 'Tangerine', cursive;
+    font-size: 6.2rem;
+    font-weight: 700;
+    line-height: 1.02;
     margin-bottom: 1.5rem;
     color: var(--cream);
     text-shadow: 0 4px 20px var(--shadow);
@@ -107,7 +95,7 @@
 .collection-description {
     font-size: 1.15rem;
     line-height: 1.9;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(var(--cream-rgb), 0.9);
     font-weight: 300;
     max-width: 800px;
     margin-bottom: 3rem;
@@ -116,7 +104,7 @@
 /* ---- Products section ---- */
 .products-section {
     padding: 4rem 4rem 6rem;
-    background: rgba(26, 37, 42, 0.3);
+    background: rgba(var(--panel-rgb), 0.3);
 }
 
 .products-grid {
@@ -154,7 +142,7 @@
 
 .product-image {
     aspect-ratio: 1;
-    background: linear-gradient(135deg, var(--collection-primary), var(--collection-accent));
+    background: linear-gradient(135deg, var(--surface-raised), var(--surface));
     position: relative;
     overflow: hidden;
 }
@@ -189,7 +177,7 @@
     }
 
     .collection-title {
-        font-size: 3rem;
+        font-size: 4.4rem;
     }
 
     .collection-tagline {

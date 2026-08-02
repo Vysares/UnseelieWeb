@@ -21,14 +21,14 @@
 .contact-intro {
     font-size: 1.1rem;
     line-height: 1.9;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(var(--cream-rgb), 0.85);
     font-weight: 300;
 }
 
 .contact-intro a {
     color: var(--gold);
     text-decoration: none;
-    border-bottom: 1px solid rgba(201, 169, 97, 0.35);
+    border-bottom: 1px solid rgba(var(--gold-rgb), 0.35);
     transition: border-color 0.2s ease;
 }
 
@@ -79,7 +79,7 @@
 .info-item a,
 .info-value {
     font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(var(--cream-rgb), 0.85);
     font-weight: 300;
     line-height: 1.6;
     text-decoration: none;
@@ -92,8 +92,8 @@
 
 /* ---- Form ---- */
 .contact-form-wrap {
-    background: rgba(26, 37, 42, 0.5);
-    border: 1px solid rgba(201, 169, 97, 0.2);
+    background: rgba(var(--panel-rgb), 0.5);
+    border: 1px solid rgba(var(--gold-rgb), 0.2);
     border-radius: 4px;
     padding: 3rem;
     animation: fadeInUp 1s ease-out 0.4s both;
@@ -114,7 +114,7 @@
 .form-group input,
 .form-group textarea {
     background: rgba(13, 13, 13, 0.4);
-    border: 1px solid rgba(201, 169, 97, 0.25);
+    border: 1px solid rgba(var(--gold-rgb), 0.25);
     border-radius: 2px;
     padding: 0.9rem 1.1rem;
     color: var(--cream);
@@ -128,12 +128,12 @@
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(var(--cream-rgb), 0.3);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: rgba(201, 169, 97, 0.6);
+    border-color: rgba(var(--gold-rgb), 0.6);
     background: rgba(13, 13, 13, 0.6);
 }
 
@@ -156,7 +156,7 @@
     }
 
     .contact-hero h1 {
-        font-size: 3rem;
+        font-size: 4.4rem;
     }
 
     .contact-section {
