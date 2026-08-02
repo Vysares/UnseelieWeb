@@ -102,7 +102,7 @@
 }
 
 .about-actions-or {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--font-heading);
     font-style: italic;
     font-size: 1rem;
     color: rgba(var(--cream-rgb), 0.3);

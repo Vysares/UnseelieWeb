@@ -54,7 +54,7 @@
 .collection-coming-soon {
     display: inline-block;
     font-size: 0.7rem;
-    font-family: 'Jost', sans-serif;
+    font-family: var(--font-body);
     font-weight: 400;
     letter-spacing: 2.5px;
     text-transform: uppercase;
@@ -73,14 +73,10 @@
     animation: fadeInUp 1s ease-out 0.3s both;
 }
 
+/* Dressed by .collection-title in shared.css */
 .collection-title {
-    font-family: 'Tangerine', cursive;
     font-size: 6.2rem;
-    font-weight: 700;
-    line-height: 1.02;
     margin-bottom: 1.5rem;
-    color: var(--cream);
-    text-shadow: 0 4px 20px var(--shadow);
 }
 
 .collection-tagline {
@@ -115,17 +111,18 @@
     margin: 0 auto;
 }
 
+/* The corner-draw arms in shared.css sit on the border box, so the card
+   carries no overflow clip of its own — .product-image does its own
+   clipping for the hover zoom. */
 .product-card {
-    border-radius: 4px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
     cursor: pointer;
     text-decoration: none;
     color: inherit;
     display: block;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 20px rgba(var(--shadow-rgb), 0.3);
     animation: fadeInUp 0.8s ease-out both;
-    will-change: transform;
 }
 
 .product-card:nth-child(1) { animation-delay: 0.1s; }
@@ -135,9 +132,8 @@
 .product-card:nth-child(5) { animation-delay: 0.5s; }
 
 .product-card:hover {
-    transform: translateY(-10px);
     border-color: var(--gold);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 10px 30px rgba(var(--shadow-rgb), 0.4);
 }
 
 .product-image {

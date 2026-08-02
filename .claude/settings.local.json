@@ -16,7 +16,11 @@
       "Bash(git -C:*)",
       "Bash(powershell -Command \"Get-ChildItem ''C:\\\\Users\\\\jackk\\\\Documents\\\\UnseelieWeb\\\\data\\\\ClassicCuffs'' | Select-Object Name\")",
       "Bash(powershell -Command:*)",
-      "Bash(powershell.exe -Command '\n$files = Get-ChildItem \"\"C:\\\\Users\\\\jackk\\\\Documents\\\\UnseelieWeb\\\\*.html\"\"\nforeach \\($file in $files\\) {\n    $content = Get-Content $file.FullName -Raw\n    $newContent = $content -replace \"\"[ \\\\t]*<a href=\"\"\"\"#\"\"\"\">Newsletter</a>\\\\r?\\\\n\"\", \"\"\"\"\n    if \\($content -ne $newContent\\) {\n        Set-Content $file.FullName $newContent -NoNewline\n        Write-Host \"\"Updated: $\\($file.Name\\)\"\"\n    }\n}\n')"
+      "Bash(powershell.exe -Command '\n$files = Get-ChildItem \"\"C:\\\\Users\\\\jackk\\\\Documents\\\\UnseelieWeb\\\\*.html\"\"\nforeach \\($file in $files\\) {\n    $content = Get-Content $file.FullName -Raw\n    $newContent = $content -replace \"\"[ \\\\t]*<a href=\"\"\"\"#\"\"\"\">Newsletter</a>\\\\r?\\\\n\"\", \"\"\"\"\n    if \\($content -ne $newContent\\) {\n        Set-Content $file.FullName $newContent -NoNewline\n        Write-Host \"\"Updated: $\\($file.Name\\)\"\"\n    }\n}\n')",
+      "Bash(sed -n '/^h1 {/,/^}/p' index.css)",
+      "Bash(sed -n '/^\\\\.collection-title {/,/^}/p' collection.css)",
+      "Bash(sed -n '/^\\\\.info-hero h1,/,/^}/p' info.css)",
+      "Bash(sed -n '/^\\\\.shop-hero h1 {/,/^}/p' shop.css)"
     ]
   }
 }

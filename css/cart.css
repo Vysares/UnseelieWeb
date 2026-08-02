@@ -31,7 +31,7 @@
     right: -7px;
     background: var(--gold);
     color: #141312;
-    font-family: 'Jost', sans-serif;
+    font-family: var(--font-body);
     font-size: 0.6rem;
     font-weight: 500;
     min-width: 16px;
@@ -71,7 +71,7 @@
 #cart-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(var(--shadow-rgb), 0.6);
     z-index: 1100;
     opacity: 0;
     pointer-events: none;
@@ -120,7 +120,7 @@ body.cart-open #cart-drawer {
 }
 
 #cart-drawer-title {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--font-heading);
     font-size: 1.6rem;
     font-weight: 300;
     font-style: italic;
@@ -195,7 +195,7 @@ body.cart-open #cart-drawer {
 }
 
 .cart-empty-text {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--font-heading);
     font-size: 1.5rem;
     font-weight: 300;
     font-style: italic;
@@ -380,7 +380,7 @@ body.cart-open #cart-drawer {
 }
 
 .cart-subtotal-value {
-    font-family: 'Jost', sans-serif;
+    font-family: var(--font-body);
     font-size: 1.25rem;
     font-weight: 400;
     color: var(--gold);

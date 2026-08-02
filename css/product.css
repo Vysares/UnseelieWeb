@@ -40,7 +40,7 @@
     padding: 6rem 4rem;
     color: rgba(var(--cream-rgb), 0.4);
     font-style: italic;
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--font-heading);
     font-size: 1.3rem;
 }
 
@@ -113,7 +113,7 @@
 }
 
 .gallery-placeholder-text {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--font-heading);
     font-style: italic;
     font-size: 1rem;
     opacity: 0.5;
@@ -188,7 +188,7 @@
 }
 
 .product-name {
-    font-family: 'Tangerine', cursive;
+    font-family: var(--font-display);
     font-size: 4.2rem;
     font-weight: 700;
     color: var(--cream);
@@ -300,7 +300,7 @@
     border: 1px solid rgba(var(--gold-rgb), 0.25);
     border-radius: 3px;
     color: rgba(var(--cream-rgb), 0.65);
-    font-family: 'Jost', sans-serif;
+    font-family: var(--font-body);
     font-size: 0.85rem;
     font-weight: 400;
     letter-spacing: 1px;
@@ -347,7 +347,7 @@
 .lightbox {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.92);
+    background: rgba(var(--shadow-rgb), 0.92);
     z-index: 1000;
     display: flex;
     align-items: center;

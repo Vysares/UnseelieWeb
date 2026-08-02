@@ -21,7 +21,7 @@
     list-style: none;
     cursor: pointer;
     padding: 1.25rem 0;
-    font-family: 'Jost', sans-serif;
+    font-family: var(--font-body);
     font-size: 0.95rem;
     font-weight: 400;
     letter-spacing: 0.5px;

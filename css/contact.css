@@ -118,7 +118,7 @@
     border-radius: 2px;
     padding: 0.9rem 1.1rem;
     color: var(--cream);
-    font-family: 'Jost', sans-serif;
+    font-family: var(--font-body);
     font-size: 0.95rem;
     font-weight: 300;
     outline: none;
