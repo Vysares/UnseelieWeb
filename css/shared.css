@@ -366,11 +366,6 @@ nav > a:hover::after {
     text-decoration: none;
     cursor: pointer;
     position: relative;
-    transition: box-shadow 0.3s ease;
-}
-
-.btn-primary:hover {
-    box-shadow: 0 0 26px rgba(var(--gold-rgb), 0.3);
 }
 
 /* ---- Secondary button (transparent, gold border) ---- */
@@ -387,91 +382,51 @@ nav > a:hover::after {
     text-transform: uppercase;
     text-decoration: none;
     position: relative;
-    transition: box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 .btn-secondary:hover {
     background: rgba(var(--gold-rgb), 0.07);
     color: var(--cream);
-    box-shadow: 0 0 22px rgba(var(--gold-rgb), 0.2);
 }
 
-/* ---- Gold border, drawn from two opposite corners ----
-   Each pseudo-element is an L: one hooks the top-left corner, the
-   other hooks bottom-right. Growing width draws the horizontal arm
-   and growing height draws the vertical one; both run together, so
-   the two arms open outward from each corner at once and meet.
+/* ---- Gold border + glow, fades in on hover ----
+   A single pseudo-element sits on the border box and carries both the
+   gold outline and its glow; opacity is the only thing that animates,
+   so it simply fades in on hover and fades back out on un-hover.
 
    Worn by the buttons and by every card on the site. An element opting
    in needs `position: relative` and no overflow clip of its own, or the
-   arms get cut off where they sit on the border box. Square corners are
-   the default; anything rounded matches its own radius below. */
-.btn-primary::before,
+   glow gets cut off where it sits outside the border box. Square corners
+   are the default; the buttons match their own radius below. */
 .btn-primary::after,
-.btn-secondary::before,
 .btn-secondary::after,
-.collection-card::before,
 .collection-card::after,
-.type-card::before,
 .type-card::after,
-.product-card::before,
 .product-card::after,
-.shop-card::before,
 .shop-card::after {
     content: '';
     position: absolute;
-    width: 0;
-    height: 0;
+    inset: -1px;
+    border: 1px solid var(--gold);
+    box-shadow: 0 0 18px rgba(var(--gold-rgb), 0.55);
+    opacity: 0;
     pointer-events: none;
-    transition: width 0.3s ease, height 0.3s ease;
-}
-
-.btn-primary::before,
-.btn-secondary::before,
-.collection-card::before,
-.type-card::before,
-.product-card::before,
-.shop-card::before {
-    top: -1px;
-    left: -1px;
-    border-top: 1px solid var(--gold);
-    border-left: 1px solid var(--gold);
+    transition: opacity 0.3s ease;
 }
 
 .btn-primary::after,
-.btn-secondary::after,
-.collection-card::after,
-.type-card::after,
-.product-card::after,
-.shop-card::after {
-    bottom: -1px;
-    right: -1px;
-    border-bottom: 1px solid var(--gold);
-    border-right: 1px solid var(--gold);
+.btn-secondary::after {
+    border-radius: 2px;
 }
 
-/* Arms follow the radius of whatever they wrap. Every card is square,
-   so only the buttons need this. */
-.btn-primary::before,
-.btn-secondary::before { border-top-left-radius: 2px; }
-.btn-primary::after,
-.btn-secondary::after  { border-bottom-right-radius: 2px; }
-
-.btn-primary:hover::before,
 .btn-primary:hover::after,
-.btn-secondary:hover::before,
 .btn-secondary:hover::after,
-.collection-card:hover::before,
 .collection-card:hover::after,
-.type-card:hover::before,
 .type-card:hover::after,
-.product-card:hover::before,
 .product-card:hover::after,
-.shop-card:hover::before,
 .shop-card:hover::after {
-    /* +2px so the arms cover the border box, not just the padding box */
-    width: calc(100% + 2px);
-    height: calc(100% + 2px);
+    opacity: 1;
 }
 
 /* ---- Footer ---- */

@@ -19,7 +19,6 @@
 
 [data-collection="classic"] .product-card:hover {
     box-shadow: 0 8px 30px rgba(var(--gold-rgb), 0.3);
-    border-color: var(--gold);
 }
 
 [data-collection="nightshade"] {
@@ -47,7 +46,6 @@
 
 [data-collection="regent"] .product-card:hover {
     box-shadow: 0 8px 30px rgba(var(--gold-rgb), 0.3);
-    border-color: var(--gold);
 }
 
 /* ---- Coming soon badge ---- */
