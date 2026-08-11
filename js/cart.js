@@ -23,6 +23,12 @@
 
     var STORAGE_KEY = 'unseelie_cart';
 
+    /* Checkout is switched off while the shop is not taking orders. The
+       cart still fills up; only the Stripe handoff is unavailable. To
+       turn ordering back on, set this to true AND lift the matching
+       guard at the top of functions/api/checkout.js. */
+    var CHECKOUT_ENABLED = false;
+
     /* Line item shape:
        { id, name, collection, collectionLabel, price, priceNum, icon, qty } */
     var _items = [];
@@ -254,15 +260,25 @@
         /* Format: remove trailing .00 for whole numbers */
         var subtotalStr = '$' + subtotal.toFixed(2).replace(/\.00$/, '');
 
+        var checkoutHTML = CHECKOUT_ENABLED
+            ? '<button id="cart-checkout-btn" class="btn-primary">' +
+              '  Proceed to Checkout' +
+              '</button>' +
+              '<div id="cart-checkout-error"></div>'
+            : '<button id="cart-checkout-btn" class="btn-primary" disabled>' +
+              '  Checkout Unavailable' +
+              '</button>' +
+              '<p class="cart-footer-note">' +
+              '  We are not taking orders just yet.&thinsp;' +
+              '  <a href="contact.html">Get in touch</a> to reserve a piece.' +
+              '</p>';
+
         footer.innerHTML =
             '<div id="cart-subtotal-row">' +
             '  <span class="cart-subtotal-label">Subtotal</span>' +
             '  <span class="cart-subtotal-value">' + subtotalStr + '</span>' +
             '</div>' +
-            '<button id="cart-checkout-btn" class="btn-primary">' +
-            '  Proceed to Checkout' +
-            '</button>' +
-            '<div id="cart-checkout-error"></div>' +
+            checkoutHTML +
             '<p class="cart-footer-note">' +
             '  Interested in custom sizing?&thinsp;' +
             '  <a href="contact.html">Inquire via contact</a>' +
@@ -281,6 +297,8 @@
     }
 
     function _checkout() {
+        if (!CHECKOUT_ENABLED) return;
+
         var btn = document.getElementById('cart-checkout-btn');
         if (!btn || btn.disabled) return;
 

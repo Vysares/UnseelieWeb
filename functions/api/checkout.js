@@ -13,7 +13,16 @@
      { error } on failure
    ============================================================ */
 
+/* Ordering is switched off while the shop is not taking orders. The Stripe
+   flow below is left intact: set this to true and flip CHECKOUT_ENABLED in
+   js/cart.js to turn it back on. */
+const CHECKOUT_ENABLED = false;
+
 export async function onRequestPost(context) {
+    if (!CHECKOUT_ENABLED) {
+        return jsonResponse({ error: 'We are not taking orders at the moment.' }, 503);
+    }
+
     let body;
     try {
         body = await context.request.json();

@@ -399,6 +399,11 @@ body.cart-open #cart-drawer {
     opacity: 0.45;
 }
 
+/* No gold glow on a button that cannot be pressed */
+#cart-checkout-btn[disabled]:hover::after {
+    opacity: 0;
+}
+
 .cart-footer-note {
     font-size: 0.67rem;
     color: rgba(var(--cream-rgb), 0.28);

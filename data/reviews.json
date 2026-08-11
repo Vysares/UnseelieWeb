@@ -1,0 +1,92 @@
+{
+  "reviews": [
+    {
+      "id": "rev-001",
+      "productId": "classic-wrist-cuffs",
+      "rating": 5,
+      "title": "Better than anything I've owned",
+      "body": "I've bought cuffs from three other makers and these are in a different league. The suede lining is soft enough to wear for hours and the padding hasn't flattened at all after a few months of regular use. The stitching is dead straight the whole way around.",
+      "author": "Marren H.",
+      "date": "2026-06-18",
+      "size": "M",
+      "verified": true
+    },
+    {
+      "id": "rev-002",
+      "productId": "classic-wrist-cuffs",
+      "rating": 5,
+      "title": "Worth every penny",
+      "body": "The hardware feels genuinely solid, no rattle or flex when you pull against it. My partner and I have put these through a lot and they still look new. Shipping took about two weeks since they're made to order, which was communicated clearly up front.",
+      "author": "J. Ashcombe",
+      "date": "2026-05-30",
+      "size": "L",
+      "verified": true
+    },
+    {
+      "id": "rev-003",
+      "productId": "classic-wrist-cuffs",
+      "rating": 4,
+      "title": "Beautiful, sized up",
+      "body": "No complaints about the build at all, they're gorgeous. My only note is that the small ran a little snug on me and I'd have been happier in a medium. Measure your wrists properly before ordering and you'll be fine.",
+      "author": "Devi R.",
+      "date": "2026-05-11",
+      "size": "S",
+      "verified": true
+    },
+    {
+      "id": "rev-004",
+      "productId": "classic-wrist-cuffs",
+      "rating": 5,
+      "title": "The leather smells incredible",
+      "body": "A small thing, but opening the box was an experience. Real vegetable-tanned leather, and it's already starting to darken nicely where it gets handled. These feel like something I'll still have in ten years.",
+      "author": "Corvin",
+      "date": "2026-04-02",
+      "size": "M",
+      "verified": true
+    },
+    {
+      "id": "rev-005",
+      "productId": "classic-ankle-cuffs",
+      "rating": 5,
+      "title": "Comfortable for long sessions",
+      "body": "The extra width over the wrist cuffs makes a real difference. No pinching, no pressure points, and they stay put instead of sliding down. Matched set with the wrist cuffs and the finish is identical.",
+      "author": "Wren T.",
+      "date": "2026-06-05",
+      "size": "M",
+      "verified": true
+    },
+    {
+      "id": "rev-006",
+      "productId": "classic-ankle-cuffs",
+      "rating": 5,
+      "title": "Exactly what I wanted",
+      "body": "Ordered these after the wrist cuffs and the quality is consistent. The hand stitching is genuinely hand stitching, you can see the saddle stitch pattern. Very happy.",
+      "author": "Silas M.",
+      "date": "2026-03-21",
+      "size": "L",
+      "verified": true
+    },
+    {
+      "id": "rev-007",
+      "productId": "classic-collar",
+      "rating": 5,
+      "title": "Stunning piece",
+      "body": "The adjustment range is generous and it sits well without gapping at the front. Plush enough to wear all evening and it looks far more expensive than it was. I get compliments on it constantly.",
+      "author": "Ilse V.",
+      "date": "2026-07-09",
+      "size": "M",
+      "verified": true
+    },
+    {
+      "id": "rev-008",
+      "productId": "classic-collar",
+      "rating": 4,
+      "title": "Lovely, took some breaking in",
+      "body": "The leather was fairly stiff for the first week or two, which I expected from full-grain, and it has softened up beautifully since. Give it time before you judge the fit.",
+      "author": "Theo L.",
+      "date": "2026-04-27",
+      "size": "S",
+      "verified": false
+    }
+  ]
+}

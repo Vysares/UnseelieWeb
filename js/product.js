@@ -151,6 +151,11 @@ function renderPage(product, collection) {
 
   // Wire up gallery
   initGallery(product, collection);
+
+  // reviews.js waits for this before it fetches and renders
+  document.dispatchEvent(new CustomEvent('product:rendered', {
+    detail: { productId: product.id }
+  }));
 }
 
 /* ============================================================
