@@ -84,7 +84,7 @@
 }
 
 .reviews-average-number {
-    font-family: var(--font-heading);
+    font-family: var(--font-body);
     font-size: 3.4rem;
     font-weight: 300;
     line-height: 1;
@@ -220,16 +220,19 @@
 }
 
 /* ============================================================
-   Rating link under the product price
+   Rating link above the product price
    ============================================================ */
 
+/* .product-info is a 1.5rem-gap flex column. The negative margin halves
+   the gap to the price below, so the rating and price read as one block
+   hanging under the product name rather than three evenly spaced rows. */
 .product-rating-link {
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
     align-self: flex-start;
     text-decoration: none;
-    margin-top: -0.75rem;
+    margin-bottom: -0.75rem;
 }
 
 .product-rating-count {

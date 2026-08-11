@@ -9,7 +9,10 @@
        site picks one of these rather than naming the typeface directly,
        so swapping a face is a one-line change here. The matching Google
        Fonts <link> lives in the <head> of every page. */
-    --font-display: 'Tangerine', cursive;
+    /* Tangerine is fetched with display=block (see the <head> of every page),
+       so this fallback only shows if the font fails outright. Never let it be
+       the generic `cursive` keyword: that resolves to Comic Sans on Windows. */
+    --font-display: 'Tangerine', 'Cormorant Garamond', serif;
     --font-heading: 'Cormorant Garamond', serif;
     --font-body: 'Jost', sans-serif;
 

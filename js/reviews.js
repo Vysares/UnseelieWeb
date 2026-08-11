@@ -165,7 +165,7 @@ function addRatingLinkToProductInfo(average, count) {
   const price = document.querySelector('.product-price');
   if (!price) return;
 
-  price.insertAdjacentHTML('afterend', `
+  price.insertAdjacentHTML('beforebegin', `
     <a href="#product-reviews" class="product-rating-link">
       ${buildStars(average, 'reviews-stars-small')}
       <span class="product-rating-count">${countLabel(count)}</span>
