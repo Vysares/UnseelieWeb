@@ -23,6 +23,7 @@ Usage: ./dev.sh [command]
   stripe    Forward real Stripe webhooks to the local server
   trigger   Fire a test checkout.session.completed event
   cron      Run the scheduled handler once
+  emails    Render every email template to .preview/emails.html
   check     Bundle the Worker without deploying
 
 Typical first run:
@@ -132,6 +133,12 @@ run_cron() {
     echo "Scheduled handler ran."
 }
 
+preview_emails() {
+    node tools/preview-emails.js
+    echo
+    echo "Open:  file://$(pwd)/.preview/emails.html"
+}
+
 check_bundle() {
     npx wrangler deploy --dry-run
 }
@@ -143,6 +150,7 @@ case "${1:-serve}" in
     stripe)         forward_stripe ;;
     trigger)        trigger_checkout ;;
     cron)           run_cron ;;
+    emails)         preview_emails ;;
     check)          check_bundle ;;
     -h|--help|help) usage ;;
     *)

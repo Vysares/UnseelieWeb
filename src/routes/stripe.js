@@ -28,6 +28,10 @@ const STRIPE_API = 'https://api.stripe.com/v1';
    checked rather than assumed. */
 const LINE_ITEM_LIMIT = 100;
 
+/* Order numbers start here rather than at 1, so the first customer's
+   order does not announce itself as the first customer's order. */
+const FIRST_ORDER_NUMBER = 1001;
+
 export async function handleStripeWebhook(request, env) {
   if (!env.STRIPE_WEBHOOK_SECRET || !env.STRIPE_SECRET_KEY || !env.DB) {
     console.error('Stripe webhook: STRIPE_WEBHOOK_SECRET, STRIPE_SECRET_KEY, or DB binding is missing.');
@@ -150,17 +154,24 @@ async function recordOrder(env, session) {
 
   const orderId = crypto.randomUUID();
   const now = new Date().toISOString();
+  const shipping = shippingDetails(session);
 
   const statements = [
     env.DB.prepare(
       `INSERT INTO orders
-         (id, stripe_session_id, email, customer_name, placed_at, created_at)
-       VALUES (?, ?, ?, ?, ?, ?)`
+         (id, order_number, stripe_session_id, email, customer_name,
+          shipping_address, shipping_method, placed_at, created_at)
+       VALUES (
+         ?,
+         (SELECT IFNULL(MAX(order_number), ${FIRST_ORDER_NUMBER - 1}) + 1 FROM orders),
+         ?, ?, ?, ?, ?, ?, ?)`
     ).bind(
       orderId,
       session.id,
       email,
       name,
+      shipping?.address ? JSON.stringify(shipping.address) : null,
+      await shippingMethod(env.STRIPE_SECRET_KEY, session),
       new Date(session.created * 1000).toISOString(),
       now
     ),
@@ -211,23 +222,51 @@ async function recordOrder(env, session) {
   }
 }
 
+/* Stripe moved shipping into collected_information in API version
+   2025-03-31 and is removing the top-level field, while a webhook
+   delivers whichever version its endpoint is pinned to — so both are
+   checked. */
+function shippingDetails(session) {
+  return session.collected_information?.shipping_details
+    ?? session.shipping_details
+    ?? null;
+}
+
 /* The shipping recipient, which is the only name this checkout actually
    asks anyone for.
 
    customer_details.name comes last, not first: Checkout fills it only
-   when it collects a name, and functions/api/checkout.js sets
+   when it collects a name, and src/routes/checkout.js sets
    shipping_address_collection without billing address or name
-   collection. Reading it first would leave every greeting as "Hello,".
-
-   Both shipping paths are checked because Stripe moved the field into
-   collected_information in API version 2025-03-31 and is removing the
-   top-level one, while a webhook delivers whichever version its
-   endpoint is pinned to. */
+   collection. Reading it first would leave every greeting as "Hello,". */
 function customerName(session) {
-  return session.collected_information?.shipping_details?.name
-    ?? session.shipping_details?.name
+  return shippingDetails(session)?.name
     ?? session.customer_details?.name
     ?? null;
+}
+
+/* The rate's display name, not its id. Resolved here and stored, so the
+   emails never hold a map of shr_ ids that would go stale the moment
+   live-mode rates are created. */
+async function shippingMethod(secretKey, session) {
+  const rate = session.shipping_cost?.shipping_rate;
+  if (!rate) return null;
+
+  /* Already expanded on some API versions. */
+  if (typeof rate === 'object') return rate.display_name ?? null;
+
+  const response = await fetch(`${STRIPE_API}/shipping_rates/${rate}`, {
+    headers: { Authorization: `Bearer ${secretKey}` },
+  });
+
+  if (!response.ok) {
+    /* Not worth failing an order over — the shipping line just reads
+       blank, and the rest of the record is intact. */
+    console.warn(`Could not resolve shipping rate ${rate}: ${response.status}`);
+    return null;
+  }
+
+  return (await response.json()).display_name ?? null;
 }
 
 /* Line items are not part of the webhook payload and cannot be

@@ -4,6 +4,9 @@
 # Local Worker state: the D1 database file, caches, build output.
 .wrangler/
 
+# Generated email previews — regenerate with ./dev.sh emails
+.preview/
+
 node_modules/
 
 .DS_Store

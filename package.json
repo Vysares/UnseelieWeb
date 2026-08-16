@@ -1,0 +1,15 @@
+{
+  "name": "unseelie",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --port 8787 --test-scheduled",
+    "deploy": "wrangler deploy",
+    "check": "wrangler deploy --dry-run",
+    "db": "wrangler d1 migrations apply unseelie_reviews --local",
+    "db:remote": "wrangler d1 migrations apply unseelie_reviews --remote"
+  },
+  "devDependencies": {
+    "wrangler": "^4.123.0"
+  }
+}

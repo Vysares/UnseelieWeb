@@ -1,6 +1,7 @@
 # Reviews & Notifications — Architecture Notes
 
-Status: design + schema. Nothing built yet. Frontend renderer exists (`js/reviews.js`).
+Status: schema, both webhooks, the mailer, and review submission are built and
+deployed to the Worker in test mode. The admin surface is not built.
 
 Schema lives in `db/migrations/0001_init.sql`; rationale for the non-obvious parts is
 in the comments there rather than duplicated here.
@@ -15,7 +16,7 @@ in the comments there rather than duplicated here.
 | Review clock t0 | `delivered_at`, never inferred |
 | Nudge delay | t0 + 7 days |
 | Incentive for reviewing | None |
-| Admin auth | Cloudflare Access, no auth code written |
+| Admin surface | Stripe App, embedded in the Stripe Dashboard |
 | Moderation log retention | Indefinite |
 
 ## Two upstreams
@@ -67,13 +68,14 @@ One Worker, one D1 database.
 ```
 Worker "unseelie"
   fetch()      ── assets from ./public, matched before any code runs
-               └─ src/routes/checkout.js       POST /api/checkout
-                  src/routes/stripe.js         POST /api/hooks/stripe
-                  src/routes/easypost.js       POST /api/hooks/easypost
-                  src/routes/reviews.js        GET  /api/reviews
-                  src/routes/submit.js         POST /api/reviews/submit
+               └─ src/routes/checkout.js   POST /api/checkout
+                  src/routes/stripe.js     POST /api/hooks/stripe
+                  src/routes/easypost.js   POST /api/hooks/easypost
+                  src/routes/reviews.js    GET  /api/reviews/invite
+                                           GET  /api/reviews/language
+                                           POST /api/reviews/submit
 
-  scheduled()  ── src/mailer/drain.js, every few minutes
+  scheduled()  ── src/mailer/outbox.js drain(), every 5 minutes
                               │
                               ▼
                   D1: unseelie_reviews
@@ -232,25 +234,44 @@ swap; it does not anticipate this.
 Default sort stays newest-first with no rating filter. An optional "1 star only"
 filter is fine; defaulting to anything that hides low ratings is not.
 
-## Open items
+## Still to build
 
 - **Nothing records `tracking_code` against an order yet.** Until something does, every
   EasyPost event fails to match and lands on the attention list. This is the next
   piece, and it is what the Stripe App's payment-detail view is for.
 - **`/api/unsubscribe` does not exist**, and the review nudge links to it. A dead
-  unsubscribe link in commercial mail is a CAN-SPAM problem — build it before the
-  first nudge can go out. The transactional mail is unaffected.
-- **`review.html` does not exist**, and both the delivery notice and the nudge link
-  to it.
-- Most `stripePriceId` values in `data/products.json` are still `REPLACE_*`
-  placeholders. Line-item resolution only works for prices that actually exist.
-- Set `SITE_URL`, `FROM_EMAIL`, and `BUSINESS_ADDRESS` in `wrangler.toml` — the
-  placeholders there are not real.
-- Create the D1 database and uncomment its block in `wrangler.toml`.
-- Move the custom domain from the Pages project to the Worker. Test on the
-  `.workers.dev` URL first; this is the only step that is awkward to undo.
-- Add the webhook endpoint in Stripe and set `STRIPE_WEBHOOK_SECRET`.
-- Pick the ESP (Resend or Postmark). Cloudflare Email Routing is inbound only.
-- SPF / DKIM / DMARC on the sending domain.
-- Write the internal moderation policy. Short, cheap for a lawyer to read, and the
-  thing actually worth having reviewed before launch.
+  unsubscribe link in commercial mail is a CAN-SPAM problem, so the nudge cannot be
+  switched on until it exists. Transactional mail is unaffected.
+- The moderation queue and the audit view.
+- The internal moderation policy. Short, cheap for a lawyer to read, and the thing
+  actually worth having reviewed before launch.
+
+## Going live
+
+Everything below is currently in test mode. Stripe and EasyPost keep test and live
+entirely separate — separate keys, separate webhook endpoints, separate signing
+secrets — so none of it carries over.
+
+**Stripe price ids change, and this is the one that bites.** A live-mode Price is a
+different object with a different id, and the id carries no marker saying which mode
+it belongs to. `data/products.json` currently holds test ids. Recreate the prices in
+live mode and paste the new ids in, or checkout fails with "no such price" the first
+time a real customer tries to buy something.
+
+| | |
+|---|---|
+| `STRIPE_SECRET_KEY` | live key (`sk_live_…`) |
+| `STRIPE_WEBHOOK_SECRET` | live-mode endpoint has its own signing secret |
+| `EASYPOST_WEBHOOK_SECRET` | production webhook, created separately from the test one |
+| `data/products.json` | live-mode price ids throughout |
+| `SITE_URL` | the real domain, once it points at the Worker |
+| `BUSINESS_ADDRESS` | still empty; the review nudge needs it |
+| `CHECKOUT_ENABLED` | `true` in both `src/routes/checkout.js` and `public/js/cart.js` |
+
+Also: move the custom domain off the Pages project (edit the Stripe endpoint URL in
+place rather than creating a new one, so the signing secret survives), confirm
+SPF/DKIM/DMARC on the sending domain, and delete the Pages project once the Worker
+has been serving the domain long enough to trust.
+
+`REVIEW_TOKEN_SECRET` is the exception — it is not mode-specific and must not be
+rotated, since every review link already emailed is derived from it.

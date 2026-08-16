@@ -62,9 +62,21 @@ CREATE INDEX idx_webhook_unhandled ON webhook_events (received_at) WHERE handled
 
 CREATE TABLE orders (
   id                 TEXT PRIMARY KEY,
+  -- Human-facing, and the only id a customer ever sees or quotes back.
+  -- Assigned MAX+1 inside the same transaction as the insert; D1 has a
+  -- single writer per database, so that cannot collide.
+  order_number       INTEGER NOT NULL UNIQUE,
   stripe_session_id  TEXT NOT NULL UNIQUE,
   email              TEXT NOT NULL,
   customer_name      TEXT,
+  -- JSON as Stripe reported it: line1, line2, city, state, postal_code,
+  -- country. Kept structured rather than pre-formatted so the emails can
+  -- change how it reads without a migration.
+  shipping_address   TEXT,
+  -- The rate's display name ("Free standard"), resolved at order time.
+  -- Storing the name rather than the shr_ id means live-mode rate ids
+  -- can differ from test without rewriting history.
+  shipping_method    TEXT,
   placed_at          TEXT NOT NULL,
   tracking_code      TEXT UNIQUE,
   easypost_tracker_id TEXT,

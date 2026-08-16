@@ -64,7 +64,8 @@ export async function drain(env) {
 
   const { results } = await env.DB.prepare(
     `SELECT ob.id, ob.order_id, ob.kind, ob.attempts,
-            o.email, o.customer_name, o.tracking_code, o.delivered_at
+            o.email, o.customer_name, o.order_number, o.tracking_code,
+            o.shipping_address, o.shipping_method, o.delivered_at
      FROM outbox ob
      JOIN orders o ON o.id = ob.order_id
      WHERE ob.state = 'scheduled' AND ob.scheduled_for <= ?
@@ -157,16 +158,20 @@ async function loadItems(db, orderId) {
 async function buildContext(env, row, items) {
   const order = {
     customer_name: row.customer_name,
+    order_number: row.order_number,
     tracking_code: row.tracking_code,
+    shipping_address: row.shipping_address,
+    shipping_method: row.shipping_method,
   };
 
   if (row.kind !== 'delivered' && row.kind !== 'review_nudge') {
-    return { order, items };
+    return { order, items, siteUrl: env.SITE_URL };
   }
 
   return {
     order,
     items,
+    siteUrl: env.SITE_URL,
     reviewItems: await reviewLinks(env, row.order_id),
     unsubscribeUrl: `${env.SITE_URL}/api/unsubscribe?t=${await unsubscribeToken(env, row.email)}`,
     businessAddress: env.BUSINESS_ADDRESS ?? null,
