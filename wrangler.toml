@@ -40,11 +40,14 @@ html_handling = "none"
 # Until this is bound, /api/hooks/stripe reports that it is not
 # configured rather than failing halfway through an order.
 #
-# [[d1_databases]]
-# binding        = "DB"
-# database_name  = "unseelie_reviews"
-# database_id    = ""
-# migrations_dir = "db/migrations"
+# `binding` is the variable name in the Worker — this line is what makes
+# env.DB exist, and renaming it means renaming it in the code too.
+# database_name and database_id are what actually identify the database.
+[[d1_databases]]
+binding        = "DB"
+database_name  = "unseelie_reviews"
+database_id    = "40243be8-49e9-42da-81d0-99cb62696c47"
+migrations_dir = "db/migrations"
 
 # Safety net for the outbox, not the delivery path — mail is sent
 # immediately after each webhook. This catches failed sends, webhooks
@@ -56,8 +59,16 @@ crons = ["*/5 * * * *"]
 # them from. BUSINESS_ADDRESS appears in the footer of the review nudge,
 # which is commercial mail and requires a postal address.
 [vars]
-SITE_URL = "https://unseelie.workshop"
-FROM_EMAIL = "Unseelie Workshop <orders@unseelie.workshop>"
+# Every review link in every email is built from SITE_URL. While the
+# custom domain still points at the old Pages project, set this to the
+# .workers.dev URL or the links will 404.
+SITE_URL = "https://unseelieworkshop.com"
+# Must be an address on a domain verified with the email provider, or
+# every send is rejected.
+FROM_EMAIL = "Unseelie Workshop <orders@unseelieworkshop.com>"
+# Appears in the review nudge, which is commercial mail and legally
+# requires a postal address. The nudge should not be switched on until
+# this is filled in.
 BUSINESS_ADDRESS = ""
 
 # Secrets are not kept in this file:

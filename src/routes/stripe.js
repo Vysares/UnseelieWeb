@@ -139,6 +139,10 @@ async function recordOrder(env, session) {
   const email = session.customer_details?.email ?? session.customer_email;
   if (!email) throw new Error(`Checkout session ${session.id} carries no customer email.`);
 
+  /* Null is fine — the templates greet by name when there is one and
+     say "Hello," when there is not. */
+  const name = customerName(session);
+
   const lineItems = await fetchLineItems(env.STRIPE_SECRET_KEY, session.id);
   if (lineItems.length === 0) {
     throw new Error(`Checkout session ${session.id} reported no line items.`);
@@ -156,7 +160,7 @@ async function recordOrder(env, session) {
       orderId,
       session.id,
       email,
-      session.customer_details?.name ?? null,
+      name,
       new Date(session.created * 1000).toISOString(),
       now
     ),
@@ -207,8 +211,30 @@ async function recordOrder(env, session) {
   }
 }
 
+/* The shipping recipient, which is the only name this checkout actually
+   asks anyone for.
+
+   customer_details.name comes last, not first: Checkout fills it only
+   when it collects a name, and functions/api/checkout.js sets
+   shipping_address_collection without billing address or name
+   collection. Reading it first would leave every greeting as "Hello,".
+
+   Both shipping paths are checked because Stripe moved the field into
+   collected_information in API version 2025-03-31 and is removing the
+   top-level one, while a webhook delivers whichever version its
+   endpoint is pinned to. */
+function customerName(session) {
+  return session.collected_information?.shipping_details?.name
+    ?? session.shipping_details?.name
+    ?? session.customer_details?.name
+    ?? null;
+}
+
 /* Line items are not part of the webhook payload and cannot be
-   expanded onto it, so they are fetched separately. */
+   expanded onto it, so they are fetched separately. The price object
+   comes back nested by default, so price.id needs no expand — but the
+   endpoint's own default limit is 10, which is why the limit is set
+   explicitly and has_more is checked rather than trusted. */
 async function fetchLineItems(secretKey, sessionId) {
   const response = await fetch(
     `${STRIPE_API}/checkout/sessions/${sessionId}/line_items?limit=${LINE_ITEM_LIMIT}`,

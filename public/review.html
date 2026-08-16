@@ -44,7 +44,7 @@
         <section class="contact-hero">
             <div class="contact-hero-content">
                 <h1>Write a Review</h1>
-                <p class="contact-intro">We publish reviews as written, favourable or not. Nothing is offered in exchange for one.</p>
+                <p class="contact-intro" id="review-piece"></p>
             </div>
         </section>
 
@@ -63,24 +63,17 @@
                 </div>
 
                 <div class="review-message" id="review-complete" hidden>
-                    <h2>Nothing left to review</h2>
-                    <p>You have already reviewed everything on this order. Thank you — it genuinely helps the next person decide.</p>
+                    <h2>Already reviewed</h2>
+                    <p>You have already written about this piece. Thank you!</p>
                     <p><a href="shop.html">Back to the shop</a></p>
                 </div>
 
                 <div class="review-message" id="review-done" hidden>
                     <h2>Thank you</h2>
-                    <p>Your review has been received and will appear on the product page once it has been read through. That is usually a day or two.</p>
-                    <p>We check for things like personal details and off-topic content. We do not reject reviews for being critical.</p>
-                    <p id="review-done-more" hidden><a href="#" id="review-another">Review another piece from this order</a></p>
+                    <p>Your review has been received and will appear on the product page within 48 hours.</p>
                 </div>
 
                 <form class="contact-form review-form" id="review-form" hidden novalidate>
-
-                    <div class="form-group" id="review-item-group" hidden>
-                        <label for="review-item">Which piece?</label>
-                        <select id="review-item" name="item"></select>
-                    </div>
 
                     <div class="form-group">
                         <span class="review-label">Your rating</span>
@@ -110,8 +103,14 @@
                         <label for="review-author">Name to show</label>
                         <input type="text" id="review-author" name="author" maxlength="40"
                                placeholder="First name, initials, whatever you like" required>
-                        <span class="review-hint">This appears publicly. Please leave out anything you would rather not publish — addresses, phone numbers, and email addresses are not allowed.</span>
+                        <span class="review-hint">This appears publicly.</span>
                     </div>
+
+                    <!-- Appears while typing and clears when the word
+                         goes, greying out Submit meanwhile. Separate
+                         from the error below: a house rule, not a
+                         failed request. -->
+                    <p class="review-reword" id="review-reword" hidden role="status"></p>
 
                     <p class="review-error" id="review-error" hidden role="alert"></p>
 

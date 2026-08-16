@@ -17,7 +17,11 @@
 import { handleCheckout } from './routes/checkout.js';
 import { handleStripeWebhook } from './routes/stripe.js';
 import { handleEasyPostWebhook } from './routes/easypost.js';
-import { handleReviewInvite, handleReviewSubmit } from './routes/reviews.js';
+import {
+  handleReviewInvite,
+  handleReviewSubmit,
+  handleLanguageList,
+} from './routes/reviews.js';
 import { drain } from './mailer/outbox.js';
 
 export default {
@@ -36,6 +40,9 @@ export default {
 
       case 'GET /api/reviews/invite':
         return handleReviewInvite(request, env);
+
+      case 'GET /api/reviews/language':
+        return handleLanguageList();
 
       case 'POST /api/reviews/submit':
         return handleReviewSubmit(request, env);

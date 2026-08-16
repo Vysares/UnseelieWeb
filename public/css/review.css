@@ -139,6 +139,38 @@
     color: #d98a7f;
 }
 
+/* Greyed out while flagged language is present, so the block is
+   visible before anyone tries to send. */
+.review-form .submit-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Distinct from the error below it. This is a house rule the customer
+   has run into, not a fault in the form or a failed request, and the
+   two want telling apart at a glance. */
+.review-reword {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: rgba(var(--cream-rgb), 0.82);
+    background: rgba(var(--gold-rgb), 0.07);
+    border-left: 2px solid rgba(var(--gold-rgb), 0.5);
+    padding: 13px 15px;
+    margin-bottom: 18px;
+}
+
+.review-reword strong {
+    font-weight: 500;
+    color: var(--cream);
+}
+
+.review-reword em {
+    font-style: normal;
+    font-weight: 500;
+    color: var(--gold);
+}
+
 .review-error {
     font-family: var(--font-body);
     font-size: 0.9rem;

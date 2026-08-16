@@ -20,7 +20,8 @@
       "Bash(sed -n '/^h1 {/,/^}/p' index.css)",
       "Bash(sed -n '/^\\\\.collection-title {/,/^}/p' collection.css)",
       "Bash(sed -n '/^\\\\.info-hero h1,/,/^}/p' info.css)",
-      "Bash(sed -n '/^\\\\.shop-hero h1 {/,/^}/p' shop.css)"
+      "Bash(sed -n '/^\\\\.shop-hero h1 {/,/^}/p' shop.css)",
+      "WebSearch"
     ]
   }
 }

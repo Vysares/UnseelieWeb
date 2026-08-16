@@ -164,40 +164,64 @@ async function buildContext(env, row, items) {
     return { order, items };
   }
 
-  const reviewUrl = await reviewLink(env, row.order_id);
-
   return {
     order,
     items,
-    reviewUrl,
-    unsubscribeUrl: `${env.SITE_URL}/api/unsubscribe?t=${await mintReviewToken(row.order_id, env.REVIEW_TOKEN_SECRET)}`,
+    reviewItems: await reviewLinks(env, row.order_id),
+    unsubscribeUrl: `${env.SITE_URL}/api/unsubscribe?t=${await unsubscribeToken(env, row.email)}`,
     businessAddress: env.BUSINESS_ADDRESS ?? null,
   };
 }
 
-/* Records the invite the first time a link is handed out, so expiry has
-   a start date. The token itself is derived, not stored — see
-   lib/review-token.js. */
-async function reviewLink(env, orderId) {
+/* One link per piece still awaiting a review, so the nudge never asks
+   again about something already written up. Records each invite the
+   first time its link is handed out, which is what gives expiry a start
+   date; the tokens themselves are derived, not stored. */
+async function reviewLinks(env, orderId) {
   if (!env.REVIEW_TOKEN_SECRET) throw new Error('REVIEW_TOKEN_SECRET is not set.');
   if (!env.SITE_URL) throw new Error('SITE_URL is not set.');
 
-  const token = await mintReviewToken(orderId, env.REVIEW_TOKEN_SECRET);
+  const { results } = await env.DB.prepare(
+    `SELECT oi.id, oi.type, oi.collection, oi.size
+     FROM order_items oi
+     LEFT JOIN reviews r ON r.order_item_id = oi.id
+     WHERE oi.order_id = ? AND oi.type IS NOT NULL AND r.id IS NULL`
+  ).bind(orderId).all();
+
   const issuedAt = new Date();
   const expiresAt = new Date(issuedAt);
   expiresAt.setUTCDate(expiresAt.getUTCDate() + INVITE_LIFETIME_DAYS);
 
-  await env.DB.prepare(
-    `INSERT OR IGNORE INTO invites (token_hash, order_id, issued_at, expires_at)
-     VALUES (?, ?, ?, ?)`
-  ).bind(
-    await hashReviewToken(token),
-    orderId,
-    issuedAt.toISOString(),
-    expiresAt.toISOString()
-  ).run();
+  const links = [];
 
-  return `${env.SITE_URL}/review.html?t=${token}`;
+  for (const item of results) {
+    const token = await mintReviewToken(item.id, env.REVIEW_TOKEN_SECRET);
+
+    await env.DB.prepare(
+      `INSERT OR IGNORE INTO invites (token_hash, order_item_id, issued_at, expires_at)
+       VALUES (?, ?, ?, ?)`
+    ).bind(
+      await hashReviewToken(token),
+      item.id,
+      issuedAt.toISOString(),
+      expiresAt.toISOString()
+    ).run();
+
+    links.push({
+      type: item.type,
+      collection: item.collection,
+      size: item.size,
+      url: `${env.SITE_URL}/review.html?t=${token}`,
+    });
+  }
+
+  return links;
+}
+
+/* Keyed off the address rather than an order, since suppression is
+   per-address and outlives any one purchase. */
+function unsubscribeToken(env, email) {
+  return mintReviewToken(`unsubscribe:${email}`, env.REVIEW_TOKEN_SECRET);
 }
 
 async function recordFailure(db, row, err) {

@@ -36,7 +36,7 @@ const SLURS = [
 
 /* Tone, not harm. Curate to taste — this is the list to argue with. */
 const VULGARITY = [
-  'cunt', 'motherfucker', 'whore', 'fuck', 'fucker', 'fucked', 'shit', ' asshole', 'rape'
+  'cunt', 'motherfucker', 'rape'
 ];
 
 const BLOCKED = [...SLURS, ...VULGARITY];
@@ -46,6 +46,20 @@ const BLOCKED = [...SLURS, ...VULGARITY];
    tries to catch every evasion catches ordinary words instead, and the
    moderation queue exists for whatever slips through. */
 const PATTERN = new RegExp(`\\b(${BLOCKED.join('|')})\\b`, 'gi');
+
+/* Handed to the review page so it can catch these while the customer
+   is still typing, rather than after a submit that looks like a
+   rejection. The page is a courtesy; this module stays the authority,
+   and the submit handler checks again regardless of what the browser
+   did or did not do.
+
+   Publishing the list makes it trivially evadable — but it already was.
+   Nothing here chases leetspeak, and the moderation queue is what
+   catches deliberate evasion. The list is not a secret; it is a house
+   rule, and house rules work better posted. */
+export function blockedWordList() {
+  return [...BLOCKED];
+}
 
 /* Returns the distinct words found, lowercased, in the order matched.
    Empty array means nothing objectionable. */

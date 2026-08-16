@@ -165,20 +165,23 @@ CREATE TABLE suppressions (
 -- ============================================================
 -- Review invites
 --
--- One token per order, carried by both the delivery email and the
--- 7-day nudge. Only the SHA-256 of the token is stored, so a database
--- leak does not yield working review links.
+-- One token per purchased item. An order with three pieces gets three
+-- links, and the email lists them; each opens a page about exactly one
+-- thing, so nothing has to ask the customer which piece they mean.
 --
--- Deliberately not single-use: a customer may review one item now and
--- another later. "Already reviewed" is derived from the reviews table,
--- not tracked here.
+-- Only the SHA-256 of the token is stored, so a database leak does not
+-- yield working review links.
+--
+-- "Already reviewed" is derived from the reviews table rather than
+-- tracked here, which is why the token does not need to be burnt on
+-- use — the UNIQUE on reviews.order_item_id is what allows one review.
 -- ============================================================
 
 CREATE TABLE invites (
-  token_hash TEXT PRIMARY KEY,
-  order_id   TEXT NOT NULL UNIQUE REFERENCES orders(id),
-  issued_at  TEXT NOT NULL,
-  expires_at TEXT NOT NULL
+  token_hash    TEXT PRIMARY KEY,
+  order_item_id TEXT NOT NULL UNIQUE REFERENCES order_items(id),
+  issued_at     TEXT NOT NULL,
+  expires_at    TEXT NOT NULL
 );
 
 
@@ -204,32 +207,6 @@ CREATE TABLE reviews (
 
 -- Moderation queue: oldest pending first. No index on rating, by design.
 CREATE INDEX idx_reviews_pending ON reviews (submitted_at) WHERE status = 'pending';
-
-
--- ============================================================
--- Blocked submissions
---
--- The language filter stops a review before it is ever stored, which
--- would otherwise be a rejection that leaves no trace — the same
--- invisible suppression the moderation log exists to prevent, moved
--- one step earlier.
---
--- The attempted rating is the point of this table. If blocks turn out
--- to skew toward one-star reviews, the filter is suppressing criticism
--- regardless of what the word list claims to be for.
---
--- The text itself is deliberately not kept: the rating and the matched
--- words answer the question, and the customer is invited to edit and
--- resubmit rather than having the attempt held against them.
--- ============================================================
-
-CREATE TABLE blocked_submissions (
-  seq          INTEGER PRIMARY KEY AUTOINCREMENT,
-  order_id     TEXT NOT NULL,
-  attempted_at TEXT NOT NULL,
-  rating       INTEGER NOT NULL,
-  matched      TEXT NOT NULL       -- comma-separated, as matched
-);
 
 
 -- ============================================================

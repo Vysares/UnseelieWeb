@@ -1,19 +1,22 @@
 /* ============================================================
    Unseelie Workshop — review submission
    Routes:  GET  /api/reviews/invite?t=<token>
+            GET  /api/reviews/language
             POST /api/reviews/submit
 
-   The token is per-order and stays usable until it expires, because an
-   order can hold several pieces and a customer may review one now and
-   another later. One review per item is enforced by UNIQUE on
-   reviews.order_item_id, not by burning the token.
+   One token per purchased item, so a link identifies exactly what is
+   being reviewed and the page never has to ask. An order with three
+   pieces gets three links in its email.
+
+   The token stays usable until it expires rather than being burnt on
+   use; UNIQUE on reviews.order_item_id is what allows only one review.
 
    Nothing here publishes anything. Every accepted review lands as
    'pending' for moderation.
    ============================================================ */
 
 import { hashReviewToken } from '../lib/review-token.js';
-import { findBlockedWords } from '../lib/language-filter.js';
+import { findBlockedWords, blockedWordList } from '../lib/language-filter.js';
 
 const TITLE_MAX = 80;
 const BODY_MIN = 20;
@@ -33,14 +36,32 @@ export async function handleReviewInvite(request, env) {
 
   if (invite.error) return jsonError(invite.error, invite.status);
 
-  const items = await reviewableItems(env.DB, invite.orderId);
-
   return Response.json({
-    items,
-    /* Nothing left to review is a normal end state, not a failure —
-       the page says so rather than showing an empty form. */
-    complete: items.every(item => item.reviewed),
+    item: {
+      type: invite.item.type,
+      collection: invite.item.collection,
+      size: invite.item.size,
+    },
+    /* Already written up is a normal end state, not a failure — the
+       page says so rather than showing a form that cannot be used. */
+    reviewed: invite.item.reviewed,
   });
+}
+
+/* ============================================================
+   GET /api/reviews/language
+
+   The page uses this to grey out the submit button while a flagged
+   word is present, so nothing is ever sent and handed back. Served
+   rather than copied into the page script so there is one list rather
+   than two that drift apart.
+   ============================================================ */
+
+export function handleLanguageList() {
+  return Response.json(
+    { words: blockedWordList() },
+    { headers: { 'Cache-Control': 'public, max-age=3600' } }
+  );
 }
 
 /* ============================================================
@@ -60,25 +81,21 @@ export async function handleReviewSubmit(request, env) {
   const invite = await lookupInvite(env, body.token);
   if (invite.error) return jsonError(invite.error, invite.status);
 
-  const item = await findItem(env.DB, invite.orderId, body.orderItemId);
-  if (!item) return jsonError('That item is not on this order.', 400);
-  if (item.reviewed) return jsonError('That piece has already been reviewed.', 409);
+  if (invite.item.reviewed) {
+    return jsonError('That piece has already been reviewed.', 409);
+  }
 
   const fields = validate(body);
   if (fields.error) return jsonError(fields.error, 400);
 
-  /* Checked before anything is written, and recorded even though the
-     review is not. A block is a decision about someone's words, so it
-     leaves a trace like every other decision does. */
+  /* The page greys out the submit button before it comes to this, so
+     reaching here means a stale word list, scripting off, or a direct
+     post. Checked anyway — the browser is not a place to enforce
+     anything. */
   const blocked = findBlockedWords(fields.title, fields.body, fields.author);
   if (blocked.length > 0) {
-    await recordBlocked(env.DB, invite.orderId, fields.rating, blocked);
-
     return Response.json(
-      {
-        error: 'Please reword before submitting.',
-        blockedWords: blocked,
-      },
+      { error: rewordMessage(blocked), blockedWords: blocked },
       { status: 422 }
     );
   }
@@ -89,7 +106,7 @@ export async function handleReviewSubmit(request, env) {
      VALUES (?, ?, ?, ?, ?, ?, ?, 'pending')`
   ).bind(
     crypto.randomUUID(),
-    item.id,
+    invite.item.id,
     fields.rating,
     fields.title,
     fields.body,
@@ -102,18 +119,25 @@ export async function handleReviewSubmit(request, env) {
 
 /* ============================================================
    Token
+
+   Resolves a token to the one item it was issued for, or to the reason
+   it will not resolve. Wrong and expired are told apart deliberately:
+   "this link has expired" is actionable, "not found" is not.
    ============================================================ */
 
-/* Resolves a token to its order, or to the reason it will not resolve.
-   Wrong and expired are told apart deliberately: "this link has
-   expired" is actionable, "not found" is not. */
 async function lookupInvite(env, token) {
   if (!token || typeof token !== 'string') {
     return { error: 'This review link is missing its code.', status: 400 };
   }
 
   const row = await env.DB.prepare(
-    'SELECT order_id, expires_at FROM invites WHERE token_hash = ?'
+    `SELECT i.expires_at,
+            oi.id, oi.type, oi.collection, oi.size,
+            CASE WHEN r.id IS NULL THEN 0 ELSE 1 END AS reviewed
+     FROM invites i
+     JOIN order_items oi ON oi.id = i.order_item_id
+     LEFT JOIN reviews r ON r.order_item_id = oi.id
+     WHERE i.token_hash = ?`
   ).bind(await hashReviewToken(token)).first();
 
   if (!row) {
@@ -124,39 +148,15 @@ async function lookupInvite(env, token) {
     return { error: 'This review link has expired.', status: 410 };
   }
 
-  return { orderId: row.order_id };
-}
-
-/* ============================================================
-   Items
-   ============================================================ */
-
-/* Items whose price never resolved to a piece are left out — there is
-   no product page for a review of them to appear on. They surface in
-   the admin instead, so the order is not silently short an item. */
-async function reviewableItems(db, orderId) {
-  const { results } = await db.prepare(
-    `SELECT oi.id, oi.type, oi.collection, oi.size,
-            CASE WHEN r.id IS NULL THEN 0 ELSE 1 END AS reviewed
-     FROM order_items oi
-     LEFT JOIN reviews r ON r.order_item_id = oi.id
-     WHERE oi.order_id = ? AND oi.type IS NOT NULL`
-  ).bind(orderId).all();
-
-  return results.map(row => ({
-    id: row.id,
-    type: row.type,
-    collection: row.collection,
-    size: row.size,
-    reviewed: row.reviewed === 1,
-  }));
-}
-
-async function findItem(db, orderId, orderItemId) {
-  if (!orderItemId) return null;
-
-  const items = await reviewableItems(db, orderId);
-  return items.find(item => item.id === orderItemId) ?? null;
+  return {
+    item: {
+      id: row.id,
+      type: row.type,
+      collection: row.collection,
+      size: row.size,
+      reviewed: row.reviewed === 1,
+    },
+  };
 }
 
 /* ============================================================
@@ -188,11 +188,10 @@ function trim(value) {
   return typeof value === 'string' ? value.trim() : '';
 }
 
-function recordBlocked(db, orderId, rating, blocked) {
-  return db.prepare(
-    `INSERT INTO blocked_submissions (order_id, attempted_at, rating, matched)
-     VALUES (?, ?, ?, ?)`
-  ).bind(orderId, new Date().toISOString(), rating, blocked.join(',')).run();
+/* Same wording the page shows, so a customer who reaches the backstop
+   reads what an ordinary submission would have told them. */
+function rewordMessage(blocked) {
+  return `We can't allow the following language to be published publicly: ${blocked.join(', ')}`;
 }
 
 function jsonError(message, status) {

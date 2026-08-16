@@ -66,7 +66,7 @@ function shipped({ order, items }) {
   });
 }
 
-function delivered({ order, items, reviewUrl }) {
+function delivered({ order, items, reviewItems }) {
   return build({
     subject: 'Your Unseelie Workshop order has arrived',
     heading: 'Delivered',
@@ -76,25 +76,21 @@ function delivered({ order, items, reviewUrl }) {
       itemList(items),
       'Give the leather a little time — full-grain stiffens in transit and softens with wear. The care guide covers the rest.',
       divider(),
-      'If you have a few minutes once you have handled it, we would be glad to hear what you think. Good or bad, it gets published as written.',
-      stars(reviewUrl),
-      link(reviewUrl, 'Write a review'),
+      'If you have a few minutes once you have handled it, we would be glad to hear what you think.',
+      reviewPicker(reviewItems),
     ],
     footer: null,
   });
 }
 
-function reviewNudge({ order, items, reviewUrl, unsubscribeUrl, businessAddress }) {
+function reviewNudge({ order, reviewItems, unsubscribeUrl, businessAddress }) {
   return build({
     subject: 'How are your cuffs?',
     heading: 'A week in',
     body: [
       greet(order),
       `It has been about ${NUDGE_DELAY_DAYS} days since your order arrived. If you have had a chance to use it, a review would help the next person decide.`,
-      itemList(items),
-      'We publish reviews as written — we do not filter out the critical ones, and there is nothing on offer in exchange.',
-      stars(reviewUrl),
-      link(reviewUrl, 'Write a review'),
+      reviewPicker(reviewItems),
     ],
     footer: { unsubscribeUrl, businessAddress },
   });
@@ -116,13 +112,15 @@ function firstName(fullName) {
 
 function itemList(items) {
   if (!items || items.length === 0) return null;
+  return { list: items.map(describeItemFully) };
+}
 
-  const lines = items.map(item => {
-    const piece = describeItem(item);
-    return item.size ? `${piece} — ${item.size}` : piece;
-  });
-
-  return { list: lines };
+/* Includes the size, because two of the same piece in different sizes
+   are two different things to review — anything that identifies one
+   has to carry it. */
+function describeItemFully(item) {
+  const piece = describeItem(item);
+  return item.size ? `${piece} — ${item.size}` : piece;
 }
 
 /* Falls back to the raw price id when the catalog could not resolve
@@ -154,19 +152,28 @@ const COLLECTION_LABELS = {
 function divider() { return { divider: true }; }
 function link(href, label) { return { href, label }; }
 
-/* Five links, one per rating, each landing on the same page with that
-   rating preselected and still changeable.
+/* One block per piece still to be reviewed, each with its own token, so
+   the page it opens already knows which item is meant.
 
-   Every star is the same size and colour and goes to the same place.
-   The common version of this pattern sends four and five stars to the
-   review form and one through three to a private "what went wrong"
-   page; that is review gating, it is what the FTC rule prohibits, and
-   it must not be reintroduced here by making the high end prettier. */
-function stars(reviewUrl) {
-  return { stars: MAX_RATING_LINKS.map(value => ({ value, href: `${reviewUrl}&r=${value}` })) };
+   Within a block, five star links, each landing on that same page with
+   the rating preselected and still changeable. Every star is the same
+   size and colour and goes to the same place — the usual version of
+   this pattern routes four and five stars to the review form and one
+   through three to a private "what went wrong" page, which is review
+   gating and must not creep back in by making the high end prettier. */
+function reviewPicker(reviewItems) {
+  if (!reviewItems || reviewItems.length === 0) return null;
+
+  return {
+    reviews: reviewItems.map(item => ({
+      label: describeItemFully(item),
+      url: item.url,
+      stars: RATINGS.map(value => ({ value, href: `${item.url}&r=${value}` })),
+    })),
+  };
 }
 
-const MAX_RATING_LINKS = [1, 2, 3, 4, 5];
+const RATINGS = [1, 2, 3, 4, 5];
 
 /* ============================================================
    Rendering
@@ -192,11 +199,13 @@ function renderText(heading, blocks, footer) {
   for (const block of blocks) {
     if (typeof block === 'string') parts.push(block, '');
     else if (block.list) parts.push(...block.list.map(line => `  · ${line}`), '');
-    else if (block.stars) {
-      parts.push('Rate it:');
-      parts.push(...block.stars.map(star =>
-        `  ${'★'.repeat(star.value)}${'☆'.repeat(5 - star.value)}  ${star.href}`));
-      parts.push('');
+    else if (block.reviews) {
+      for (const review of block.reviews) {
+        parts.push(`${review.label} — rate it:`);
+        parts.push(...review.stars.map(star =>
+          `  ${'★'.repeat(star.value)}${'☆'.repeat(RATINGS.length - star.value)}  ${star.href}`));
+        parts.push('');
+      }
     }
     else if (block.href) parts.push(`${block.label}: ${block.href}`, '');
     else if (block.divider) parts.push('—', '');
@@ -223,12 +232,18 @@ function renderHtml(heading, blocks, footer) {
         .map(line => `<li style="${STYLE.listItem}">${escapeHtml(line)}</li>`)
         .join('');
       parts.push(`<ul style="${STYLE.list}">${items}</ul>`);
-    } else if (block.stars) {
-      const row = block.stars.map(star =>
-        `<a href="${escapeHtml(star.href)}" style="${STYLE.star}" ` +
-        `title="${star.value} of 5">&#9733;</a>`
-      ).join('');
-      parts.push(`<p style="${STYLE.starRow}">${row}</p>`);
+    } else if (block.reviews) {
+      for (const review of block.reviews) {
+        const row = review.stars.map(star =>
+          `<a href="${escapeHtml(star.href)}" style="${STYLE.star}" ` +
+          `title="${star.value} of ${RATINGS.length}">&#9733;</a>`
+        ).join('');
+
+        parts.push(
+          `<p style="${STYLE.reviewLabel}">${escapeHtml(review.label)}</p>` +
+          `<p style="${STYLE.starRow}">${row}</p>`
+        );
+      }
     } else if (block.href) {
       parts.push(
         `<p style="${STYLE.paragraph}">` +
@@ -265,8 +280,9 @@ const STYLE = {
   list:      'font-size:15px;margin:0 0 16px;padding-left:20px;',
   listItem:  'margin:0 0 4px;',
   link:      'color:#8a7440;',
-  /* Identical for all five — see stars(). */
-  starRow:   'font-size:15px;margin:0 0 16px;',
+  reviewLabel: 'font-size:14px;margin:0 0 4px;color:#57534c;',
+  /* Identical for all five — see reviewPicker(). */
+  starRow:   'font-size:15px;margin:0 0 20px;',
   star:      'color:#c9a961;font-size:30px;text-decoration:none;padding:0 3px;',
   divider:   'border:0;border-top:1px solid #ddd8cc;margin:24px 0;',
   signoff:   'font-size:15px;margin:24px 0 0;',

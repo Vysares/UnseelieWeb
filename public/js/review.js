@@ -1,8 +1,10 @@
 /* ============================================================
    Unseelie Workshop — Review form
 
-   Reads the invite token from the URL, asks the API what is still
-   reviewable on that order, and posts one review at a time.
+   Reads the invite token from the URL and asks the API which piece it
+   was issued for. One token means one item, so the page never has to
+   ask which thing is being reviewed — an order with three pieces sends
+   three links.
 
    The ?r= parameter comes from the star links in the email. It only
    preselects a radio — the click that carried it is not a submission,
@@ -16,9 +18,16 @@
 
     var INVITE_URL = '/api/reviews/invite';
     var SUBMIT_URL = '/api/reviews/submit';
+    var LANGUAGE_URL = '/api/reviews/language';
     var MAX_RATING = 5;
     var BODY_MIN = 20;
     var BODY_MAX = 2000;
+
+    /* Built from the list the server hands over, so there is one word
+       list rather than two that drift apart. Null until it arrives; the
+       server checks again on submit either way, so a slow or failed
+       fetch costs nothing but the early warning. */
+    var languagePattern = null;
 
     var RATING_WORDS = ['', 'Poor', 'Not great', 'Fine', 'Good', 'Excellent'];
 
@@ -48,18 +57,89 @@
         buildStars(readRating(params.get('r')));
         wireCounter();
         wireSubmit();
+        wireLanguageWatch();
 
         loadInvite();
+        loadLanguageList();
     });
+
+    /* ============================================================
+       Language
+
+       Catches a word before the customer presses Submit, so nothing
+       they wrote is ever sent and handed back to them. The house rule
+       is stated plainly; what it applies to is a short list of slurs,
+       not opinions, and a scathing review passes untouched.
+       ============================================================ */
+
+    function loadLanguageList() {
+        fetch(LANGUAGE_URL)
+            .then(function (res) { return res.ok ? res.json() : null; })
+            .then(function (data) {
+                if (!data || !data.words || data.words.length === 0) return;
+                languagePattern = new RegExp('\\b(' + data.words.join('|') + ')\\b', 'gi');
+                checkLanguage();
+            })
+            .catch(function () { /* Server still checks on submit. */ });
+    }
+
+    function wireLanguageWatch() {
+        ['review-title', 'review-body', 'review-author'].forEach(function (id) {
+            el[id].addEventListener('input', checkLanguage);
+        });
+    }
+
+    function findFlaggedWords() {
+        if (!languagePattern) return [];
+
+        var text = [
+            el['review-title'].value,
+            el['review-body'].value,
+            el['review-author'].value
+        ].join('\n');
+
+        var found = [];
+        var match;
+
+        languagePattern.lastIndex = 0;
+        while ((match = languagePattern.exec(text)) !== null) {
+            var word = match[1].toLowerCase();
+            if (found.indexOf(word) === -1) found.push(word);
+        }
+
+        return found;
+    }
+
+    /* Runs on every keystroke: the notice and the greyed-out button
+       appear as the word is typed and clear as it is removed, so the
+       fix is obvious and nothing is ever sent to be handed back. */
+    function checkLanguage() {
+        var flagged = findFlaggedWords();
+
+        el['review-submit'].disabled = flagged.length > 0;
+
+        if (flagged.length === 0) {
+            el['review-reword'].hidden = true;
+            return;
+        }
+
+        el['review-reword'].innerHTML =
+            'We can\'t allow the following language to be published publicly: ' +
+            flagged.map(function (word) {
+                return '<em>' + escapeHtml(word) + '</em>';
+            }).join(', ');
+
+        el['review-reword'].hidden = false;
+    }
 
     function cacheElements() {
         [
             'review-loading', 'review-problem', 'review-problem-title',
             'review-problem-detail', 'review-complete', 'review-done',
-            'review-done-more', 'review-another', 'review-form',
-            'review-item-group', 'review-item', 'review-stars',
+            'review-form', 'review-piece', 'review-stars',
             'review-stars-caption', 'review-title', 'review-body',
-            'review-author', 'review-counter', 'review-error', 'review-submit'
+            'review-author', 'review-counter', 'review-error', 'review-reword',
+            'review-submit'
         ].forEach(function (id) {
             el[id] = document.getElementById(id);
         });
@@ -87,30 +167,17 @@
                     showProblem('This link will not open', result.data.error || 'Please try again later.');
                     return;
                 }
-                if (result.data.complete) {
+                if (result.data.reviewed) {
                     show(el['review-complete']);
                     return;
                 }
-                populateItems(result.data.items);
+                el['review-piece'].textContent = describeItem(result.data.item);
                 show(el['review-form']);
             })
             .catch(function () {
                 showProblem('We could not reach the workshop',
                     'Something went wrong at our end. Please try again in a few minutes.');
             });
-    }
-
-    /* Only unreviewed pieces are offered. The chooser is hidden when
-       there is nothing to choose between. */
-    function populateItems(items) {
-        var pending = items.filter(function (item) { return !item.reviewed; });
-
-        el['review-item'].innerHTML = pending.map(function (item) {
-            return '<option value="' + escapeAttr(item.id) + '">' +
-                escapeHtml(describeItem(item)) + '</option>';
-        }).join('');
-
-        el['review-item-group'].hidden = pending.length < 2;
     }
 
     function describeItem(item) {
@@ -197,11 +264,6 @@
             event.preventDefault();
             submitReview();
         });
-
-        el['review-another'].addEventListener('click', function (event) {
-            event.preventDefault();
-            window.location.reload();
-        });
     }
 
     function submitReview() {
@@ -212,6 +274,15 @@
             return;
         }
 
+        /* The button is greyed out while a flagged word is present, so
+           this only catches a stray Enter key. Nothing is sent: the form
+           keeps every word of it and the customer changes one. */
+        if (findFlaggedWords().length > 0) {
+            checkLanguage();
+            el['review-reword'].scrollIntoView({ block: 'center', behavior: 'smooth' });
+            return;
+        }
+
         setBusy(true);
 
         fetch(SUBMIT_URL, {
@@ -219,7 +290,6 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 token: token,
-                orderItemId: el['review-item'].value,
                 rating: selectedRating(),
                 title: el['review-title'].value,
                 body: el['review-body'].value,
@@ -262,15 +332,13 @@
     }
 
     function showThanks() {
-        var remaining = el['review-item'].options.length - 1;
-
-        hideAll();
         show(el['review-done']);
-        el['review-done-more'].hidden = remaining < 1;
     }
 
+    /* Finishing a send must not undo the language block, or a failed
+       submit would hand back an enabled button on flagged text. */
     function setBusy(busy) {
-        el['review-submit'].disabled = busy;
+        el['review-submit'].disabled = busy || findFlaggedWords().length > 0;
         el['review-submit'].textContent = busy ? 'Sending…' : 'Submit Review';
     }
 
