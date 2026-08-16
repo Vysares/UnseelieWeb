@@ -1,0 +1,165 @@
+/* ============================================================
+   Unseelie Workshop — Review form
+
+   Form fields, labels, and the submit button come from contact.css;
+   only what is particular to reviewing is defined here — the star
+   picker, the item chooser, and the states the page can be in.
+   ============================================================ */
+
+.review-wrap {
+    max-width: 620px;
+    margin: 0 auto;
+}
+
+.review-status {
+    text-align: center;
+    color: var(--text-muted, rgba(var(--cream-rgb), 0.6));
+    font-family: var(--font-body);
+    padding: 40px 0;
+}
+
+/* ============================================================
+   Non-form states
+   ============================================================ */
+
+.review-message {
+    text-align: center;
+    padding: 30px 0 50px;
+}
+
+.review-message h2 {
+    font-family: var(--font-heading);
+    font-size: 1.7rem;
+    margin-bottom: 16px;
+}
+
+.review-message p {
+    font-family: var(--font-body);
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 14px;
+    color: rgba(var(--cream-rgb), 0.78);
+}
+
+/* ============================================================
+   Item chooser
+   ============================================================ */
+
+.review-form select {
+    width: 100%;
+    padding: 12px 14px;
+    background: rgba(var(--panel-rgb), 0.6);
+    border: 1px solid rgba(var(--cream-rgb), 0.14);
+    color: var(--cream);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    border-radius: 2px;
+}
+
+.review-form select:focus {
+    outline: none;
+    border-color: rgba(var(--gold-rgb), 0.55);
+}
+
+/* ============================================================
+   Stars
+
+   All five are identical in size, colour, and spacing, and all five
+   submit to the same place. A rating picker that makes the high end
+   more inviting than the low end is a thumb on the scale.
+   ============================================================ */
+
+.review-label {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(var(--cream-rgb), 0.55);
+    margin-bottom: 10px;
+}
+
+.review-stars {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 4px;
+}
+
+.review-stars label {
+    cursor: pointer;
+    font-size: 2rem;
+    line-height: 1;
+    color: rgba(var(--cream-rgb), 0.22);
+    transition: color 0.12s ease;
+    padding: 2px;
+}
+
+.review-stars input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+/* Fill this star and every star before it. */
+.review-stars label.is-lit {
+    color: var(--gold);
+}
+
+.review-stars input:focus-visible + label {
+    outline: 2px solid rgba(var(--gold-rgb), 0.7);
+    outline-offset: 2px;
+}
+
+.review-stars-caption {
+    display: block;
+    margin-top: 8px;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: rgba(var(--cream-rgb), 0.5);
+}
+
+/* ============================================================
+   Field extras
+   ============================================================ */
+
+.review-counter,
+.review-hint {
+    display: block;
+    margin-top: 6px;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    color: rgba(var(--cream-rgb), 0.45);
+    line-height: 1.5;
+}
+
+.review-counter.is-over {
+    color: #d98a7f;
+}
+
+.review-error {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #e0a49b;
+    background: rgba(160, 60, 50, 0.12);
+    border-left: 2px solid #c0554c;
+    padding: 12px 14px;
+    margin-bottom: 18px;
+}
+
+.review-error strong {
+    font-weight: 500;
+    color: #f0c8c1;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}

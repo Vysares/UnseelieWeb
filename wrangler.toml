@@ -1,3 +1,68 @@
-name = "late-shadow-8d77"
-compatibility_date = "2025-01-01"
-pages_build_output_dir = "./"
+# ============================================================
+# Unseelie Workshop — single Worker: site + API + (later) mailer
+#
+# Deploy:  npx wrangler deploy
+# Local:   npx wrangler dev
+#
+# This replaces the old Pages project (late-shadow-8d77), which keeps
+# working on its .pages.dev URL until the custom domain is moved over
+# and it is deleted.
+# ============================================================
+
+name = "unseelie"
+main = "src/index.js"
+compatibility_date = "2026-08-16"
+
+# Only ./public is uploaded, so db/, docs/, and src/ are never served.
+# Assets are matched before the Worker runs; unmatched paths fall
+# through to src/index.js.
+[assets]
+directory = "./public"
+binding = "ASSETS"
+not_found_handling = "404-page"     # serves public/404.html
+
+# Serve /shop.html as /shop.html. The default ("auto-trailing-slash")
+# 307-redirects it to /shop, and the site links to itself with .html
+# 208 times, so every internal navigation would cost a round trip and
+# every already-indexed URL would move. Pages did not do this.
+html_handling = "none"
+
+# Orders, notifications, and reviews. Uncomment once the database
+# exists:
+#
+#   npx wrangler d1 create unseelie_reviews
+#
+# then paste the returned id below and apply the schema:
+#
+#   npx wrangler d1 migrations apply unseelie_reviews --local
+#   npx wrangler d1 migrations apply unseelie_reviews --remote
+#
+# Until this is bound, /api/hooks/stripe reports that it is not
+# configured rather than failing halfway through an order.
+#
+# [[d1_databases]]
+# binding        = "DB"
+# database_name  = "unseelie_reviews"
+# database_id    = ""
+# migrations_dir = "db/migrations"
+
+# Safety net for the outbox, not the delivery path — mail is sent
+# immediately after each webhook. This catches failed sends, webhooks
+# that never arrived, and the review nudges that come due days later.
+[triggers]
+crons = ["*/5 * * * *"]
+
+# Not secret, and needed by the mailer, which has no request to infer
+# them from. BUSINESS_ADDRESS appears in the footer of the review nudge,
+# which is commercial mail and requires a postal address.
+[vars]
+SITE_URL = "https://unseelie.workshop"
+FROM_EMAIL = "Unseelie Workshop <orders@unseelie.workshop>"
+BUSINESS_ADDRESS = ""
+
+# Secrets are not kept in this file:
+#   npx wrangler secret put STRIPE_SECRET_KEY
+#   npx wrangler secret put STRIPE_WEBHOOK_SECRET
+#   npx wrangler secret put EASYPOST_WEBHOOK_SECRET
+#   npx wrangler secret put RESEND_API_KEY
+#   npx wrangler secret put REVIEW_TOKEN_SECRET   # openssl rand -hex 32

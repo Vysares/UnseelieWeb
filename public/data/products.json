@@ -1,0 +1,172 @@
+{
+  "collections": {
+    "classic": {
+      "label": "The Classic Collection",
+      "short": "Classic",
+      "accent": "#cd2c2c",
+      "gradientFrom": "#1a1a1a",
+      "gradientTo": "#8b1a1a",
+      "href": "classic.html"
+    },
+    "nightshade": {
+      "label": "The Nightshade Collection",
+      "short": "Nightshade",
+      "accent": "#a87fd4",
+      "gradientFrom": "#1a2851",
+      "gradientTo": "#5a3d66",
+      "href": "nightshade.html"
+    },
+    "regent": {
+      "label": "The Regent Collection",
+      "short": "Regent",
+      "accent": "#d1478f",
+      "gradientFrom": "#8b5a3c",
+      "gradientTo": "#2d7a7e",
+      "href": "regent.html"
+    }
+  },
+  "types": {
+    "sets": {
+      "label": "Full Sets"
+    },
+    "wrist-cuffs": {
+      "label": "Wrist Cuffs"
+    },
+    "ankle-cuffs": {
+      "label": "Ankle Cuffs"
+    },
+    "collars": {
+      "label": "Collars"
+    },
+    "accessories": {
+      "label": "Accessories"
+    }
+  },
+
+  "materials": [
+    {
+      "name": "Full-grain Vegetable-Tanned Cowhide",
+      "note": "Vegetable tanning — the method of using plant tannins to turn hides into leather — is at least 7000 years old. The process yields a flexible and incredibly tough leather that feels smooth against the skin and has a rich, earthy aroma. All our pieces are made from full-grain leather, the highest grade available."
+    },
+    {
+      "name": "Italian Suede",
+      "note": "Chosen for its remarkable combination of softness, toughness, and breathability — goatskin suede feels luxuriously plush against the skin, for hours of comfortable wear."
+    },
+    {
+      "name": "Neoprene Padding",
+      "note": "Sandwiched between the outer leather and inner suede lining, closed-cell neoprene adds a springy cushion that conforms to the wearer when cinched down tight, and won't compress over time."
+    },
+    {
+      "name": "Fully Hand Stitched",
+      "note": "Hand stitched using traditional methods and braided polyester thread, for a beautiful and unreasonably strong bond that machines can't replicate."
+    },
+    {
+      "name": "Solid Brass Hardware",
+      "note": "Gorgeous brass hardware with a heft you can feel and the strength to match. Nickel-plated or left bare depending on collection."
+    },
+    {
+      "name": "Responsibly Sourced",
+      "note": "All leather is sourced from adult animals raised for their meat and milk. We vow never to use calf or lamb skin in any of our products, as these animals are often raised specifically for their hides."
+    }
+  ],
+
+  "legacyIds": {
+    "classic-wrist-cuffs": { "type": "wrist-cuffs", "collection": "classic" },
+    "classic-ankle-cuffs": { "type": "ankle-cuffs", "collection": "classic" },
+    "classic-collar":      { "type": "collars",     "collection": "classic" }
+  },
+
+  "products": [
+    {
+      "type": "wrist-cuffs",
+      "name": "Wrist Cuffs",
+      "description": "These padded leather bondage cuffs are designed for comfort and built for durability, with soft suede, neoprene padding, and heavy-duty brass hardware for serious play.",
+      "details": [
+        "Outer cuff made from full-grain leather.",
+        "Lined with neoprene padding and luxurious Italian suede.",
+        "Heavy-duty solid-brass hardware. Made to be used.",
+        "Includes two cuffs and one stainless-steel connector."
+      ],
+      "collections": {
+        "classic": {
+          "price": "$200",
+          "images": [
+            "data/ClassicCuffs/DSC_1446.png",
+            "data/ClassicCuffs/DSC_1462.png"
+          ],
+          "variants": [
+            { "size": "Smaller", "stripePriceId": "price_1T3kEp2VtP3KQAfpXFVWrhTj" },
+            { "size": "Larger",  "stripePriceId": "price_1T3kKG2VtP3KQAfp2rEHGfFS" }
+          ]
+        },
+        "nightshade": {
+          "price": "$200",
+          "images": [],
+          "variants": [
+            { "size": "Smaller", "stripePriceId": "REPLACE_NIGHTSHADE_WRIST_SMALLER" },
+            { "size": "Larger",  "stripePriceId": "REPLACE_NIGHTSHADE_WRIST_LARGER" }
+          ]
+        }
+      }
+    },
+    {
+      "type": "ankle-cuffs",
+      "name": "Ankle Cuffs",
+      "description": "No collection is complete without a sturdy set of ankle restraints. Our ankle cuffs are slightly longer and wider than our wrist cuffs, for a comfortable and secure fit.",
+      "details": [
+        "Outer cuff made from full-grain leather.",
+        "Lined with neoprene padding and luxurious Italian suede.",
+        "Heavy-duty solid-brass hardware. Made to be used.",
+        "Double riveted and hand-stitched throughout.",
+        "Includes two cuffs and one stainless-steel connector."
+      ],
+      "collections": {
+        "classic": {
+          "price": "$215",
+          "images": [],
+          "variants": [
+            { "size": "Smaller", "stripePriceId": "REPLACE_CLASSIC_ANKLE_SMALLER" },
+            { "size": "Larger",  "stripePriceId": "REPLACE_CLASSIC_ANKLE_LARGER" }
+          ]
+        },
+        "nightshade": {
+          "price": "$215",
+          "images": [],
+          "variants": [
+            { "size": "Smaller", "stripePriceId": "REPLACE_NIGHTSHADE_ANKLE_SMALLER" },
+            { "size": "Larger",  "stripePriceId": "REPLACE_NIGHTSHADE_ANKLE_LARGER" }
+          ]
+        }
+      }
+    },
+    {
+      "type": "collars",
+      "name": "Collar",
+      "description": "Give your sub or yourself the best, with beautifully finished full-grain leather, and a plush suede lining that feels amazing against the skin. Like all of our pieces, internal neoprene padding ensures a snug and comfortable fit even when cinched down tight.",
+      "details": [
+        "Outer collar made from full-grain leather.",
+        "Lined with neoprene padding and luxurious Italian suede.",
+        "Heavy-duty solid-brass hardware. Made to be used.",
+        "Hand-stitched throughout."
+      ],
+      "collections": {
+        "classic": {
+          "price": "$120",
+          "images": [],
+          "variants": [
+            { "size": "S (12 - 14.5 in)", "stripePriceId": "REPLACE_CLASSIC_COLLAR_SMALLER" },
+            { "size": "L (14 - 16.5 in)",  "stripePriceId": "REPLACE_CLASSIC_COLLAR_LARGER" }
+          ]
+        },
+        "nightshade": {
+          "price": "$120",
+          "images": [],
+          "variants": [
+            { "size": "Smaller", "stripePriceId": "REPLACE_NIGHTSHADE_COLLAR_SMALLER" },
+            { "size": "Larger",  "stripePriceId": "REPLACE_NIGHTSHADE_COLLAR_LARGER" }
+          ]
+        }
+      }
+    }
+  ]
+}

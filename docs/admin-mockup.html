@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unseelie Admin — mockup</title>
+<style>
+/* ============================================================
+   Notional admin console — mockup only.
+   Self-contained: no fonts, scripts, or images fetched.
+   Palette taken from public/css/shared.css so it sits next to
+   the storefront; semantic colors are deliberately outside the
+   brand accent so state reads independently of identity.
+   ============================================================ */
+
+:root {
+  --ground:        #1a1a19;
+  --panel:         #201f1e;
+  --raised:        #2c2b28;
+  --line:          #38352f;
+  --line-soft:     #2a2825;
+
+  --ink:           #ece8df;
+  --ink-dim:       #9c968a;
+  --ink-faint:     #6d675d;
+
+  --gold:          #c9a961;
+  --gold-dim:      #8a7440;
+
+  --ok:            #6b9c78;
+  --warn:          #d09a44;
+  --crit:          #c0554c;
+
+  --radius: 3px;
+
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans:  ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono:  ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-family: var(--serif); font-weight: 600; margin: 0; text-wrap: balance; }
+
+button { font: inherit; color: inherit; cursor: pointer; }
+
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* ---------- mockup banner ---------- */
+
+.mock-banner {
+  background: repeating-linear-gradient(
+    135deg, #2a2418, #2a2418 10px, #262112 10px, #262112 20px);
+  border-bottom: 1px solid var(--gold-dim);
+  color: var(--gold);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 7px 20px;
+  text-align: center;
+}
+
+/* ---------- shell ---------- */
+
+.shell { display: grid; grid-template-columns: 232px 1fr; min-height: calc(100vh - 32px); }
+
+.sidebar {
+  background: var(--panel);
+  border-right: 1px solid var(--line-soft);
+  padding: 26px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.brand { padding: 0 22px; }
+.brand-name { font-family: var(--serif); font-size: 20px; letter-spacing: 0.01em; }
+.brand-sub {
+  color: var(--ink-faint); font-size: 11px;
+  letter-spacing: 0.16em; text-transform: uppercase; margin-top: 3px;
+}
+
+.nav { display: flex; flex-direction: column; }
+
+.nav-item {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  background: none; border: 0; border-left: 2px solid transparent;
+  padding: 9px 22px; text-align: left; color: var(--ink-dim);
+  font-size: 14px; width: 100%;
+}
+.nav-item:hover { color: var(--ink); background: rgba(255,255,255,0.02); }
+.nav-item[aria-current="true"] {
+  color: var(--ink); border-left-color: var(--gold); background: rgba(201,169,97,0.06);
+}
+
+.nav-count {
+  font-family: var(--mono); font-size: 11px; font-variant-numeric: tabular-nums;
+  background: var(--raised); color: var(--ink-dim);
+  border-radius: 9px; padding: 1px 7px;
+}
+.nav-count.is-live { background: var(--gold); color: #201b0f; }
+
+.main { padding: 34px 40px 70px; max-width: 1080px; }
+
+.page { display: none; }
+.page[data-active="true"] { display: block; }
+
+.page-head { margin-bottom: 26px; }
+.page-head h1 { font-size: 27px; }
+.page-head p { color: var(--ink-dim); margin: 6px 0 0; font-size: 14px; max-width: 66ch; }
+
+/* ---------- stat tiles ---------- */
+
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(178px, 1fr)); gap: 12px; margin-bottom: 34px; }
+
+.tile { background: var(--panel); border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 16px 18px; }
+.tile-label { color: var(--ink-faint); font-size: 11px; letter-spacing: 0.11em; text-transform: uppercase; }
+.tile-value { font-family: var(--serif); font-size: 33px; line-height: 1.1; margin-top: 7px; font-variant-numeric: tabular-nums; }
+.tile-note { color: var(--ink-dim); font-size: 12.5px; margin-top: 3px; }
+.tile[data-tone="warn"] .tile-value { color: var(--warn); }
+
+/* ---------- sections ---------- */
+
+.section { margin-bottom: 36px; }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+.section-head h2 { font-size: 18px; }
+.section-note { color: var(--ink-faint); font-size: 12.5px; }
+
+/* ---------- attention list ---------- */
+
+.attn { display: flex; flex-direction: column; gap: 8px; }
+
+.attn-row {
+  display: grid; grid-template-columns: 3px 1fr auto; gap: 14px; align-items: center;
+  background: var(--panel); border: 1px solid var(--line-soft); border-radius: var(--radius);
+  padding: 0; overflow: hidden;
+}
+.attn-stripe { align-self: stretch; background: var(--warn); }
+.attn-row[data-sev="crit"] .attn-stripe { background: var(--crit); }
+.attn-body { padding: 12px 0; }
+.attn-title { font-size: 14px; }
+.attn-detail { color: var(--ink-dim); font-size: 12.5px; margin-top: 2px; }
+.attn-action { padding-right: 16px; }
+
+/* ---------- tables ---------- */
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--line-soft); border-radius: var(--radius); }
+
+table { border-collapse: collapse; width: 100%; min-width: 620px; background: var(--panel); }
+
+th {
+  text-align: left; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.11em; text-transform: uppercase; color: var(--ink-faint);
+  padding: 10px 14px; border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+td { padding: 11px 14px; border-bottom: 1px solid var(--line-soft); font-size: 14px; vertical-align: middle; }
+tbody tr:last-child td { border-bottom: 0; }
+.num { font-variant-numeric: tabular-nums; text-align: right; }
+.mono { font-family: var(--mono); font-size: 12.5px; color: var(--ink-dim); }
+
+/* ---------- pills ---------- */
+
+.pill {
+  display: inline-block; font-size: 11px; letter-spacing: 0.05em;
+  text-transform: uppercase; padding: 2.5px 9px; border-radius: 10px;
+  border: 1px solid currentColor; white-space: nowrap;
+}
+.pill[data-tone="ok"]      { color: var(--ok); }
+.pill[data-tone="warn"]    { color: var(--warn); }
+.pill[data-tone="crit"]    { color: var(--crit); }
+.pill[data-tone="neutral"] { color: var(--ink-faint); }
+.pill[data-tone="gold"]    { color: var(--gold); }
+
+/* ---------- buttons ---------- */
+
+.btn {
+  border: 1px solid var(--line); background: var(--raised); color: var(--ink);
+  border-radius: var(--radius); padding: 7px 15px; font-size: 13.5px;
+}
+.btn:hover { border-color: var(--ink-faint); }
+.btn[data-variant="primary"] { background: var(--gold); border-color: var(--gold); color: #201b0f; font-weight: 600; }
+.btn[data-variant="primary"]:hover { background: #d8ba74; border-color: #d8ba74; }
+.btn[data-variant="danger"] { color: var(--crit); }
+.btn[data-variant="danger"]:hover { border-color: var(--crit); }
+.btn[data-variant="quiet"] { background: none; border-color: transparent; color: var(--ink-dim); padding-left: 0; padding-right: 0; text-decoration: underline; text-underline-offset: 3px; }
+.btn[data-variant="quiet"]:hover { color: var(--ink); }
+.btn:disabled { opacity: 0.36; cursor: not-allowed; }
+.btn:disabled:hover { border-color: var(--line); }
+
+.btn-row { display: flex; gap: 9px; align-items: center; flex-wrap: wrap; }
+
+/* ---------- review cards ---------- */
+
+.queue { display: flex; flex-direction: column; gap: 13px; }
+
+.rev {
+  background: var(--panel); border: 1px solid var(--line-soft);
+  border-radius: var(--radius); padding: 17px 19px;
+}
+.rev[data-stale="true"] { border-color: var(--warn); }
+
+.rev-top { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 11px; }
+.rev-product { font-size: 12.5px; color: var(--ink-dim); }
+.rev-product strong { color: var(--ink); font-weight: 600; }
+.rev-age { font-size: 12.5px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+.rev-age[data-stale="true"] { color: var(--warn); }
+
+.rev-title { font-size: 17px; margin-bottom: 5px; }
+.rev-body { color: #cfcabf; font-size: 14px; margin: 0 0 12px; max-width: 68ch; }
+.rev-author { color: var(--ink-dim); font-size: 12.5px; }
+
+.rev-foot {
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  flex-wrap: wrap; border-top: 1px solid var(--line-soft); padding-top: 12px; margin-top: 13px;
+}
+
+/* rating stays collapsed until asked for */
+.rating-slot { display: flex; align-items: center; gap: 9px; min-height: 26px; }
+.rating-value { font-family: var(--serif); font-size: 17px; color: var(--gold); letter-spacing: 0.1em; }
+.rating-num { color: var(--ink-dim); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+
+/* ---------- reject panel ---------- */
+
+.reject { margin-top: 13px; border-top: 1px solid var(--line); padding-top: 14px; }
+.reject[hidden] { display: none; }
+.reject-label { font-size: 11px; letter-spacing: 0.11em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 9px; }
+
+.codes { display: grid; grid-template-columns: repeat(auto-fit, minmax(212px, 1fr)); gap: 5px; margin-bottom: 13px; }
+.code { display: flex; gap: 9px; align-items: flex-start; padding: 7px 9px; border-radius: var(--radius); cursor: pointer; border: 1px solid transparent; }
+.code:hover { background: rgba(255,255,255,0.025); }
+.code input { margin: 3px 0 0; accent-color: var(--gold); }
+.code-name { font-family: var(--mono); font-size: 12.5px; }
+.code-desc { color: var(--ink-faint); font-size: 11.5px; display: block; margin-top: 1px; }
+
+.note-field { width: 100%; background: var(--ground); color: var(--ink); border: 1px solid var(--line); border-radius: var(--radius); padding: 8px 10px; font: inherit; font-size: 13.5px; margin-bottom: 12px; resize: vertical; }
+
+.gate-hint { color: var(--ink-faint); font-size: 12.5px; }
+
+/* ---------- audit bars ---------- */
+
+.bar-track { display: inline-block; width: 100%; min-width: 90px; height: 7px; background: var(--raised); border-radius: 4px; overflow: hidden; vertical-align: middle; }
+.bar-fill { display: block; height: 100%; background: var(--ok); }
+.bar-fill[data-tone="warn"] { background: var(--warn); }
+.bar-fill[data-tone="crit"] { background: var(--crit); }
+
+.verdict {
+  display: grid; grid-template-columns: 3px 1fr; gap: 14px; overflow: hidden;
+  background: var(--panel); border: 1px solid var(--line-soft); border-radius: var(--radius); margin-top: 14px;
+}
+.verdict-stripe { background: var(--ok); }
+.verdict-body { padding: 13px 0; }
+.verdict h3 { font-size: 15px; margin-bottom: 3px; }
+.verdict p { margin: 0; color: var(--ink-dim); font-size: 13.5px; max-width: 72ch; }
+
+/* ---------- tracking input ---------- */
+
+.track-form { display: flex; gap: 7px; align-items: center; }
+.track-input {
+  background: var(--ground); color: var(--ink); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 5px 9px; font-family: var(--mono); font-size: 12.5px; width: 168px;
+}
+
+.empty { color: var(--ink-faint); font-size: 14px; padding: 26px 0; text-align: center; font-style: italic; }
+
+.toast {
+  position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(14px);
+  background: var(--raised); border: 1px solid var(--gold-dim); color: var(--ink);
+  border-radius: var(--radius); padding: 10px 20px; font-size: 13.5px;
+  opacity: 0; pointer-events: none; transition: opacity .18s ease, transform .18s ease;
+}
+.toast[data-show="true"] { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+@media (max-width: 760px) {
+  .shell { grid-template-columns: 1fr; }
+  .sidebar { flex-direction: row; align-items: center; gap: 0; padding: 12px 0; overflow-x: auto; }
+  .brand { display: none; }
+  .nav { flex-direction: row; }
+  .nav-item { border-left: 0; border-bottom: 2px solid transparent; white-space: nowrap; }
+  .nav-item[aria-current="true"] { border-left: 0; border-bottom-color: var(--gold); }
+  .main { padding: 22px 18px 60px; }
+}
+</style>
+</head>
+<body>
+
+<div class="mock-banner">Mockup — every order, customer, and review below is invented sample data</div>
+
+<div class="shell">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-name">Unseelie</div>
+      <div class="brand-sub">Workshop admin</div>
+    </div>
+    <nav class="nav" id="nav">
+      <button class="nav-item" data-target="dashboard" aria-current="true">Dashboard <span class="nav-count">2</span></button>
+      <button class="nav-item" data-target="queue">Review queue <span class="nav-count is-live" id="queue-count">3</span></button>
+      <button class="nav-item" data-target="orders">Orders <span class="nav-count">6</span></button>
+      <button class="nav-item" data-target="audit">Audit</button>
+    </nav>
+  </aside>
+
+  <main class="main">
+
+    <!-- ============================ DASHBOARD ============================ -->
+    <section class="page" id="dashboard" data-active="true">
+      <div class="page-head">
+        <h1>Dashboard</h1>
+        <p>Everything waiting on you, and every email the system intends to send before it sends it.</p>
+      </div>
+
+      <div class="tiles">
+        <div class="tile">
+          <div class="tile-label">Reviews pending</div>
+          <div class="tile-value">3</div>
+          <div class="tile-note">Oldest waiting 15 days</div>
+        </div>
+        <div class="tile" data-tone="warn">
+          <div class="tile-label">Needs attention</div>
+          <div class="tile-value">2</div>
+          <div class="tile-note">1 stalled parcel, 1 unmapped item</div>
+        </div>
+        <div class="tile">
+          <div class="tile-label">Email scheduled</div>
+          <div class="tile-value">4</div>
+          <div class="tile-note">Next goes out in 2 days</div>
+        </div>
+        <div class="tile">
+          <div class="tile-label">Published reviews</div>
+          <div class="tile-value">12</div>
+          <div class="tile-note">Average 4.6 across all pieces</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <h2>Needs attention</h2>
+          <span class="section-note">Nothing here resolves itself</span>
+        </div>
+        <div class="attn">
+
+          <div class="attn-row" data-sev="warn">
+            <span class="attn-stripe"></span>
+            <div class="attn-body">
+              <div class="attn-title">Parcel has not reported delivery in 16 days</div>
+              <div class="attn-detail">Order UW-1043 · shipped July 31 · USPS 9400 1000 0000 0000 0000 00 · no scan since Aug 2</div>
+            </div>
+            <div class="attn-action"><button class="btn">Open order</button></div>
+          </div>
+
+          <div class="attn-row" data-sev="crit">
+            <span class="attn-stripe"></span>
+            <div class="attn-body">
+              <div class="attn-title">Purchased item could not be matched to a product</div>
+              <div class="attn-detail">Order UW-1049 · price_1T9xQ22VtP3KQAfpLmR4dTb9 is not in the catalog · the order is otherwise complete</div>
+            </div>
+            <div class="attn-action"><button class="btn">Map by hand</button></div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <h2>Email scheduled to go out</h2>
+          <span class="section-note">Cancel anything here before it sends</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Order</th><th>Customer</th><th>Message</th><th>Sends</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="mono">UW-1051</td><td>R. Aldworth</td>
+                <td>Review request follow-up</td><td>in 2 days</td>
+                <td><span class="pill" data-tone="gold">Scheduled</span></td>
+              </tr>
+              <tr>
+                <td class="mono">UW-1050</td><td>M. Okonkwo</td>
+                <td>Review request follow-up</td><td>in 5 days</td>
+                <td><span class="pill" data-tone="gold">Scheduled</span></td>
+              </tr>
+              <tr>
+                <td class="mono">UW-1048</td><td>T. Bergström</td>
+                <td>Review request follow-up</td><td>—</td>
+                <td><span class="pill" data-tone="neutral">Skipped · already reviewed</span></td>
+              </tr>
+              <tr>
+                <td class="mono">UW-1047</td><td>S. Vance</td>
+                <td>Delivered</td><td>sent Aug 14</td>
+                <td><span class="pill" data-tone="ok">Sent</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ QUEUE ============================ -->
+    <section class="page" id="queue">
+      <div class="page-head">
+        <h1>Review queue</h1>
+        <p>Oldest first. There is deliberately no way to sort or filter by star rating, and the rating stays hidden until you ask for it.</p>
+      </div>
+
+      <div class="queue" id="queue-list">
+
+        <!-- stale one, deliberately first -->
+        <article class="rev" data-stale="true">
+          <div class="rev-top">
+            <div class="rev-product"><strong>Wrist Cuffs</strong> · Classic · Larger</div>
+            <div class="rev-age" data-stale="true">Waiting 15 days</div>
+          </div>
+          <h3 class="rev-title">Hardware loosened after a month</h3>
+          <p class="rev-body">The leather and stitching are genuinely excellent, no argument there. But one of the D-ring screws worked itself loose after about four weeks and I had to thread-lock it myself. For the price I did not expect to be doing that. Everything else has held up well.</p>
+          <div class="rev-author">Sample Customer · verified purchase · submitted Aug 1</div>
+
+          <div class="rev-foot">
+            <div class="rating-slot">
+              <button class="btn" data-variant="quiet" data-reveal>Show rating</button>
+            </div>
+            <div class="btn-row">
+              <button class="btn" data-variant="primary" data-publish>Publish</button>
+              <button class="btn" data-variant="danger" data-reject>Reject</button>
+            </div>
+          </div>
+
+          <div class="reject" hidden></div>
+        </article>
+
+        <article class="rev">
+          <div class="rev-top">
+            <div class="rev-product"><strong>Collars</strong> · Classic · S (12 – 14.5 in)</div>
+            <div class="rev-age">Waiting 3 days</div>
+          </div>
+          <h3 class="rev-title">Exactly as described</h3>
+          <p class="rev-body">Fits the way the sizing guide said it would, which is rarer than it should be. The padding is thick without being bulky and the buckle sits flat. Shipping took the full two weeks but that was stated up front, so no surprise.</p>
+          <div class="rev-author">Sample Customer · verified purchase · submitted Aug 13</div>
+
+          <div class="rev-foot">
+            <div class="rating-slot">
+              <button class="btn" data-variant="quiet" data-reveal>Show rating</button>
+            </div>
+            <div class="btn-row">
+              <button class="btn" data-variant="primary" data-publish>Publish</button>
+              <button class="btn" data-variant="danger" data-reject>Reject</button>
+            </div>
+          </div>
+
+          <div class="reject" hidden></div>
+        </article>
+
+        <article class="rev">
+          <div class="rev-top">
+            <div class="rev-product"><strong>Ankle Cuffs</strong> · Classic · Larger</div>
+            <div class="rev-age">Waiting 1 day</div>
+          </div>
+          <h3 class="rev-title">Great cuffs — call me to talk shop</h3>
+          <p class="rev-body">Really pleased with these, the suede lining is the best I have handled. If anyone wants to chat about leatherwork I am on 555-0142 or sample.customer@example.com, always happy to talk technique with fellow makers.</p>
+          <div class="rev-author">Sample Customer · verified purchase · submitted Aug 15</div>
+
+          <div class="rev-foot">
+            <div class="rating-slot">
+              <button class="btn" data-variant="quiet" data-reveal>Show rating</button>
+            </div>
+            <div class="btn-row">
+              <button class="btn" data-variant="primary" data-publish>Publish</button>
+              <button class="btn" data-variant="danger" data-reject>Reject</button>
+            </div>
+          </div>
+
+          <div class="reject" hidden></div>
+        </article>
+
+      </div>
+
+      <p class="empty" id="queue-empty" hidden>Queue is clear.</p>
+    </section>
+
+    <!-- ============================ ORDERS ============================ -->
+    <section class="page" id="orders">
+      <div class="page-head">
+        <h1>Orders</h1>
+        <p>Paste a tracking number when you buy a label. That is what tells the customer it shipped and starts the clock on everything after.</p>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Order</th><th>Customer</th><th>Placed</th><th>Items</th><th>Status</th><th>Tracking</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">UW-1052</td><td>A. Fenwick</td><td>Aug 15</td><td>Wrist Cuffs · Classic</td>
+              <td><span class="pill" data-tone="gold">Paid</span></td>
+              <td>
+                <form class="track-form" data-track>
+                  <input class="track-input" type="text" placeholder="tracking number" aria-label="Tracking number for UW-1052">
+                  <button class="btn" type="submit">Save</button>
+                </form>
+              </td>
+            </tr>
+            <tr>
+              <td class="mono">UW-1051</td><td>R. Aldworth</td><td>Aug 2</td><td>Collar · Classic</td>
+              <td><span class="pill" data-tone="ok">Delivered</span></td>
+              <td class="mono">9400 1000 … 4471</td>
+            </tr>
+            <tr>
+              <td class="mono">UW-1049</td><td>D. Marsh</td><td>Jul 29</td><td>1 unmapped item</td>
+              <td><span class="pill" data-tone="crit">Attention</span></td>
+              <td class="mono">9400 1000 … 8812</td>
+            </tr>
+            <tr>
+              <td class="mono">UW-1048</td><td>T. Bergström</td><td>Jul 26</td><td>Ankle Cuffs · Classic</td>
+              <td><span class="pill" data-tone="ok">Delivered</span></td>
+              <td class="mono">9400 1000 … 2093</td>
+            </tr>
+            <tr>
+              <td class="mono">UW-1043</td><td>K. Iyer</td><td>Jul 18</td><td>Wrist Cuffs · Classic</td>
+              <td><span class="pill" data-tone="warn">Stalled</span></td>
+              <td class="mono">9400 1000 … 0000</td>
+            </tr>
+            <tr>
+              <td class="mono">UW-1041</td><td>S. Vance</td><td>Jul 11</td><td>Full Set · Classic</td>
+              <td><span class="pill" data-tone="ok">Delivered</span></td>
+              <td class="mono">9400 1000 … 6634</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================ AUDIT ============================ -->
+    <section class="page" id="audit">
+      <div class="page-head">
+        <h1>Audit</h1>
+        <p>Do you reject unfavourable reviews more often than favourable ones? This page answers that, whether or not you like the answer.</p>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <h2>Decisions by rating</h2>
+          <span class="section-note">All time · 16 decisions</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Rating</th><th class="num">Published</th><th class="num">Rejected</th><th class="num">Reject rate</th><th style="width:32%">&nbsp;</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>5 stars</td><td class="num">8</td><td class="num">0</td><td class="num">0.0%</td>
+                <td><span class="bar-track"><span class="bar-fill" style="width:2%"></span></span></td>
+              </tr>
+              <tr>
+                <td>4 stars</td><td class="num">3</td><td class="num">0</td><td class="num">0.0%</td>
+                <td><span class="bar-track"><span class="bar-fill" style="width:2%"></span></span></td>
+              </tr>
+              <tr>
+                <td>3 stars</td><td class="num">1</td><td class="num">0</td><td class="num">0.0%</td>
+                <td><span class="bar-track"><span class="bar-fill" style="width:2%"></span></span></td>
+              </tr>
+              <tr>
+                <td>2 stars</td><td class="num">2</td><td class="num">1</td><td class="num">33.3%</td>
+                <td><span class="bar-track"><span class="bar-fill" data-tone="warn" style="width:33%"></span></span></td>
+              </tr>
+              <tr>
+                <td>1 star</td><td class="num">1</td><td class="num">0</td><td class="num">0.0%</td>
+                <td><span class="bar-track"><span class="bar-fill" style="width:2%"></span></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="verdict">
+          <span class="verdict-stripe"></span>
+          <div class="verdict-body">
+            <h3>No rating-linked pattern</h3>
+            <p>The single rejection was a 2-star review carrying a customer's phone number, and the resubmission was published. Low-rated reviews are not being rejected at a higher rate than high-rated ones.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <h2>Rejections by reason</h2>
+          <span class="section-note">Every rejection carries a code · none can be uncoded</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Reason</th><th class="num">Count</th><th>Ratings involved</th><th>Resubmitted</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="mono">personal_information</td><td class="num">1</td><td>2 stars</td><td>1 of 1 · published</td></tr>
+              <tr><td class="mono">off_topic</td><td class="num">0</td><td>—</td><td>—</td></tr>
+              <tr><td class="mono">harassment_or_slurs</td><td class="num">0</td><td>—</td><td>—</td></tr>
+              <tr><td class="mono">spam_or_promotional</td><td class="num">0</td><td>—</td><td>—</td></tr>
+              <tr><td class="mono">suspected_inauthentic</td><td class="num">0</td><td>—</td><td>—</td></tr>
+              <tr><td class="mono">unintelligible</td><td class="num">0</td><td>—</td><td>—</td></tr>
+              <tr><td class="mono">customer_withdrew</td><td class="num">0</td><td>—</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* Sample ratings, kept out of the markup so the queue genuinely has to
+     ask for them rather than rendering them hidden. */
+  var SAMPLE_RATINGS = [2, 5, 5];
+
+  var REASON_CODES = [
+    ['off_topic',             'Not about the product or the purchase'],
+    ['personal_information',  'Contact details, or identifies someone else'],
+    ['harassment_or_slurs',   'Directed abuse or hate speech'],
+    ['spam_or_promotional',   'Links or competitor promotion'],
+    ['suspected_inauthentic', 'Evidence it is not from the buyer'],
+    ['unintelligible',        'No substantive content'],
+    ['customer_withdrew',     'Customer asked for removal']
+  ];
+
+  /* ---------- navigation ---------- */
+
+  var nav = document.getElementById('nav');
+  nav.addEventListener('click', function (e) {
+    var btn = e.target.closest('.nav-item');
+    if (!btn) return;
+
+    nav.querySelectorAll('.nav-item').forEach(function (b) {
+      b.setAttribute('aria-current', String(b === btn));
+    });
+    document.querySelectorAll('.page').forEach(function (p) {
+      p.setAttribute('data-active', String(p.id === btn.dataset.target));
+    });
+    window.scrollTo(0, 0);
+  });
+
+  /* ---------- toast ---------- */
+
+  var toast = document.getElementById('toast');
+  var toastTimer;
+
+  function say(msg) {
+    toast.textContent = msg;
+    toast.setAttribute('data-show', 'true');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      toast.setAttribute('data-show', 'false');
+    }, 2600);
+  }
+
+  /* ---------- queue ---------- */
+
+  var list = document.getElementById('queue-list');
+  var countEl = document.getElementById('queue-count');
+  var emptyEl = document.getElementById('queue-empty');
+
+  function refreshCount() {
+    var n = list.querySelectorAll('.rev').length;
+    countEl.textContent = String(n);
+    countEl.hidden = n === 0;
+    emptyEl.hidden = n !== 0;
+  }
+
+  function cardIndex(card) {
+    return Array.prototype.indexOf.call(list.querySelectorAll('.rev'), card);
+  }
+
+  function revealRating(card, btn) {
+    var stars = SAMPLE_RATINGS[cardIndex(card)] || 5;
+    var slot = btn.parentNode;
+    slot.innerHTML =
+      '<span class="rating-value" role="img" aria-label="' + stars + ' out of 5 stars">' +
+        '★'.repeat(stars) + '</span>' +
+      '<span class="rating-num">' + stars + ' of 5</span>';
+  }
+
+  function buildRejectPanel(panel, card) {
+    var codes = REASON_CODES.map(function (c, i) {
+      return '' +
+        '<label class="code">' +
+          '<input type="radio" name="reason-' + cardIndex(card) + '-' + i + '" value="' + c[0] + '">' +
+          '<span>' +
+            '<span class="code-name">' + c[0] + '</span>' +
+            '<span class="code-desc">' + c[1] + '</span>' +
+          '</span>' +
+        '</label>';
+    }).join('');
+
+    panel.innerHTML =
+      '<div class="reject-label">Reason for rejection — required</div>' +
+      '<div class="codes">' + codes + '</div>' +
+      '<textarea class="note-field" rows="2" placeholder="Optional note for the record"></textarea>' +
+      '<div class="btn-row">' +
+        '<button class="btn" data-variant="danger" data-confirm disabled>Reject and log</button>' +
+        '<button class="btn" data-variant="quiet" data-cancel>Cancel</button>' +
+        '<span class="gate-hint">Choose a reason to continue</span>' +
+      '</div>';
+
+    /* All radios in one panel share a name, so this is a single-select
+       group; the confirm button stays disabled until one is chosen. */
+    var groupName = 'reason-' + cardIndex(card);
+    panel.querySelectorAll('input[type=radio]').forEach(function (r) {
+      r.name = groupName;
+    });
+
+    var confirm = panel.querySelector('[data-confirm]');
+    var hint = panel.querySelector('.gate-hint');
+
+    panel.addEventListener('change', function () {
+      var chosen = panel.querySelector('input[type=radio]:checked');
+      confirm.disabled = !chosen;
+      hint.textContent = chosen ? 'Logged against this review permanently' : 'Choose a reason to continue';
+    });
+  }
+
+  function removeCard(card, msg) {
+    card.style.transition = 'opacity .18s ease';
+    card.style.opacity = '0';
+    setTimeout(function () {
+      card.remove();
+      refreshCount();
+      say(msg);
+    }, 180);
+  }
+
+  list.addEventListener('click', function (e) {
+    var card = e.target.closest('.rev');
+    if (!card) return;
+
+    if (e.target.matches('[data-reveal]')) {
+      revealRating(card, e.target);
+      return;
+    }
+
+    if (e.target.matches('[data-publish]')) {
+      removeCard(card, 'Published. Live on the product page.');
+      return;
+    }
+
+    if (e.target.matches('[data-reject]')) {
+      var panel = card.querySelector('.reject');
+      buildRejectPanel(panel, card);
+      panel.hidden = false;
+      e.target.disabled = true;
+      return;
+    }
+
+    if (e.target.matches('[data-cancel]')) {
+      var p = card.querySelector('.reject');
+      p.hidden = true;
+      p.innerHTML = '';
+      card.querySelector('[data-reject]').disabled = false;
+      return;
+    }
+
+    if (e.target.matches('[data-confirm]')) {
+      var code = card.querySelector('input[type=radio]:checked').value;
+      removeCard(card, 'Rejected as ' + code + '. Customer notified, may resubmit.');
+      return;
+    }
+  });
+
+  refreshCount();
+
+  /* ---------- tracking number ---------- */
+
+  document.querySelectorAll('[data-track]').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var input = form.querySelector('.track-input');
+      if (!input.value.trim()) {
+        say('Enter a tracking number first.');
+        return;
+      }
+      var cell = form.parentNode;
+      cell.textContent = input.value.trim();
+      cell.className = 'mono';
+      var pill = cell.parentNode.querySelector('.pill');
+      pill.textContent = 'Shipped';
+      pill.setAttribute('data-tone', 'ok');
+      say('Saved. Shipping notification queued.');
+    });
+  });
+})();
+</script>
+</body>
+</html>

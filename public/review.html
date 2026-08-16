@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Write a Review - Unseelie Workshop</title>
+    <!-- Review links arrive from email; there is nothing here worth
+         indexing and the token should never reach a search engine. -->
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=block" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/shared.css">
+    <link rel="stylesheet" href="css/info.css">
+    <link rel="stylesheet" href="css/contact.css">
+    <link rel="stylesheet" href="css/review.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="icon" href="favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="manifest" href="favicon/site.webmanifest">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <a href="index.html">
+                    <img src="images/UWlogo.png" alt="Unseelie Workshop Logo" class="logo-img">
+                    <span class="logo-text">Unseelie Workshop</span>
+                </a>
+            </div>
+            <nav>
+                <a href="shop.html">Shop</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </header>
+
+        <section class="contact-hero">
+            <div class="contact-hero-content">
+                <h1>Write a Review</h1>
+                <p class="contact-intro">We publish reviews as written, favourable or not. Nothing is offered in exchange for one.</p>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <div class="review-wrap">
+
+                <!-- Every state below is hidden until review.js decides
+                     which one applies. -->
+
+                <p class="review-status" id="review-loading">Checking your link…</p>
+
+                <div class="review-message" id="review-problem" hidden>
+                    <h2 id="review-problem-title">Something is wrong with this link</h2>
+                    <p id="review-problem-detail"></p>
+                    <p>If it came from us and still will not work, <a href="contact.html">get in touch</a> and we will sort it out.</p>
+                </div>
+
+                <div class="review-message" id="review-complete" hidden>
+                    <h2>Nothing left to review</h2>
+                    <p>You have already reviewed everything on this order. Thank you — it genuinely helps the next person decide.</p>
+                    <p><a href="shop.html">Back to the shop</a></p>
+                </div>
+
+                <div class="review-message" id="review-done" hidden>
+                    <h2>Thank you</h2>
+                    <p>Your review has been received and will appear on the product page once it has been read through. That is usually a day or two.</p>
+                    <p>We check for things like personal details and off-topic content. We do not reject reviews for being critical.</p>
+                    <p id="review-done-more" hidden><a href="#" id="review-another">Review another piece from this order</a></p>
+                </div>
+
+                <form class="contact-form review-form" id="review-form" hidden novalidate>
+
+                    <div class="form-group" id="review-item-group" hidden>
+                        <label for="review-item">Which piece?</label>
+                        <select id="review-item" name="item"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="review-label">Your rating</span>
+                        <!-- Radios rather than buttons: keyboard and
+                             screen-reader support come for free, and the
+                             chosen value survives a failed submit. -->
+                        <fieldset class="review-stars" id="review-stars">
+                            <legend class="visually-hidden">Rating out of 5</legend>
+                        </fieldset>
+                        <span class="review-stars-caption" id="review-stars-caption">Choose a rating</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-title">Title</label>
+                        <input type="text" id="review-title" name="title" maxlength="80"
+                               placeholder="Sum it up in a few words" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-body">Your review</label>
+                        <textarea id="review-body" name="body" rows="8" maxlength="2000"
+                                  placeholder="How does it fit? How has it held up? What would you tell someone considering it?" required></textarea>
+                        <span class="review-counter" id="review-counter"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="review-author">Name to show</label>
+                        <input type="text" id="review-author" name="author" maxlength="40"
+                               placeholder="First name, initials, whatever you like" required>
+                        <span class="review-hint">This appears publicly. Please leave out anything you would rather not publish — addresses, phone numbers, and email addresses are not allowed.</span>
+                    </div>
+
+                    <p class="review-error" id="review-error" hidden role="alert"></p>
+
+                    <button type="submit" class="btn-primary submit-button" id="review-submit">Submit Review</button>
+                </form>
+
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <a href="mailto:hello@unseelieworkshop.com">hello@unseelieworkshop.com</a>
+                    <a href="https://instagram.com/unseelie_leather" target="_blank" rel="noopener">Instagram</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Shop</h4>
+                    <a href="care-guide.html">Care Guide</a>
+                    <a href="about.html">About Us</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Information</h4>
+                    <a href="faq.html">FAQ</a>
+                    <a href="shipping.html">Shipping &amp; Returns</a>
+                </div>
+            </div>
+            <div class="copyright">
+                © 2026 Unseelie Workshop. All rights reserved. • Handcrafted with care. • <a href="privacy.html">Privacy Policy</a> • <a href="tos.html">Terms of Service</a>
+            </div>
+        </footer>
+    </div>
+    <script src="js/grain.js"></script>
+    <script src="js/scroll-top.js"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/review.js"></script>
+</body>
+</html>

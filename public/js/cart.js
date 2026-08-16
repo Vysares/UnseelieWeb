@@ -1,0 +1,479 @@
+/* ============================================================
+   Unseelie Workshop — Cart Drawer
+   Self-contained cart: local state + localStorage persistence.
+
+   A line item is identified by type + collection + size, since the
+   same type in a different collection or a different size is a
+   different thing to make and a different Stripe price.
+   ============================================================ */
+
+(function () {
+    'use strict';
+
+    /* ============================================================
+       Constants & state
+       ============================================================ */
+
+    /* Bumped when the line-item shape changed to a type/collection/size
+       key. Carts saved under the old key are simply left behind rather
+       than migrated. */
+    var STORAGE_KEY = 'unseelie_cart_v2';
+
+    /* Checkout is switched off while the shop is not taking orders. The
+       cart still fills up; only the Stripe handoff is unavailable. To
+       turn ordering back on, set this to true AND lift the matching
+       guard at the top of functions/api/checkout.js. */
+    var CHECKOUT_ENABLED = false;
+
+    /* Line item shape:
+       { key, type, collection, collectionLabel, name, price, priceNum,
+         thumb, size, stripePriceId, qty } */
+    var _items = [];
+
+    /* ============================================================
+       Persistence
+       ============================================================ */
+
+    function _load() {
+        try {
+            var raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) return [];
+            var parsed = JSON.parse(raw);
+            return Array.isArray(parsed) ? parsed : [];
+        } catch (e) {
+            return [];
+        }
+    }
+
+    function _save() {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(_items));
+        } catch (e) {
+            /* Private browsing / storage full — state lives in memory only */
+        }
+    }
+
+    /* ============================================================
+       State mutations
+       ============================================================ */
+
+    function _itemKey(product) {
+        return [product.type, product.collection, product.size || ''].join('|');
+    }
+
+    function _findItem(key) {
+        for (var i = 0; i < _items.length; i++) {
+            if (_items[i].key === key) return _items[i];
+        }
+        return null;
+    }
+
+    function _addItem(product) {
+        var key = _itemKey(product);
+        var existing = _findItem(key);
+        if (existing) {
+            existing.qty += 1;
+        } else {
+            _items.push({
+                key:             key,
+                type:            product.type,
+                collection:      product.collection,
+                collectionLabel: product.collectionLabel,
+                name:            product.name,
+                price:           product.price,
+                priceNum:        product.priceNum,
+                thumb:           product.thumb || null,
+                size:            product.size || null,
+                stripePriceId:   product.stripePriceId || null,
+                qty:             1
+            });
+        }
+        _save();
+        _render();
+        _updateBadge();
+    }
+
+    function _removeItem(key) {
+        _items = _items.filter(function (item) { return item.key !== key; });
+        _save();
+        _render();
+        _updateBadge();
+    }
+
+    function _setQty(key, qty) {
+        if (qty < 1) {
+            _removeItem(key);
+            return;
+        }
+        var item = _findItem(key);
+        if (!item) return;
+        item.qty = qty;
+        _save();
+        _render();
+        _updateBadge();
+    }
+
+    /* ============================================================
+       DOM injection — cart icon
+       ============================================================ */
+
+    function _injectIcon() {
+        var nav = document.querySelector('header nav');
+        if (!nav) return; /* msgreceived.html — no nav, silently no-op */
+
+        var btn = document.createElement('button');
+        btn.id = 'cart-icon-btn';
+        btn.setAttribute('aria-label', 'Open cart');
+        btn.innerHTML =
+            '<svg width="20" height="22" viewBox="0 0 20 22" fill="none"' +
+            ' xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+            '<path d="M1.5 7.5h17l-1.4 12H2.9L1.5 7.5z"' +
+            ' stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>' +
+            '<path d="M6.5 7.5V5.5a3.5 3.5 0 0 1 7 0v2"' +
+            ' stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>' +
+            '</svg>' +
+            '<span id="cart-badge" aria-live="polite" aria-atomic="true"></span>';
+
+        btn.addEventListener('click', Cart.open);
+
+        /* Insert between </nav> and .nav-hamburger so it stays
+           visible in the header row on mobile (nav is display:none) */
+        var hamburger = document.querySelector('.nav-hamburger');
+        if (hamburger) {
+            nav.parentElement.insertBefore(btn, hamburger);
+        } else {
+            nav.parentElement.appendChild(btn);
+        }
+    }
+
+    /* ============================================================
+       DOM injection — drawer
+       ============================================================ */
+
+    function _injectDrawer() {
+        var root = document.createElement('div');
+        root.id = 'cart-root';
+        root.innerHTML =
+            '<div id="cart-backdrop" aria-hidden="true"></div>' +
+            '<aside id="cart-drawer" role="dialog" aria-modal="true"' +
+            '       aria-label="Shopping cart" tabindex="-1">' +
+            '  <div id="cart-drawer-header">' +
+            '    <h2 id="cart-drawer-title">Your Cart</h2>' +
+            '    <button id="cart-close-btn" aria-label="Close cart">&times;</button>' +
+            '  </div>' +
+            '  <div id="cart-drawer-body"></div>' +
+            '  <div id="cart-drawer-footer"></div>' +
+            '</aside>';
+
+        document.body.appendChild(root);
+
+        document.getElementById('cart-backdrop')
+            .addEventListener('click', Cart.close);
+        document.getElementById('cart-close-btn')
+            .addEventListener('click', Cart.close);
+
+        /* Escape key closes drawer */
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && document.body.classList.contains('cart-open')) {
+                Cart.close();
+            }
+        });
+
+        /* Delegated handler for quantity / remove buttons.
+           Attached once here so re-rendering doesn't stack listeners. */
+        document.addEventListener('click', function (e) {
+            var key = e.target.dataset && e.target.dataset.key;
+            if (!key) return;
+
+            if (e.target.classList.contains('cart-qty-dec')) {
+                var dec = _findItem(key);
+                if (dec) _setQty(key, dec.qty - 1);
+            } else if (e.target.classList.contains('cart-qty-inc')) {
+                var inc = _findItem(key);
+                if (inc) _setQty(key, inc.qty + 1);
+            } else if (e.target.classList.contains('cart-remove-btn')) {
+                _removeItem(key);
+            }
+        });
+
+        /* Checkout button — delegated separately since it has no data-id */
+        document.addEventListener('click', function (e) {
+            if (e.target.id === 'cart-checkout-btn') {
+                _checkout();
+            }
+        }, true /* capture — runs before other handlers */);
+    }
+
+    /* ============================================================
+       Render engine
+       ============================================================ */
+
+    function _render() {
+        var body   = document.getElementById('cart-drawer-body');
+        var footer = document.getElementById('cart-drawer-footer');
+        if (!body || !footer) return;
+
+        /* ---- Empty state ---- */
+        if (_items.length === 0) {
+            body.innerHTML =
+                '<div id="cart-empty">' +
+                '  <span class="cart-empty-ornament">✦</span>' +
+                '  <p class="cart-empty-text">Your cart is empty</p>' +
+                '  <p class="cart-empty-sub">Discover our handcrafted pieces</p>' +
+                '  <a href="shop.html" class="btn-secondary cart-shop-link">Browse the Shop</a>' +
+                '</div>';
+            footer.innerHTML = '';
+            return;
+        }
+
+        /* ---- Line items ---- */
+        var itemsHTML = _items.map(function (item) {
+            var href = 'product.html?type=' + encodeURIComponent(item.type) +
+                       '&collection=' + encodeURIComponent(item.collection);
+            var key = _esc(item.key);
+
+            return (
+                '<li class="cart-item" data-key="' + key + '">' +
+                '  <div class="cart-item-thumb" aria-hidden="true">' +
+                     (item.thumb
+                       ? '<img src="' + item.thumb + '" alt="">'
+                       : '<span class="cart-item-thumb-fallback">✦</span>') +
+                '  </div>' +
+                '  <div class="cart-item-info">' +
+                '    <span class="cart-item-name">' +
+                '<a href="' + href + '">' + _esc(item.name) + '</a>' +
+                     (item.size ? ' (' + _esc(item.size) + ')' : '') +
+                '</span>' +
+                '    <span class="cart-item-collection">' + _esc(item.collectionLabel) + '</span>' +
+                '    <span class="cart-item-price">' + _esc(item.price) + '</span>' +
+                '  </div>' +
+                '  <div class="cart-item-controls">' +
+                '    <button class="cart-qty-btn cart-qty-dec" data-key="' + key + '" aria-label="Decrease quantity">\u2212</button>' +
+                '    <span class="cart-qty-display">' + item.qty + '</span>' +
+                '    <button class="cart-qty-btn cart-qty-inc" data-key="' + key + '" aria-label="Increase quantity">+</button>' +
+                '    <button class="cart-remove-btn" data-key="' + key + '" aria-label="Remove ' + _esc(item.name) + '">&times;</button>' +
+                '  </div>' +
+                '</li>'
+            );
+        }).join('');
+
+        body.innerHTML = '<ul id="cart-items-list">' + itemsHTML + '</ul>';
+
+        /* ---- Subtotal ---- */
+        var subtotal = _items.reduce(function (sum, item) {
+            return sum + (item.priceNum * item.qty);
+        }, 0);
+
+        /* Format: remove trailing .00 for whole numbers */
+        var subtotalStr = '$' + subtotal.toFixed(2).replace(/\.00$/, '');
+
+        var checkoutHTML = CHECKOUT_ENABLED
+            ? '<button id="cart-checkout-btn" class="btn-primary">' +
+              '  Proceed to Checkout' +
+              '</button>' +
+              '<div id="cart-checkout-error"></div>'
+            : '<button id="cart-checkout-btn" class="btn-primary" disabled>' +
+              '  Checkout Unavailable' +
+              '</button>' +
+              '<p class="cart-footer-note">' +
+              '  We are not taking orders just yet.&thinsp;' +
+              '  <a href="contact.html">Get in touch</a> to reserve a piece.' +
+              '</p>';
+
+        footer.innerHTML =
+            '<div id="cart-subtotal-row">' +
+            '  <span class="cart-subtotal-label">Subtotal</span>' +
+            '  <span class="cart-subtotal-value">' + subtotalStr + '</span>' +
+            '</div>' +
+            checkoutHTML +
+            '<p class="cart-footer-note">' +
+            '  Interested in custom sizing?&thinsp;' +
+            '  <a href="contact.html">Inquire via contact</a>' +
+            '</p>';
+    }
+
+    /* ============================================================
+       Checkout
+       ============================================================ */
+
+    function _showCheckoutError(msg) {
+        var el = document.getElementById('cart-checkout-error');
+        if (!el) return;
+        el.textContent = msg;
+        el.style.display = msg ? 'block' : 'none';
+    }
+
+    function _checkout() {
+        if (!CHECKOUT_ENABLED) return;
+
+        var btn = document.getElementById('cart-checkout-btn');
+        if (!btn || btn.disabled) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Redirecting\u2026';
+        _showCheckoutError('');
+
+        fetch('/api/checkout', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({
+                items:      _items,
+                successUrl: window.location.origin + '/thankyou',
+                cancelUrl:  window.location.href
+            })
+        })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+            if (data.url) {
+                window.location.href = data.url;
+            } else {
+                _showCheckoutError(data.error || 'Something went wrong. Please try again.');
+                btn.disabled = false;
+                btn.textContent = 'Proceed to Checkout';
+            }
+        })
+        .catch(function () {
+            _showCheckoutError('Could not reach checkout. Please try again.');
+            btn.disabled = false;
+            btn.textContent = 'Proceed to Checkout';
+        });
+    }
+
+    /* ============================================================
+       Badge
+       ============================================================ */
+
+    function _updateBadge() {
+        var badge = document.getElementById('cart-badge');
+        if (!badge) return;
+
+        var total = _items.reduce(function (sum, item) { return sum + item.qty; }, 0);
+
+        if (total > 0) {
+            badge.textContent = total > 99 ? '99+' : String(total);
+            badge.classList.add('cart-badge-visible');
+        } else {
+            badge.textContent = '';
+            badge.classList.remove('cart-badge-visible');
+        }
+    }
+
+    /* ============================================================
+       Open / close
+       ============================================================ */
+
+    function _open() {
+        document.body.classList.add('cart-open');
+        document.body.style.overflow = 'hidden';
+        var drawer = document.getElementById('cart-drawer');
+        if (drawer) {
+            /* Small delay so the transition is visible before focus */
+            setTimeout(function () { drawer.focus(); }, 50);
+        }
+    }
+
+    function _close() {
+        document.body.classList.remove('cart-open');
+        document.body.style.overflow = '';
+        /* Return focus to the cart icon button */
+        var iconBtn = document.getElementById('cart-icon-btn');
+        if (iconBtn) iconBtn.focus();
+    }
+
+    /* ============================================================
+       Utility
+       ============================================================ */
+
+    function _esc(str) {
+        /* Minimal HTML-escape for injected text */
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+    }
+
+    /* ============================================================
+       Initialisation
+       ============================================================ */
+
+    function _init() {
+        _items = _load();
+        _injectIcon();
+        _injectDrawer();
+        _render();
+        _updateBadge();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', _init);
+    } else {
+        _init();
+    }
+
+    /* ============================================================
+       Public API
+       ============================================================ */
+
+    window.Cart = {
+
+        /**
+         * Add a product to the cart, then open the drawer.
+         * type + collection + size together identify the line item.
+         *
+         * @param {Object} product
+         * @param {string} product.type             — type key e.g. "wrist-cuffs"
+         * @param {string} product.collection       — collection key e.g. "classic"
+         * @param {string} product.collectionLabel  — display name e.g. "The Classic Collection"
+         * @param {string} product.name             — display name e.g. "Wrist Cuffs"
+         * @param {string} product.price            — display string e.g. "$135"
+         * @param {number} product.priceNum         — numeric value e.g. 135
+         * @param {string} [product.thumb]          — image path, or null
+         * @param {string} [product.size]           — e.g. "M", or null if unsized
+         * @param {string} [product.stripePriceId]  — price id for this exact variant
+         */
+        add: function (product) {
+            _addItem(product);
+            _open();
+
+            /* Pulse the bag icon */
+            var btn = document.getElementById('cart-icon-btn');
+            if (btn) {
+                btn.classList.remove('cart-icon-pulse');
+                /* Force reflow so re-adding the class restarts the animation */
+                void btn.offsetWidth;
+                btn.classList.add('cart-icon-pulse');
+                setTimeout(function () {
+                    btn.classList.remove('cart-icon-pulse');
+                }, 600);
+            }
+        },
+
+        /** Remove a line item by its composite key. */
+        remove: function (key) {
+            _removeItem(key);
+        },
+
+        /** Set the quantity of a line item. qty < 1 removes the item. */
+        updateQty: function (key, qty) {
+            _setQty(key, qty);
+        },
+
+        /** Open the cart drawer. */
+        open: _open,
+
+        /** Close the cart drawer. */
+        close: _close,
+
+        /** Return total item count (sum of all quantities). */
+        getCount: function () {
+            return _items.reduce(function (sum, item) { return sum + item.qty; }, 0);
+        },
+
+        /** Return a shallow copy of all line items. */
+        getItems: function () {
+            return _items.map(function (item) { return Object.assign({}, item); });
+        }
+    };
+
+}());

@@ -1,0 +1,9 @@
+# Local secrets for `wrangler dev` — real Stripe keys live here.
+.dev.vars
+
+# Local Worker state: the D1 database file, caches, build output.
+.wrangler/
+
+node_modules/
+
+.DS_Store
