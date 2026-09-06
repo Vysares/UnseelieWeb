@@ -165,15 +165,15 @@ async function buildContext(env, row, items) {
   };
 
   if (row.kind !== 'delivered' && row.kind !== 'review_nudge') {
-    return { order, items, siteUrl: env.SITE_URL };
+    return { order, items, siteUrl: siteUrl(env) };
   }
 
   return {
     order,
     items,
-    siteUrl: env.SITE_URL,
+    siteUrl: siteUrl(env),
     reviewItems: await reviewLinks(env, row.order_id),
-    unsubscribeUrl: `${env.SITE_URL}/api/unsubscribe?t=${await unsubscribeToken(env, row.email)}`,
+    unsubscribeUrl: `${siteUrl(env)}/api/unsubscribe?t=${await unsubscribeToken(env, row.email)}`,
     businessAddress: env.BUSINESS_ADDRESS ?? null,
   };
 }
@@ -184,7 +184,8 @@ async function buildContext(env, row, items) {
    date; the tokens themselves are derived, not stored. */
 async function reviewLinks(env, orderId) {
   if (!env.REVIEW_TOKEN_SECRET) throw new Error('REVIEW_TOKEN_SECRET is not set.');
-  if (!env.SITE_URL) throw new Error('SITE_URL is not set.');
+
+  const base = siteUrl(env);
 
   const { results } = await env.DB.prepare(
     `SELECT oi.id, oi.type, oi.collection, oi.size
@@ -216,11 +217,20 @@ async function reviewLinks(env, orderId) {
       type: item.type,
       collection: item.collection,
       size: item.size,
-      url: `${env.SITE_URL}/review.html?t=${token}`,
+      url: `${base}/review.html?t=${token}`,
     });
   }
 
   return links;
+}
+
+/* A trailing slash is easy to paste into a config value and would build
+   every link as host//review.html, which the asset router does not
+   match — so every review link in every email would 404. Normalised
+   here rather than trusted, because the value is edited by hand. */
+function siteUrl(env) {
+  if (!env.SITE_URL) throw new Error('SITE_URL is not set.');
+  return env.SITE_URL.replace(/\/+$/, '');
 }
 
 /* Keyed off the address rather than an order, since suppression is

@@ -57,10 +57,6 @@
       "note": "Sandwiched between the outer leather and inner suede lining, closed-cell neoprene adds a springy cushion that conforms to the wearer when cinched down tight, and won't compress over time."
     },
     {
-      "name": "Fully Hand Stitched",
-      "note": "Hand stitched using traditional methods and braided polyester thread, for a beautiful and unreasonably strong bond that machines can't replicate."
-    },
-    {
       "name": "Solid Brass Hardware",
       "note": "Gorgeous brass hardware with a heft you can feel and the strength to match. Nickel-plated or left bare depending on collection."
     },
@@ -117,7 +113,7 @@
         "Outer cuff made from full-grain leather.",
         "Lined with neoprene padding and luxurious Italian suede.",
         "Heavy-duty solid-brass hardware. Made to be used.",
-        "Double riveted and hand-stitched throughout.",
+        "Double riveted throughout.",
         "Includes two cuffs and one stainless-steel connector."
       ],
       "collections": {
@@ -146,8 +142,7 @@
       "details": [
         "Outer collar made from full-grain leather.",
         "Lined with neoprene padding and luxurious Italian suede.",
-        "Heavy-duty solid-brass hardware. Made to be used.",
-        "Hand-stitched throughout."
+        "Heavy-duty solid-brass hardware. Made to be used."
       ],
       "collections": {
         "classic": {

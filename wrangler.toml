@@ -62,7 +62,7 @@ crons = ["*/5 * * * *"]
 # Every review link in every email is built from SITE_URL. While the
 # custom domain still points at the old Pages project, set this to the
 # .workers.dev URL or the links will 404.
-SITE_URL = "https://unseelieworkshop.com"
+SITE_URL = "https://unseelie.jackk2224.workers.dev"
 # Must be an address on a domain verified with the email provider, or
 # every send is rejected.
 FROM_EMAIL = "Unseelie Workshop <orders@unseelieworkshop.com>"
